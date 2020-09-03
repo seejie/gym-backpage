@@ -1,0 +1,66 @@
+// base color
+$blue: #324157;
+$light-blue: #3a71a8;
+$red: #c03639;
+$pink: #e65d6e;
+$green: #30b08f;
+$tiffany: #4ab7bd;
+$yellow: #fec171;
+$panGreen: #30b08f;
+
+// base color xqn
+$xqn_green: #29bc4f; // 按钮绿
+
+// content
+$mainBg: #eff4f5; // 内容区背景色
+
+// sidebar
+$menuText: #adb2b8;
+$menuActiveText: #a3d028;
+$subMenuActiveText: #adb2b8; // https://github.com/ElemeFE/element/issues/12951
+
+$menuBg: #242b2e;
+$menuHover: #2a3033;
+
+$subMenuBg: #191b20;
+$subMenuHover: #191b20;
+
+$sideBarWidth: 192px;
+$copyrightHeight: 50px;
+// sidebar end
+
+// table
+$zebra: #f9f9f9;
+$controlBg: #f5f8fa;
+
+$navbarH: 50px;
+$tagViewH: 34px;
+
+// font 设计规范文字里从左到右顺序
+$font-1: #000;
+$font-2: #353535;
+$font-3: #6c7695;
+$font-4: #fff;
+$font-5: #a3d028;
+$font-6: #888888;
+$font-7: #adb2b8;
+
+// border
+$conentBorder: #d8dfe8; //  内容区边框内容区分割线颜色
+
+// bg
+$toolsBg: #f5f7fa; // 数据表工具栏背景色
+$contentBg: #fff; // 内容区卡片背景色 顶部状态栏背景色
+
+// the :export directive is the magic sauce for webpack
+// https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
+:export {
+  menuText: $menuText;
+  menuActiveText: $menuActiveText;
+  subMenuActiveText: $subMenuActiveText;
+  menuBg: $menuBg;
+  menuHover: $menuHover;
+  subMenuBg: $subMenuBg;
+  subMenuHover: $subMenuHover;
+  sideBarWidth: $sideBarWidth;
+}

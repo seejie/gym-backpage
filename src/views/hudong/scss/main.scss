@@ -1,0 +1,44 @@
+.box-card {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+
+    /deep/ .el-card__body {
+        padding: 15px 25px;
+    }
+}
+
+.from-wrap {
+    width: 100%;
+    // height: 60px;
+    background: rgba(247, 247, 247, 1);
+    border-bottom: none;
+    padding: 20px;
+    padding-bottom: 0;
+
+    /deep/ .el-form-item {
+        margin-bottom: 10px;
+        display: flex;
+
+        .el-select {
+            width: 100%;
+        }
+
+        .el-range-separator {
+            padding: 0;
+            margin-left: 5px;
+
+            &+input {
+                margin-left: 5px;
+            }
+        }
+    }
+
+    /deep/.el-row {
+        margin-bottom: 10px;
+    }
+
+    /deep/ .el-form-item__content {
+        flex: 1;
+    }
+}
