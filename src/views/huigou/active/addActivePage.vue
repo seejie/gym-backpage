@@ -386,7 +386,7 @@ export default {
         this.fromList = Object.assign({}, {
           mainTitle: res.resObject.product.title,
           subTitle: res.resObject.product.subTitle,
-          LabelTyle: res.resObject.product.serviceIds ==== '' ? [] : res.resObject.product.serviceIds.split(',').map((item) => +item),
+          LabelTyle: res.resObject.product.serviceIds === '' ? [] : res.resObject.product.serviceIds.split(',').map((item) => +item),
           otherLink: res.resObject.product.thirdUrl,
           sponsor: res.resObject.product.sponsor,
           organizer: res.resObject.product.contractor,
@@ -442,7 +442,7 @@ export default {
                   type: 7
                 }
               ],
-              keyWordList: item.option1 ==== '' || item.option1 === null ? [{
+              keyWordList: item.option1 === '' || item.option1 === null ? [{
                 keyword: '', // 选项
               }] : item.option1.split(',').map((item) => {
                 return {

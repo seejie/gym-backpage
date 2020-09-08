@@ -222,7 +222,7 @@ export default {
     },
     getLabelList (keyWord = this.lableFrom.input) {
       http.getLabelList({
-        name: this.lableFrom.input ==== '' ? null : this.lableFrom.input
+        name: this.lableFrom.input === '' ? null : this.lableFrom.input
       }).then((res) => {
         this.tableData = res.resObject.map((item) => {
           return {

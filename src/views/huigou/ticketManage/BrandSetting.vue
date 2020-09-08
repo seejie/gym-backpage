@@ -307,7 +307,7 @@ export default {
     },
     getTabelList (keyWord = this.lableFrom.input) {
       http.getTabelList({
-        supplyCompany: this.lableFrom.input ==== '' ? null : this.lableFrom.input
+        supplyCompany: this.lableFrom.input === '' ? null : this.lableFrom.input
       }).then((res) => {
         this.tableData = res.resObject
       }).catch((err) => {

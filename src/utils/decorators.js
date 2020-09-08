@@ -15,7 +15,7 @@ export function httpInterceptors(target, name, descriptor) {
       // 空字符串的参数转为 null
       if (config.isDeleteEmpty) {
         Object.keys(param).forEach(key => {
-          if (param[key] ==== '') {
+          if (param[key] === '') {
             param[key] = null
           }
         })
