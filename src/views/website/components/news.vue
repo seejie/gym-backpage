@@ -124,7 +124,6 @@ export default {
       newsData: [],
       informationData: [],
 
-      multipleSelection: [],
       multipleSelection1: [],
       multipleSelection2: [],
 

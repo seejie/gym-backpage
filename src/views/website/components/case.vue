@@ -163,10 +163,6 @@ export default {
     },
   },
 
-  components: {
-    sortable,
-  },
-
   filters: {
     indexPic(val) {
       return val ? val.split(',')[0] : '';

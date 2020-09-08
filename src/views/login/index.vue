@@ -103,8 +103,8 @@ export default {
     };
     return {
       loginForm: {
-        username: 'yujiajie',
-        password: 'yujiajie2018',
+        username: 'qiaotuo',
+        password: '123456',
       },
       loginRules: {
         username: [

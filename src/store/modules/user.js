@@ -77,7 +77,6 @@ const actions = {
           return;
         }
         commit('SET_TOKEN', res.headers.token);
-        // setToken(res.headers.token);
         return res.data
       })
       .catch(e => {
@@ -90,10 +89,8 @@ const actions = {
     const { username, password, validateCode } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password, validateCode: validateCode }).then(response => {
-        // setToken(response.resObject.token)
         setUserLevel(response.resObject.level)
         setUserToken(response.resObject.token)
-        // commit('SET_NAME', response.resObject && response.resObject.name)
 
         window.localStorage.setItem('userInfo', JSON.stringify(response.resObject))
 
@@ -116,12 +113,6 @@ const actions = {
 
         const {  name, loginName, mobileLogin, head_url, userLevel }  = resObject
 
-        // roles must be a non-empty array
-        // if (!roles || roles.length <= 0) {
-        //   reject('getInfo: roles must be a non-null array!')
-        // }
-
-        //commit('SET_ROLES', roles)
         commit('SET_NAME', name)
         commit('SET_AVATAR', head_url)
         commit('SET_LOGINNAME', loginName)

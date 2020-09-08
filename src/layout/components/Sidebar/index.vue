@@ -72,28 +72,21 @@ export default {
 
   methods: {
     loadMenu() {
-      this.$ajax
-        .get('/sys/menu/menuListByUser', {})
-        .then(res => {
-          if (res.resObject) {
-            let list = res.resObject.map((item, index) => {
-              if (!item.children) {
-                item.children = [];
-              } else {
-                item.children.map(child => {
-                  child.children = [];
-                  return child;
-                });
-              }
-              return item;
-            });
+      const arr = require('../../../mock/sys/menu/menuListByUser.json')
 
-            this.permission_routes = list;
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      let list = arr.map((item, index) => {
+        if (!item.children) {
+          item.children = [];
+        } else {
+          item.children.map(child => {
+            child.children = [];
+            return child;
+          });
+        }
+        return item;
+      });
+
+      this.permission_routes = list;
     },
 
     selectMenu(e) {
