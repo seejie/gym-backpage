@@ -139,17 +139,11 @@
                   <el-dropdown-item
                     @click.native="goLine(scope.row)"
                   >{{scope.row.publishStatus ==1?'下线':'上线'}}</el-dropdown-item>
-                  <!-- <el-dropdown-item @click.native="forbid(scope.row)">{{scope.row.isComment==0?'禁言':'取消禁言'}}</el-dropdown-item> -->
                   <el-dropdown-item
                     @click.native="goTop(scope.row)"
                   >{{scope.row.stick==0?'置顶':'取消置顶'}}</el-dropdown-item>
                   <el-dropdown-item @click.native="del(scope.row)">删除</el-dropdown-item>
                   <el-dropdown-item @click.native="comment(scope.row)">评论</el-dropdown-item>
-                  <!-- <el-dropdown-item :disabled="item.disabled"
-                                    :style="item.disabled?'color:#ccc;cursor:not-allowed':'color:#409EFF;'"
-                                    v-for="(item,index) in column.moreData"
-                                    :key="index"
-                  @click.native="handelMoreData(item,scope.row)">{{item.btn}}</el-dropdown-item>-->
                 </el-dropdown-menu>
               </el-dropdown>
             </div>
@@ -202,7 +196,6 @@
           </el-dropdown>
         </template>
       </el-table-column>
-      <!-- <slot name="handleColumn"></slot> -->
     </el-table>
   </el-card>
 </template>

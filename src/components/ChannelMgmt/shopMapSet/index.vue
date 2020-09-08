@@ -467,7 +467,6 @@ import ImgInclude from '@/components/CropImgInclue';
 
 import { isArray } from '@/utils/validate';
 import settings from '@/settings.js';
-import sortable from 'sortablejs';
 import { info, confirm } from '@/utils/ddHelper';
 import channelData from '@/utils/channelData';
 import { pcaa } from 'area-data';

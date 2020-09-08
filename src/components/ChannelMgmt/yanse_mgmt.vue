@@ -113,7 +113,6 @@ import sortable from 'sortablejs';
 
 export default {
   name: 'yanse',
-
   components: {
     editForm,
   },
