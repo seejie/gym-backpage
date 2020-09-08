@@ -281,7 +281,7 @@ export default {
         },
       },
       tagTypelist: [],
-      materialList: [], //网点数据
+      materialList: [], // 网点数据
     };
   },
   mounted() {},
@@ -301,7 +301,7 @@ export default {
         this.message('副标题字数不能超过45字', 'info');
       } else if (this.form.introduction.length > 150) {
         this.message('线路介绍不能超过150字', 'info');
-      } else if (this.form.cover['ratio1'][0] == null) {
+      } else if (this.form.cover.ratio1[0] == null) {
         this.message('请添加图片', 'error');
       } else if (this.form.releaseLoc == '') {
         this.message('请选择发布位置', 'info');
@@ -316,7 +316,7 @@ export default {
             title: this.form.title,
             subTitle: this.form.subTitle,
             introduction: this.form.introduction,
-            cover: this.form.cover['ratio1'][0],
+            cover: this.form.cover.ratio1[0],
             tag: this.form.tag,
             releaseLoc: this.form.releaseLoc,
             status: this.form.status,
@@ -405,7 +405,7 @@ export default {
         .catch(err => console.log(err));
     },
     toggleSelection(type) {
-      //确认网点
+      // 确认网点
       if (type == 2) {
         this.form.map = {
           ismapshow: false,
@@ -432,11 +432,11 @@ export default {
     },
     opratemap(type, index) {
       switch (type) {
-        case 0: //删除
+        case 0: // 删除
           this.form.map.materialList.splice(index, 1);
           this.form.map.materialid.splice(index, 1);
           break;
-        case 1: //向上
+        case 1: // 向上
           if (index != 0) {
             this.form.map.materialList[index] = this.form.map.materialList.splice(
               index - 1,
@@ -453,7 +453,7 @@ export default {
             this.form.map.materialid.push(this.form.map.materialid.shift());
           }
           break;
-        case 2: //向下
+        case 2: // 向下
           if (index != this.form.map.materialList.length - 1) {
             this.form.map.materialList[index] = this.form.map.materialList.splice(
               index + 1,
@@ -472,7 +472,7 @@ export default {
           break;
       }
     },
-    //分页
+    // 分页
     currentChange(val) {
       this.form.map.curPage = val;
       this.addBranch();
@@ -481,9 +481,9 @@ export default {
       this.form.map.pageSize = val;
       this.addBranch();
     },
-    //全选
+    // 全选
     handleSelectionChange(val) {
-      for (let i of val) {
+      for (const i of val) {
         var s = {
           id: this.id == 'null' ? undefined : i.id,
           pic: i.coverImage && i.coverImage.length ? i.coverImage[0].url : '#',
@@ -494,8 +494,7 @@ export default {
         };
 
         var ids = { id: i.id };
-        if (JSON.stringify(this.form.map.materialList).indexOf(JSON.stringify(s)) == -1)
-          this.form.map.materialList.push(s);
+        if (JSON.stringify(this.form.map.materialList).indexOf(JSON.stringify(s)) == -1) { this.form.map.materialList.push(s); }
         if (JSON.stringify(this.form.map.materialid).indexOf(JSON.stringify(ids)) == -1) {
           this.form.map.materialid.push(ids);
         }
@@ -543,13 +542,13 @@ export default {
       });
     },
     saveImport() {
-      //确定导入
+      // 确定导入
     },
 
     onCancel() {},
     saveImport() {},
     message(message, type) {
-      //消息通知
+      // 消息通知
       Message({
         message: message,
         type: type,

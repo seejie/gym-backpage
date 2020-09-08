@@ -130,7 +130,7 @@
 
 <script>
 import { orderPageDetail, orderSearchFeedbackList, orderFeedback } from '../sever';
-import {Message} from "element-ui";
+import { Message } from 'element-ui';
 
 export default {
   name: 'order-detail-modal',
@@ -141,8 +141,8 @@ export default {
         isshow: false
       },
       tableData: [],
-      feedbackList:[],
-      content:''
+      feedbackList: [],
+      content: ''
     };
   },
   mounted() {
@@ -160,52 +160,52 @@ export default {
         const obj = res.resObject || {};
         if (res.resCode == 200) {
           this.tableData = [{ ...obj }];
-          this.detailObj = { ...this.detailObj, ...obj};
+          this.detailObj = { ...this.detailObj, ...obj };
           this.searchFeedbackList()
         } else {
           this.message(res.message, 'error');
         }
       });
     },
-    searchFeedbackList(){
-      orderSearchFeedbackList({ code: this.detailObj.code}).then(res=>{
-        if(res.resCode==200) {
+    searchFeedbackList() {
+      orderSearchFeedbackList({ code: this.detailObj.code }).then(res => {
+        if (res.resCode == 200) {
           this.feedbackList = res.resObject || [];
         }
       })
     },
-    feedback(){
+    feedback() {
       const { id, code, memberId } = this.detailObj;
       const content = this.content;
 
-      if(!content.trim()) {
-        return this.message("回复内容不能为空");
+      if (!content.trim()) {
+        return this.message('回复内容不能为空');
       }
 
-      var data={
+      var data = {
         content,
         id,
         orderCode: code,
         memberId
       };
 
-      orderFeedback(data).then(res=>{
-        if(res.resCode==200) {
-          this.message("回复成功","success");
+      orderFeedback(data).then(res => {
+        if (res.resCode == 200) {
+          this.message('回复成功', 'success');
           this.content = '';
           this.searchFeedbackList();
         } else {
-          this.message(res.message,"success");
+          this.message(res.message, 'success');
         }
       })
     },
-    handleSave(){
-      var arr=[];
-      arr.push({id:this.detailObj.id,price:this.listda[0].productAttrValSellPrice});
-      var url=this.curtype==1? teacherorder.updateOrderPrice(arr):order.updateOrderPrice(arr);
-      url.then(res=>{
-        if(res.resCode==200) {
-          this.message('修改成功','success');
+    handleSave() {
+      var arr = [];
+      arr.push({ id: this.detailObj.id, price: this.listda[0].productAttrValSellPrice });
+      var url = this.curtype == 1 ? teacherorder.updateOrderPrice(arr) : order.updateOrderPrice(arr);
+      url.then(res => {
+        if (res.resCode == 200) {
+          this.message('修改成功', 'success');
           this.$emit('load');
           this.showDetail = false;
         }
@@ -220,11 +220,11 @@ export default {
       return row.orderStatus || '';
     },
     message(message, type) {
-        Message({
-          message: message,
-          type: type
-        });
-      }
+      Message({
+        message: message,
+        type: type
+      });
+    }
   },
 };
 </script>

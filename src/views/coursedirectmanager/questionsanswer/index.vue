@@ -175,7 +175,7 @@ export default {
       console.log(val);
     },
     onSearch() {
-      let that = this;
+      const that = this;
       const param = dealTime(['beginReleaseTime', 'endReleaseTime'], this.form);
       questList(param).then(res => {
         if (res.resCode == 200) {
@@ -205,7 +205,7 @@ export default {
     },
     // 批量上线
     batchOnline(obj, flag) {
-      let that = this;
+      const that = this;
       const a = this.multipleTable.map(v => v.id);
       const ids = a.length ? a : [obj.id];
       checkQuestion({
@@ -222,7 +222,7 @@ export default {
     },
     // 批量下限
     batchOffline(obj, flag) {
-      let that = this;
+      const that = this;
       const a = this.multipleTable.map(v => v.id);
       const ids = a.length ? a : [obj.id];
       checkQuestion({
@@ -253,7 +253,7 @@ export default {
     },
     // 取消置顶
     cancleTop(obj) {
-      let that = this;
+      const that = this;
       setQuestion({
         id: obj.id,
         isTop: obj.releasePostion ? 0 : 1,

@@ -98,7 +98,7 @@ export default {
         ratio_y: 1,
         ratio: 1.89,
         desc: '你的用户将在圈子频道顶部互动滑动区域，看到此封面。'
-      },{
+      }, {
         name: '普通封面',
         ratio_x: 1.53,
         ratio_y: 1,
@@ -121,9 +121,9 @@ export default {
           if (res.resCode == 200) {
             var data = res.resObject
             this.form.content = data.content
-            this.imgs = { 'ratio1.89': [data.banner] , 'ratio1.53': [data.indexPic] }
+            this.imgs = { 'ratio1.89': [data.banner], 'ratio1.53': [data.indexPic] }
             this.form.banner = this.imgs['ratio1.89'][0];
-            this.form.indexPic=this.imgs['ratio1.53'][0];
+            this.form.indexPic = this.imgs['ratio1.53'][0];
             this.form.createTime = data.createTime
             this.form.currentPrice = data.currentPrice
             this.form.firstCategoryId = data.firstCategoryId

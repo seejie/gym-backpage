@@ -296,7 +296,7 @@
 </template>
 
 <script>
-import {mapState,mapMutations} from "vuex"
+import { mapState, mapMutations } from 'vuex'
 import ImgInclude from '@/components/CropImgInclue/index.vue';
 import assign from 'object-assign';
 import ImageText from '../../material/imagetext';
@@ -318,14 +318,14 @@ import {
 
 // 章节 搞得这么复杂 完全是后端和产品要求的
 export default {
-  name:"",
+  name: '',
   data() {
     return {
       // showImgText: false,
       showVideo: false,
       showVoice: false,
       showDocument: false,
-      //子组件的遮罩层显示
+      // 子组件的遮罩层显示
       showModal: false,
       chapterAble: false,
 
@@ -348,7 +348,7 @@ export default {
         defaultAmount: '',
         courseReleaseType: 1,
         courseStatus: 0,
-        courseMaterialsList:[]
+        courseMaterialsList: []
       },
       imgs: {
         'ratio1.53': [],
@@ -407,9 +407,9 @@ export default {
     ImageText,
     documentMaterial
   },
-  computed:{
+  computed: {
     ...mapState({
-      showImgText: state=> state.imageText.formAddStatus.showImgText
+      showImgText: state => state.imageText.formAddStatus.showImgText
     })
   },
   mounted() {
@@ -420,20 +420,20 @@ export default {
     this.getColumnList();
     this.searchFirstMenu();
   },
-  filters:{
-    filterMaterialsCoverUrl: function(val){
-      return val?val.split(',')[0]:''
+  filters: {
+    filterMaterialsCoverUrl: function(val) {
+      return val ? val.split(',')[0] : ''
     }
   },
-  watch:{
-    "form.firstCategoryId":function(val){
-      if(val){
-        this.searchSecondMenu(val,'init')
+  watch: {
+    'form.firstCategoryId': function(val) {
+      if (val) {
+        this.searchSecondMenu(val, 'init')
       }
     },
   },
   methods: {
-    ...mapMutations("imageText",["setAddImageTextStatus"]),
+    ...mapMutations('imageText', ['setAddImageTextStatus']),
 
     init(id) {
       const that = this;
@@ -448,18 +448,17 @@ export default {
           this.form.courseCover['ratio1.53'] = [resObject.indexPic.split(',')[0]];
           this.form.courseCover['ratio1.89'] = [resObject.banner.split(',')[0]];
           this.materialList = resObject.courseMaterialsList || [];
-          if(this.materialList.length) {
-            this.materialList = this.materialList.sort(function (prev,next) {
+          if (this.materialList.length) {
+            this.materialList = this.materialList.sort(function (prev, next) {
               return prev.orderIndex - next.orderIndex
             })
           }
           this.oldMaterialList = [...(resObject.courseMaterialsList || [])];
-          if((resObject.courseLecturerList || []).length>0){
+          if ((resObject.courseLecturerList || []).length > 0) {
             that.courseLecturerList = (resObject.courseLecturerList || []).map(v =>
               assign(v, { avatarUrl: { pic: [v.avatarUrl] } })
             );
           }
-
         } else {
           that.$message(res.message, 'error');
         }
@@ -477,12 +476,11 @@ export default {
         }
       });
     },
-    searchSecondMenu(id,type) {
-
+    searchSecondMenu(id, type) {
       // 获取二级菜单
       this.twoMenus = [];
-      //编辑进来的时候，要初始化一下二级select数据
-      if(!type){
+      // 编辑进来的时候，要初始化一下二级select数据
+      if (!type) {
         this.form.secondCategoryId = '';
       }
       const that = this;
@@ -524,11 +522,11 @@ export default {
     addCourseInfo() {
       const that = this;
       const courseLecturerList = this.courseLecturerList.map(v =>
-        assign({},v, {
+        assign({}, v, {
           avatarUrl: that.getPicUrl(v.avatarUrl) || ' ',
         })
       );
-      this.form.courseMaterialsList = this.materialList.map((item,index)=>{
+      this.form.courseMaterialsList = this.materialList.map((item, index) => {
         item.orderIndex = index;
         return item
       });
@@ -591,11 +589,11 @@ export default {
     editCourseInfo() {
       const that = this;
       const courseLecturerList = this.courseLecturerList.map(v =>
-        assign({},v, {
+        assign({}, v, {
           avatarUrl: that.getPicUrl(v.avatarUrl),
         })
       );
-      this.form.courseMaterialsList = this.materialList.map((item,index)=>{
+      this.form.courseMaterialsList = this.materialList.map((item, index) => {
         item.orderIndex = index;
         return item
       });
@@ -622,23 +620,23 @@ export default {
     // 设置素材
     setData(key) {
       const { materialList, concatCouse } = this;
-      if(key == 3) {
-        if(this.concatCouse.selectCache.length == 0) {
+      if (key == 3) {
+        if (this.concatCouse.selectCache.length == 0) {
           this.$message.warning('未选中音频素材');
           return
         }
 
-        if(this.concatCouse.selectCache.length > 1) {
+        if (this.concatCouse.selectCache.length > 1) {
           this.$message.warning('只能选中一个素材');
           return
         }
       }
       // this.showImgText = false;
       this.setAddImageTextStatus({
-          showImgText: false,
-          formRouter:"",
-          fromSelectMaterial:false
-        })
+        showImgText: false,
+        formRouter: '',
+        fromSelectMaterial: false
+      })
       this.showVideo = false;
       this.showVoice = false;
       this.showDocument = false;
@@ -656,7 +654,7 @@ export default {
       const arr = concatCouse.selectCache.map(v => assign(v, { materialsType: concatCouse.type }));
       // console.log('arr: ', arr);
 
-      arr.map(item=>{
+      arr.map(item => {
         item.materialsCoverUrl = item.indexPic || item.imagePath;
         item.materialsTitle = item.title;
         item.courseId = this.form.id;
@@ -673,7 +671,6 @@ export default {
       } else {
         this.materialList = [...materialList, ...arr];
       }
-
     },
     editCourseList(obj, i, key) {
       if (key === 0) this.chapterAble = true;
@@ -721,7 +718,7 @@ export default {
       }
     },
 
-    //子组件方法 选中的素材
+    // 子组件方法 选中的素材
     handleCheckedCitiesChange(val) {
       console.log('val: ', val);
       this.concatCouse.selectCache = val.filter(v => typeof v !== 'number');
@@ -730,7 +727,6 @@ export default {
       // 添加素材
       if (key === 0) {
         this.chapterAble = true;
-
       }
 
       if (key === 1) {
@@ -745,7 +741,7 @@ export default {
 
       if (key === 2) this.showVideo = true;
       if (key === 3) this.showVoice = true;
-      if(key === 4) this.showDocument = true;
+      if (key === 4) this.showDocument = true;
       this.concatCouse = {
         isEdit: false,
         index: 0,
@@ -755,21 +751,21 @@ export default {
       this.chapterName = '';
     },
     getColumnList() {
-      columnList({ isActive: 1 ,type: 0}).then(res => {
+      columnList({ isActive: 1, type: 0 }).then(res => {
         if (res.resCode == 200) {
           this.columnList = res.resObject.list || [];
         }
       });
     },
-    onCancel(){
+    onCancel() {
       this.$router.back(-1);
     },
-    closeImgText(){
+    closeImgText() {
       this.setAddImageTextStatus({
-          showImgText: false,
-          formRouter:"",
-          fromSelectMaterial:false
-        })
+        showImgText: false,
+        formRouter: '',
+        fromSelectMaterial: false
+      })
     }
   },
 };

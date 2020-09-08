@@ -149,7 +149,7 @@ export default {
     },
 
     change(scope) {
-      let ids = [];
+      const ids = [];
       ids[0] = scope.id;
       if (scope.status == '2') {
         storeDisable({ ids }).then(res => {
@@ -251,7 +251,7 @@ export default {
       }
     },
 
-    //错误、成功提示
+    // 错误、成功提示
     message(message, type) {
       this.$message({
         message: message,

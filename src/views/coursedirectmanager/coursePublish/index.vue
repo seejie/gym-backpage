@@ -16,23 +16,23 @@
 </template>
 
 <script>
-  import CategorySet from './category-set';
-  import CoursList from './course-list';
+import CategorySet from './category-set';
+import CoursList from './course-list';
 
-  export default {
-    name: "",
-    data() {
-      return {
-        activeName: 'first',
-      };
+export default {
+  name: '',
+  data() {
+    return {
+      activeName: 'first',
+    };
+  },
+  components: { CategorySet, CoursList },
+  methods: {
+    handleClick(tab, event) {
+      console.log(tab, event);
     },
-    components: {CategorySet, CoursList },
-    methods: {
-      handleClick(tab, event) {
-        console.log(tab, event);
-      },
-    }
   }
+}
 </script>
 
 <style scoped>

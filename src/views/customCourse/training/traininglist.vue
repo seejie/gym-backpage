@@ -255,12 +255,12 @@ export default {
         ids: [],
         list: [],
         searchdata: { option: [{ id: 0, name: '昵称' }], key: '', select: 0 },
-        reply:false,
-        replycontent:'',
-        FeedbackLists:[],
-        imgs:[]
+        reply: false,
+        replycontent: '',
+        FeedbackLists: [],
+        imgs: []
       },
-      linkUrl:''
+      linkUrl: ''
     }
   },
   created() {
@@ -364,9 +364,9 @@ export default {
     },
     // 上下线 上3 下4
     togglePublish(id, status) {
-      var ids=[];
+      var ids = [];
       ids.push(id);
-      training.approveTraining({trainingIds:ids,status:status})
+      training.approveTraining({ trainingIds: ids, status: status })
         .then(res => {
           if (res.resCode == 200) {
             this.load()
@@ -399,7 +399,7 @@ export default {
       if (this.ids.length == 0) {
         this.message('请选择需要操作的列', 'error')
       } else {
-        training.approveTraining({trainingIds:this.ids,status:status})
+        training.approveTraining({ trainingIds: this.ids, status: status })
           .then(res => {
             if (res.resCode == 200) {
               this.load()
@@ -422,7 +422,7 @@ export default {
       console.log(e)
       alert('Failed to copy texts')
     },
-     showstatusdata(id) {
+    showstatusdata(id) {
       this.data.isshow = true
       this.data.id = id
       this.data.list = []
@@ -432,24 +432,24 @@ export default {
           this.data.header = res.resObject.header
           this.data.list = res.resObject.data != null ? res.resObject.data.list : []
           this.data.totalCount = res.resObject.data != null ? res.resObject.data.totalCount : 0;
-          this.data.list.forEach(f=>{
+          this.data.list.forEach(f => {
             this.FeedbackList(f);
           })
         }
       })
     },
-     FeedbackList(item) {
-       training.searchFeedbackList({joinRecordId :item.id}).then(res => {
-         if (res.resCode == 200) {
-           this.data.FeedbackLists=res.resObject;
-           this.$set(item,'Feedbacks',res.resObject[0] != null ? res.resObject[0].content : '');
-         }
-       });
-     },
+    FeedbackList(item) {
+      training.searchFeedbackList({ joinRecordId: item.id }).then(res => {
+        if (res.resCode == 200) {
+          this.data.FeedbackLists = res.resObject;
+          this.$set(item, 'Feedbacks', res.resObject[0] != null ? res.resObject[0].content : '');
+        }
+      });
+    },
     handleStudentSelectionChange(val) {
       if (val.length > 0) {
         for (var i = 0; i < val.length; i++) {
-          this.data.ids.push({ id: val[i].id, joinRecordId: val[i].joinRecordId,memberId:val[i].memberId })
+          this.data.ids.push({ id: val[i].id, joinRecordId: val[i].joinRecordId, memberId: val[i].memberId })
         }
       }
     },
@@ -467,8 +467,8 @@ export default {
       if (this.data.ids.length == 0) {
         this.message('请选择需要操作的列', 'error')
       } else {
-        var ids=[];
-        this.data.ids.forEach(f=>{
+        var ids = [];
+        this.data.ids.forEach(f => {
           ids.push(f.id);
         })
         training.approveTrainingTestData({ status: status, trainingRecordIdList: ids }).then(res => {
@@ -483,57 +483,51 @@ export default {
       }
     },
     exportTestAndAnswerData() {
-      location.href='/xqn/customCourse/training/exportTestAndAnswerData?trainingId='+this.data.id+'&keyword='+this.data.searchdata.key;
+      location.href = '/xqn/customCourse/training/exportTestAndAnswerData?trainingId=' + this.data.id + '&keyword=' + this.data.searchdata.key;
     },
-    showlinks(link,id){
-      this.showlink=true;
-      this.linkUrl=link+'/customcourse/training/'+id;
+    showlinks(link, id) {
+      this.showlink = true;
+      this.linkUrl = link + '/customcourse/training/' + id;
     },
-    feedback(){//回复
-      if(this.data.ids.length==0)
-      {
-        this.message("请选择需要回复的人员","info")
-      }
-      else {
-        this.data.reply=true;
+    feedback() { // 回复
+      if (this.data.ids.length == 0) {
+        this.message('请选择需要回复的人员', 'info')
+      } else {
+        this.data.reply = true;
         this.FeedbackList(this.data.ids[0]);
       }
     },
-    showreply(item){
-      this.data.reply=true;
-      this.data.ids[0]=item;
+    showreply(item) {
+      this.data.reply = true;
+      this.data.ids[0] = item;
       this.FeedbackList(item);
     },
     submitfeedback() {
       if (this.data.replycontent == '') {
-        this.message("回复内容不能为空");
-      }
-      else {
+        this.message('回复内容不能为空');
+      } else {
         training.feedback({
           content: this.data.replycontent,
           joinRecordId: this.data.ids[0].id,
           photos: this.data.imgs.join(','),
-          memberId:this.data.ids[0].memberId
+          memberId: this.data.ids[0].memberId
         }).then(res => {
           if (res.resCode == 200) {
-            this.message("回复成功", "success");
+            this.message('回复成功', 'success');
             this.data.reply = false;
             this.FeedbackList(this.data.ids[0]);
-          }
-          else {
-            this.message("回复失败", "fail");
+          } else {
+            this.message('回复失败', 'fail');
           }
         })
       }
     },
-    delcontent(id){
-      if(confirm('确定删除吗'))
-      {
-        training.deleteFeedback({id:id}).then(res=>{
-          if(res.resCode==200)
-          {
-            this.message("删除成功","success");
-            this.FeedbackList(this.data.list.find(f=>f.id==this.data.ids[0]));
+    delcontent(id) {
+      if (confirm('确定删除吗')) {
+        training.deleteFeedback({ id: id }).then(res => {
+          if (res.resCode == 200) {
+            this.message('删除成功', 'success');
+            this.FeedbackList(this.data.list.find(f => f.id == this.data.ids[0]));
           }
         });
       }

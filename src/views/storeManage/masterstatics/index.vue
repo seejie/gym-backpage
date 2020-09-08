@@ -99,7 +99,7 @@ export default {
       pcaa,
       tableData: [
         {
-          category:1,
+          category: 1,
         }
       ],
     };

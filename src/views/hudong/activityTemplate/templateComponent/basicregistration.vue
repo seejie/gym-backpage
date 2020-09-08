@@ -201,8 +201,8 @@ export default {
       pca: pca,
       pcaa: pcaa,
       list: [],
-      areaselected: [], //省市区选择
-      reltiveareaselected: [], //店铺选择省市区
+      areaselected: [], // 省市区选择
+      reltiveareaselected: [], // 店铺选择省市区
       form: {
         title: '',
         summary: '',
@@ -229,7 +229,7 @@ export default {
           type: '',
           sort: 0,
           required: 0,
-          optionList: [{ activityId: this.$route.params.id,content: '' }],
+          optionList: [{ activityId: this.$route.params.id, content: '' }],
         },
       ],
       cropper: [
@@ -261,20 +261,20 @@ export default {
               var data = res.resObject;
               this.form = data;
               (this.form.fee = data.fee / 100), (this.form.imgs = { 'ratio1.89': [data.picUrl] });
-              this.areaselected.push(pcaa[86][this.form.provinceId]); //res.data.addrprovinceid省对应的id
-              this.areaselected.push(pcaa[this.form.provinceId][this.form.cityId]); //res.data.addrcityid省对应的id
+              this.areaselected.push(pcaa[86][this.form.provinceId]); // res.data.addrprovinceid省对应的id
+              this.areaselected.push(pcaa[this.form.provinceId][this.form.cityId]); // res.data.addrcityid省对应的id
               this.areaselected.push(pcaa[this.form.cityId][this.form.areaId]);
               if (data.topicList.length > 0) {
                 this.topicList = data.topicList
-                if(this.topicList.length) {
+                if (this.topicList.length) {
                   this.topicList.forEach(v => {
-                    if(v.optionList.length) {
-                      v.optionList.sort(function (prev,next) {
+                    if (v.optionList.length) {
+                      v.optionList.sort(function (prev, next) {
                         return prev.sort - next.sort
                       })
                     }
                   })
-                  this.topicList.sort(function (prev,next) {
+                  this.topicList.sort(function (prev, next) {
                     return prev.sort - next.sort
                   })
                 }
@@ -355,7 +355,7 @@ export default {
               this.$router.push({
                 name: 'activityList',
               });
-              //this.back();
+              // this.back();
             } else {
               this.message('提交失败', 'error');
             }
@@ -365,7 +365,7 @@ export default {
     },
 
     addkey() {
-      //添加关键字
+      // 添加关键字
       this.topicList.push({
         activityId: this.$route.params.id,
         title: '',
@@ -376,7 +376,7 @@ export default {
       this.sortIndex();
     },
     removekey(index) {
-      //移除某一行
+      // 移除某一行
       this.sortIndex();
     },
     sortIndex() {
@@ -391,19 +391,19 @@ export default {
       });
     },
     addkeyone(index) {
-      //添加选项
+      // 添加选项
       this.topicList[index].optionList.push({ activityId: this.$route.params.id, content: '' });
       this.sortIndex();
     },
     removekeyone(index, index1) {
-      //移除选择
+      // 移除选择
       this.topicList[index].optionList.splice(index1, 1);
       this.sortIndex();
     },
     back() {
       this.$router.go(-1);
     },
-    //错误、成功提示
+    // 错误、成功提示
     message(message, type) {
       this.$message({
         message: message,

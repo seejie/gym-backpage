@@ -281,7 +281,7 @@ export default {
     },
 
     handlePayload() {
-      let payload = {
+      const payload = {
         ...this.form,
         function: this.form.function.join(','),
         logo: this.imgsLogo.ratio1[0],
@@ -314,7 +314,7 @@ export default {
     handleSubmit() {
       const payload = this.handlePayload();
 
-      let newsList = [...this.selectNewsList, ...this.selectInfromationsList];
+      const newsList = [...this.selectNewsList, ...this.selectInfromationsList];
       if (!payload.name) {
         this.message('请输入官网名称', 'error');
         return;

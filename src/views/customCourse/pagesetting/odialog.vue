@@ -42,129 +42,126 @@
 </template>
 
 <script>
-  import Pagination from '@/components/Pagination'
-  import {  CourseQuestionaire, training } from '@/api/customCourse/customCourse'
-  import { Message } from 'element-ui'
-    export default {
-      name: "odialog",
-      props: {
-        trainingType: {
-          type: Number,
-          default: 1
-        },
-        type: {
-          type: Number,
-          default: 1
-        },
-      },
-      components: {
-        Pagination
-      },
-      data() {
-        return {
-          tandata: {
-            isshow: false,
-            key: '',
-            pageSize: 20,
-            curPage: 1,
-            totalCount: 0,
-            pageSizes: [20, 30, 50],
-            list: [],
-            link: [],
-            type: 1,
-            curlink: ''
-          }
-        }
-      },
-      mounted() {
-        this.tandata.type = this.type;
-        this.tandata.link = [];
-        this.tandata.curlink = '';
-        this.showloaddata();
-      },
-      methods: {
-        showloaddata() {
-          var params = {
-            title: this.tandata.key,
-            pageNum: this.tandata.curPage,
-            pageSize: this.tandata.pageSize,
-            status:1
-          };
-          if (this.tandata.type > 1) {
-            params = {
-              trainingTitle: this.tandata.key,
-              trainingType: this.trainingType,
-              status:1
-            };
-          }
-          this.tandata.list = [];
-          var url = this.tandata.type == 1 ? CourseQuestionaire.load(params) : training.load(params);
-          url.then(res => {
-            if (res.resCode == 200) {
-              this.tandata.totalCount = res.resObject.totalCount;
-              this.tandata.list = res.resObject.list != null ? res.resObject.list : []
-            } else {
-              this.message(res.message, 'error');
-            }
-          }).catch(err => console.log(err))
-        },
-
-        currentdataChange(val) {
-          this.tandata.curPage = val;
-          this.showloaddata();
-        },
-        sizedataChange(val) {
-          this.tandata.pageSize = val;
-        },
-        handleCheckedCitiesChange(val) {
-          this.tandata.link = [];
-          this.tandata.link.push(val);
-          this.tandata.curlink = val.linkUrl;
-
-        },
-        commit(type) {
-
-          if (type == 0) {
-            this.$emit('commit');
-          }
-          else {
-            if (this.tandata.link.length == 0) {
-              this.message("请选择数据", 'info')
-              return false;
-            }
-            this.$emit('commit', this.tandata.curlink, this.tandata.link[0].id);
-          }
-        },
-        message(message, type) {
-          Message({
-            message: message,
-            type: type
-          })
-        }
-      },
-      watch: {
-        type: {
-          handler(newval, oldValue) {
-            this.tandata = {
-              isshow: false,
-                key: '',
-                pageSize: 20,
-                curPage: 1,
-                totalCount: 0,
-                pageSizes: [20, 30, 50],
-                list: [],
-                link: [],
-                type: 1,
-                curlink: ''
-            };
-            this.tandata.type = newval;
-            this.showloaddata();
-          },
-          immediate:true,
-          deep: true
-        }
+import Pagination from '@/components/Pagination'
+import { CourseQuestionaire, training } from '@/api/customCourse/customCourse'
+import { Message } from 'element-ui'
+export default {
+  name: 'odialog',
+  props: {
+    trainingType: {
+      type: Number,
+      default: 1
+    },
+    type: {
+      type: Number,
+      default: 1
+    },
+  },
+  components: {
+    Pagination
+  },
+  data() {
+    return {
+      tandata: {
+        isshow: false,
+        key: '',
+        pageSize: 20,
+        curPage: 1,
+        totalCount: 0,
+        pageSizes: [20, 30, 50],
+        list: [],
+        link: [],
+        type: 1,
+        curlink: ''
       }
     }
+  },
+  mounted() {
+    this.tandata.type = this.type;
+    this.tandata.link = [];
+    this.tandata.curlink = '';
+    this.showloaddata();
+  },
+  methods: {
+    showloaddata() {
+      var params = {
+        title: this.tandata.key,
+        pageNum: this.tandata.curPage,
+        pageSize: this.tandata.pageSize,
+        status: 1
+      };
+      if (this.tandata.type > 1) {
+        params = {
+          trainingTitle: this.tandata.key,
+          trainingType: this.trainingType,
+          status: 1
+        };
+      }
+      this.tandata.list = [];
+      var url = this.tandata.type == 1 ? CourseQuestionaire.load(params) : training.load(params);
+      url.then(res => {
+        if (res.resCode == 200) {
+          this.tandata.totalCount = res.resObject.totalCount;
+          this.tandata.list = res.resObject.list != null ? res.resObject.list : []
+        } else {
+          this.message(res.message, 'error');
+        }
+      }).catch(err => console.log(err))
+    },
+
+    currentdataChange(val) {
+      this.tandata.curPage = val;
+      this.showloaddata();
+    },
+    sizedataChange(val) {
+      this.tandata.pageSize = val;
+    },
+    handleCheckedCitiesChange(val) {
+      this.tandata.link = [];
+      this.tandata.link.push(val);
+      this.tandata.curlink = val.linkUrl;
+    },
+    commit(type) {
+      if (type == 0) {
+        this.$emit('commit');
+      } else {
+        if (this.tandata.link.length == 0) {
+          this.message('请选择数据', 'info')
+          return false;
+        }
+        this.$emit('commit', this.tandata.curlink, this.tandata.link[0].id);
+      }
+    },
+    message(message, type) {
+      Message({
+        message: message,
+        type: type
+      })
+    }
+  },
+  watch: {
+    type: {
+      handler(newval, oldValue) {
+        this.tandata = {
+          isshow: false,
+          key: '',
+          pageSize: 20,
+          curPage: 1,
+          totalCount: 0,
+          pageSizes: [20, 30, 50],
+          list: [],
+          link: [],
+          type: 1,
+          curlink: ''
+        };
+        this.tandata.type = newval;
+        this.showloaddata();
+      },
+      immediate: true,
+      deep: true
+    }
+  }
+}
 </script>
 
 <style scoped>

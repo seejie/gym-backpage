@@ -16,49 +16,47 @@
 </template>
 
 <script>
-  import { teacher } from '@/api/customCourse/customCourse'
-  import { Message } from 'element-ui'
-    export default {
-      name: "TeacherInstructions",
-      data() {
-        return {
-          form:{
-            title:'',
-            instructions:''
-          },
-          rules: {
-            title: [
-              { required: true, message: '图文标题', trigger: 'blur' },
-            ],
-          },
-        }
+import { teacher } from '@/api/customCourse/customCourse'
+import { Message } from 'element-ui'
+export default {
+  name: 'TeacherInstructions',
+  data() {
+    return {
+      form: {
+        title: '',
+        instructions: ''
       },
-      methods: {
-        onSubmit() {
-          this.$refs.form.validate(valid => {
-            if (!valid) {
-              return false
-            }
-          });
-          teacher.createUpdateTeacherInstructions(this.form).then(res=>{
-            if(res.resCode==200)
-            {
-              this.message("提交成功");
-            }
-            else {
-              this.message("提交失败");
-            }
-          })
-        },
-        // 错误、成功提示
-        message(message, type) {
-          Message({
-            message: message,
-            type: type
-          })
-        }
-      }
+      rules: {
+        title: [
+          { required: true, message: '图文标题', trigger: 'blur' },
+        ],
+      },
     }
+  },
+  methods: {
+    onSubmit() {
+      this.$refs.form.validate(valid => {
+        if (!valid) {
+          return false
+        }
+      });
+      teacher.createUpdateTeacherInstructions(this.form).then(res => {
+        if (res.resCode == 200) {
+          this.message('提交成功');
+        } else {
+          this.message('提交失败');
+        }
+      })
+    },
+    // 错误、成功提示
+    message(message, type) {
+      Message({
+        message: message,
+        type: type
+      })
+    }
+  }
+}
 </script>
 
 <style scoped>

@@ -177,7 +177,7 @@ export default {
     loadcategory() {
       QACategory.load({ pageSize: 100 }).then(res => {
         if (res.resCode == 200) {
-          this.dialog.categoryData = res.resObject.list!=null?res.resObject.list.filter(f=>f.status==1):[]
+          this.dialog.categoryData = res.resObject.list != null ? res.resObject.list.filter(f => f.status == 1) : []
         }
       })
     },

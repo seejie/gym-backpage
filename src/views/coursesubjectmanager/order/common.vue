@@ -181,7 +181,7 @@ export default {
       console.log(val);
     },
     search() {
-      let that = this;
+      const that = this;
       const param = dealTime(['beginTime', 'endTime'], this.filter);
       orderPageList(param).then(res => {
         if (res.resCode == 200) {
@@ -198,7 +198,7 @@ export default {
         customerName: '',
         customerPhone: '',
         status: '',
-        unitName:"",
+        unitName: '',
         beginTime: '',
         date: [],
         endTime: '',
@@ -207,7 +207,7 @@ export default {
       };
     },
     downCourse() {
-      let that = this;
+      const that = this;
       const param = dealTime(['beginTime', 'endTime'], this.filter);
       exportOrder(param).then(res => {
         if (res.resCode == 200) {
@@ -229,7 +229,7 @@ export default {
       });
     },
     createCourseVerify(code) {
-      let that = this;
+      const that = this;
       if (this.multipleTable.length == 0) {
         this.$message.warning('请选择数据');
         return;
@@ -258,7 +258,7 @@ export default {
       });
     },
     createTuikuan() {
-      let that = this;
+      const that = this;
       if (this.multipleTable.length == 0) {
         this.$message.warning('请选择数据');
         return;

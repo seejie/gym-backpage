@@ -200,7 +200,7 @@ export default {
       form: {
         courseTitle: '',
         courseStatus: '',
-        columnSort:'',
+        columnSort: '',
         unitName: '',
         // proCity: [],
         // areaId: '',
@@ -262,10 +262,10 @@ export default {
       });
     },
     searchSecondMenu(id) {
-      if(id){
+      if (id) {
         // 获取二级菜单
         this.twoMenus = [];
-        this.form.secondCategoryId="";
+        this.form.secondCategoryId = '';
         const that = this;
         findCourseCategoryId({ unitParentId: id }).then(res => {
           if (res.resCode == 200) {
@@ -274,14 +274,14 @@ export default {
             that.$message.error(res.message);
           }
         });
-      }else{
+      } else {
         this.twoMenus = [];
-        this.form.secondCategoryId="";
+        this.form.secondCategoryId = '';
       }
     },
-    clearSecondMenu(){
+    clearSecondMenu() {
       this.twoMenus = [];
-      this.form.secondCategoryId="";
+      this.form.secondCategoryId = '';
     },
 
     handleClick(tab, event) {
@@ -312,9 +312,9 @@ export default {
       console.log(val);
     },
     onSearch() {
-      let that = this;
+      const that = this;
       // let param = assign({}, this.form, { provinceId: this.form.proCity[0], cityId: this.form.proCity[1] });
-      let param = dealTime(['beginReleaseTime', 'endReleaseTime'], this.form);
+      const param = dealTime(['beginReleaseTime', 'endReleaseTime'], this.form);
       courseList(param).then(res => {
         if (res.resCode == 200) {
           that.tableData = res.resObject.list || [];
@@ -329,7 +329,7 @@ export default {
       this.form = {
         courseTitle: '',
         courseStatus: '',
-        columnSort:'',
+        columnSort: '',
         unitName: '',
         // proCity: [],
         // areaId: '',
@@ -345,7 +345,7 @@ export default {
     },
     goEdit(obj) {
       this.$router.push({
-        name: `course-publish`,
+        name: 'course-publish',
         params: {
           id: obj.id,
         },
@@ -358,7 +358,7 @@ export default {
       this.showStudent = false;
     },
     batchOnline(obj, flag) {
-      let that = this;
+      const that = this;
       const a = this.multipleTable.map(v => v.id);
       const courseId = !flag ? a : [obj.id];
       checkCourse({
@@ -374,7 +374,7 @@ export default {
       });
     },
     batchOffline(obj, flag) {
-      let that = this;
+      const that = this;
       const a = this.multipleTable.map(v => v.id);
       const courseId = !flag ? a : [obj.id];
       checkCourse({
@@ -390,7 +390,7 @@ export default {
       });
     },
     deleteCourse() {
-      let that = this;
+      const that = this;
       deleteCourse({ ids: this.multipleTable.map(v => v.id) }).then(res => {
         if (res.resCode == 200) {
           that.$message.success('批量删除成功');

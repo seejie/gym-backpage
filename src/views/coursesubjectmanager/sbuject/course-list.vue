@@ -228,9 +228,9 @@ export default {
     this.searchFirstMenu();
   },
   methods: {
-    clearSecondMenu(){
+    clearSecondMenu() {
       this.twoMenus = [];
-      this.form.secondCategoryId="";
+      this.form.secondCategoryId = '';
     },
     searchFirstMenu(num) {
       // 获取一级菜单
@@ -245,10 +245,10 @@ export default {
       });
     },
     searchSecondMenu(id) {
-      if(id){
+      if (id) {
         // 获取二级菜单
         this.twoMenus = [];
-        this.form.secondCategoryId="";
+        this.form.secondCategoryId = '';
         const that = this;
         findCategoryId({ unitParentId: id }).then(res => {
           if (res.resCode == 200) {
@@ -257,9 +257,9 @@ export default {
             that.$message.error(res.message);
           }
         });
-      }else{
+      } else {
         this.twoMenus = [];
-        this.form.secondCategoryId="";
+        this.form.secondCategoryId = '';
       }
     },
     handleSelectionChange(val) {
@@ -286,9 +286,9 @@ export default {
       console.log(val);
     },
     onSearch() {
-      let that = this;
+      const that = this;
       // let param = assign({}, this.form, { provinceId: this.form.proCity[0], cityId: this.form.proCity[1] });
-      let param = dealTime(['beginReleaseTime', 'endReleaseTime'], this.form);
+      const param = dealTime(['beginReleaseTime', 'endReleaseTime'], this.form);
       coursePackageList(param).then(res => {
         if (res.resCode == 200) {
           that.tableData = res.resObject.list || [];
@@ -320,7 +320,7 @@ export default {
       this.$router.push(`/coursesubjectmanager/comment-details/${obj.id}`);
     },
     batchOnline(obj, flag) {
-      let that = this;
+      const that = this;
       const a = this.multipleTable.map(v => v.id);
       const courseId = !flag ? a : [obj.id];
       checkCoursePackage({
@@ -336,7 +336,7 @@ export default {
       });
     },
     batchOffline(obj, flag) {
-      let that = this;
+      const that = this;
       const a = this.multipleTable.map(v => v.id);
       const courseId = !flag ? a : [obj.id];
       checkCoursePackage({
@@ -356,7 +356,7 @@ export default {
         this.$message.warning('请选择数据');
         return;
       }
-      let ids = this.multipleTable.map(v => {
+      const ids = this.multipleTable.map(v => {
         return v.id;
       });
 

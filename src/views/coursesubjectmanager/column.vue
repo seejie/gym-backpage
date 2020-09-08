@@ -90,7 +90,7 @@ export default {
   },
   methods: {
     dragSubmit() {
-      let courseColumnDataList = this.list.map((v, i) => {
+      const courseColumnDataList = this.list.map((v, i) => {
         v.sortIndex = i + 1;
         return {
           columnId: v.id,
@@ -111,8 +111,8 @@ export default {
       const that = this;
       columnList().then(res => {
         if (res.resCode == 200) {
-          that.listData = (res.resObject.list || []).map(v => assign(v, { status: v.isActive === 1 ? true : false }));
-          that.listData = that.listData.sort(function(prev,next) {
+          that.listData = (res.resObject.list || []).map(v => assign(v, { status: v.isActive === 1 }));
+          that.listData = that.listData.sort(function(prev, next) {
             return prev.sortIndex - next.sortIndex
           })
           this.showAdd = false;
@@ -130,7 +130,7 @@ export default {
       this.showAdd = true;
     },
     deleteData(id) {
-      let that = this;
+      const that = this;
       this.$confirm('您的栏目中存有数据，此操作将永久删除该文件，是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -161,7 +161,7 @@ export default {
       });
     },
     updateData() {
-      let that = this;
+      const that = this;
       updateColumn(this.boxObj.id, this.boxObj).then(res => {
         if (res.resCode == 200) {
           that.$message.success('编辑成功');
@@ -173,7 +173,7 @@ export default {
     },
     addData() {
       if (this.boxObj.id) return this.updateData();
-      let that = this;
+      const that = this;
       addColumn(this.boxObj).then(res => {
         if (res.resCode == 200) {
           that.$message.success('新增成功');

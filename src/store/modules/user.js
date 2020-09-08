@@ -1,5 +1,5 @@
 import { login, logout, getInfo, jcaptcha, logininfo } from '@/api/user'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import { removeToken } from '@/utils/auth'
 import { setUserLevel, setUserToken, getUserToken} from '@/utils/storage'
 import router, { resetRouter } from '@/router'
 import settings from '@/settings'

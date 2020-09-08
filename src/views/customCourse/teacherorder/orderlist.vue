@@ -191,9 +191,9 @@ export default {
         this.searchData.beginReleaseTime.push(this.searchData.searchdate[0] || '')
         this.searchData.endReleaseTime.push(this.searchData.searchdate[1] || '')
       }
-      this.searchData.postSaleStatus = this.status == 5 ? '18' : ( this.status==6?'17':'');
-      this.searchData.orderIscommit = this.status == 7 ? '0' : (this.status==3?'1':'');
-      this.searchData.status = this.status == 6 ? 5 : (this.status ==7?3:this.status);
+      this.searchData.postSaleStatus = this.status == 5 ? '18' : (this.status == 6 ? '17' : '');
+      this.searchData.orderIscommit = this.status == 7 ? '0' : (this.status == 3 ? '1' : '');
+      this.searchData.status = this.status == 6 ? 5 : (this.status == 7 ? 3 : this.status);
       teacherorder.load(this.searchData).then(res => {
         if (res.resCode == 200) {
           this.totalCount = res.resObject.totalCount

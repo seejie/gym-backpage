@@ -25,98 +25,97 @@
 </template>
 
 <script>
-  import assign from 'object-assign';
-  import { getPageConfig, updatePageConfig, addPageConfig } from './sever';
+import assign from 'object-assign';
+import { getPageConfig, updatePageConfig, addPageConfig } from './sever';
 
-  export default {
-    name: "",
-    data() {
-      return {
-        pageHeight: window.innerHeight - 100 + 'px',
-        activeName: 'first',
-        value: '',
-        name: '',
-        coursePageSetup: {
-          id: '',
-          liveCourseColumn: true,
-          liveCourseNum: true,
-          liveCourseTitle: '',
-          questionAnswerColumn: true,
-          questionAnswerNum: true,
-          showBanner: true,
-          showColumn: true
-        }
-      };
-    },
-    created(){
-      this.getConfig()
-    },
-    methods: {
-      getConfig() {
-        const that = this;
-        getPageConfig(this.$ajax).then(res => {
-          if (res.resCode == 200 && res.resObject.list[0]) {
-            that.getBool(res.resObject.list[0]);
-          } else {
-            that.$message(res.message, 'error');
-          }
-        })
-      },
-      submit(){
-        if (this.coursePageSetup.id) {
-          this.updateConfig();
-        } else {
-          this.addConfig();
-        }
-      },
-      updateConfig(){
-        const that = this;
-        const param = this.getParam(this.coursePageSetup)
-        param.channelType =9;
-        updatePageConfig(this.$ajax, this.coursePageSetup, param).then(res => {
-          if (res.resCode == 200) {
-            that.$message.success('编辑成功');
-            that.getConfig();
-          } else {
-            that.$message(res.message, 'error');
-          }
-        })
-      },
-      addConfig(){
-        const that = this;
-        const param = this.getParam(this.coursePageSetup)
-        param.channelType =9;
-        addPageConfig(this.$ajax, param).then(res => {
-          if (res.resCode == 200) {
-            console.log(res)
-            // that.listData = res.resObject.list || [];
-            that.$message.success('新增成功');
-            that.getConfig();
-
-          } else {
-            that.$message(res.message, 'error');
-          }
-        })
-      },
-      getParam(obj){
-        const switchArr = ['liveCourseColumn',  'liveCourseNum', 'questionAnswerColumn', 'questionAnswerNum', 'showBanner', 'showColumn'];
-        const param = assign(obj, switchArr.reduce((p, c) => {
-          if (obj[c]) return assign(p, { [c]: 1 });
-          return assign(p, { [c]: 0 });
-        }, {}));
-        return param;
-      },
-      getBool(data) {
-        const obj = data || this.coursePageSetup;
-        const switchArr = ['liveCourseColumn',  'liveCourseNum', 'questionAnswerColumn', 'questionAnswerNum', 'showBanner', 'showColumn'];
-        const param = assign(obj, switchArr.reduce((p, c) => {
-          if (obj[c]) return assign(p, { [c]: true });
-          return assign(p, { [c]: false });
-        }, {}));
-        this.coursePageSetup = assign(this.coursePageSetup, param)
+export default {
+  name: '',
+  data() {
+    return {
+      pageHeight: window.innerHeight - 100 + 'px',
+      activeName: 'first',
+      value: '',
+      name: '',
+      coursePageSetup: {
+        id: '',
+        liveCourseColumn: true,
+        liveCourseNum: true,
+        liveCourseTitle: '',
+        questionAnswerColumn: true,
+        questionAnswerNum: true,
+        showBanner: true,
+        showColumn: true
       }
+    };
+  },
+  created() {
+    this.getConfig()
+  },
+  methods: {
+    getConfig() {
+      const that = this;
+      getPageConfig(this.$ajax).then(res => {
+        if (res.resCode == 200 && res.resObject.list[0]) {
+          that.getBool(res.resObject.list[0]);
+        } else {
+          that.$message(res.message, 'error');
+        }
+      })
+    },
+    submit() {
+      if (this.coursePageSetup.id) {
+        this.updateConfig();
+      } else {
+        this.addConfig();
+      }
+    },
+    updateConfig() {
+      const that = this;
+      const param = this.getParam(this.coursePageSetup)
+      param.channelType = 9;
+      updatePageConfig(this.$ajax, this.coursePageSetup, param).then(res => {
+        if (res.resCode == 200) {
+          that.$message.success('编辑成功');
+          that.getConfig();
+        } else {
+          that.$message(res.message, 'error');
+        }
+      })
+    },
+    addConfig() {
+      const that = this;
+      const param = this.getParam(this.coursePageSetup)
+      param.channelType = 9;
+      addPageConfig(this.$ajax, param).then(res => {
+        if (res.resCode == 200) {
+          console.log(res)
+          // that.listData = res.resObject.list || [];
+          that.$message.success('新增成功');
+          that.getConfig();
+        } else {
+          that.$message(res.message, 'error');
+        }
+      })
+    },
+    getParam(obj) {
+      const switchArr = ['liveCourseColumn', 'liveCourseNum', 'questionAnswerColumn', 'questionAnswerNum', 'showBanner', 'showColumn'];
+      const param = assign(obj, switchArr.reduce((p, c) => {
+        if (obj[c]) return assign(p, { [c]: 1 });
+        return assign(p, { [c]: 0 });
+      }, {}));
+      return param;
+    },
+    getBool(data) {
+      const obj = data || this.coursePageSetup;
+      const switchArr = ['liveCourseColumn', 'liveCourseNum', 'questionAnswerColumn', 'questionAnswerNum', 'showBanner', 'showColumn'];
+      const param = assign(obj, switchArr.reduce((p, c) => {
+        if (obj[c]) return assign(p, { [c]: true });
+        return assign(p, { [c]: false });
+      }, {}));
+      this.coursePageSetup = assign(this.coursePageSetup, param)
     }
   }
+}
 </script>
 
 <style scoped>

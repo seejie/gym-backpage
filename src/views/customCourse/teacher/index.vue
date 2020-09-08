@@ -400,7 +400,7 @@ export default {
     },
     getprocity(addressProvince, addressCity, addressDistrict) {
       const obj = cityList.find(v => v.code === addressProvince);
-      return obj.name + '/' + obj.city.find(v => v.code === addressCity).name + "/" + obj.city.find(v => v.code === addressCity).area.find(v => v.code === addressDistrict).name
+      return obj.name + '/' + obj.city.find(v => v.code === addressCity).name + '/' + obj.city.find(v => v.code === addressCity).area.find(v => v.code === addressDistrict).name
     },
     // 批量上下线  1 草稿（预览） 2未发布 3已发布 4已下线
     batchPublish(status) {
@@ -458,7 +458,7 @@ export default {
       }
     },
     exportTeacherStudents() {
-      location.href='/xqn/customCourse/teacher/exportTeacherStudents?productId='+this.studentdata.id+'&keyword='+this.studentdata.searchdata.key;
+      location.href = '/xqn/customCourse/teacher/exportTeacherStudents?productId=' + this.studentdata.id + '&keyword=' + this.studentdata.searchdata.key;
       // teacher.exportTeacherStudents({ productId: this.studentdata.id, keyword: this.studentdata.searchdata.key }).then(res => {
       //   if (res.resCode == 200) {
       //     this.message('导出成功', 'success')

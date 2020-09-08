@@ -72,156 +72,155 @@
 </template>
 
 <script>
-  import assign from 'object-assign';
-  import { addCourseCategory, deleteCourseCategory, searchCourseCategoryList, filterCourseCategoryList, findCourseCategoryId, updateCourseCategory } from '../sever'
+import assign from 'object-assign';
+import { addCourseCategory, deleteCourseCategory, searchCourseCategoryList, filterCourseCategoryList, findCourseCategoryId, updateCourseCategory } from '../sever'
 
-  export default {
-    name: "",
-    data() {
-      return {
-        oneMenus: [],
-        twoMenus: [],
-        oneFilter: '',
-        twoFilter: '',
-        showAdd: false,
-        boxObj: { categoryDesc: '', categoryName: '' },
-        parentId: '',
-        leftMenuOpen: "1", //左侧默认展开
-        rightMenuOpen: "2", //右侧默认展开,
-      };
+export default {
+  name: '',
+  data() {
+    return {
+      oneMenus: [],
+      twoMenus: [],
+      oneFilter: '',
+      twoFilter: '',
+      showAdd: false,
+      boxObj: { categoryDesc: '', categoryName: '' },
+      parentId: '',
+      leftMenuOpen: '1', // 左侧默认展开
+      rightMenuOpen: '2', // 右侧默认展开,
+    };
+  },
+  mounted() {
+    this.searchFirstMenu();
+  },
+  methods: {
+    searchFirstMenu(num) { // 获取一级菜单
+      const that = this;
+      searchCourseCategoryList({ pageSize: 0 }).then(res => {
+        if (res.resCode == 200) {
+          const arr = (res.resObject.list || []).filter(v => !v.catParentId);
+          if (arr.length <= 0) return false;
+          this.oneMenus = arr;
+          this.parentId = num || arr[0].id;
+          this.twoMenus = res.resObject.list.filter(v => v.catParentId === arr[0].id);
+        } else {
+          that.$message.error(res.message);
+        }
+      })
     },
-    mounted(){
-      this.searchFirstMenu();
+    searchSecondMenu(id) { // 获取二级菜单
+      const that = this;
+      findCourseCategoryId(
+        { unitParentId: id }).then(res => {
+        if (res.resCode == 200) {
+          that.parentId = id;
+          that.twoMenus = res.resObject.list || [];
+        } else {
+          that.$message.error(res.message);
+        }
+      })
     },
-    methods: {
-      searchFirstMenu(num){ // 获取一级菜单
-        const that = this;
-        searchCourseCategoryList({ pageSize: 0 }).then(res => {
-          if (res.resCode == 200) {
-            const arr = (res.resObject.list || []).filter(v => !v.catParentId);
-            if (arr.length <= 0) return false;
-            this.oneMenus = arr;
-            this.parentId = num || arr[0].id;
-            this.twoMenus = res.resObject.list.filter(v => v.catParentId === arr[0].id);
+    filterSearh(name, type) { // 根据条件查询一二级菜单
+      if (type && !this.parentId) return;
+      const that = this;
+      let param = { categoryName: name };
+      if (type) param = assign(param, { catParentId: this.parentId });
+      filterCourseCategoryList(param).then(res => {
+        if (res.resCode == 200) {
+          if (!type) {
+            this.oneMenus = res.resObject.list || []
+            this.twoMenus = [];
+            this.parentId = '';
           } else {
-            that.$message.error(res.message);
+            this.twoMenus = res.resObject.list || []
           }
-        })
-      },
-      searchSecondMenu(id){ // 获取二级菜单
-        const that = this;
-        findCourseCategoryId(
-          { unitParentId: id }).then(res => {
-          if (res.resCode == 200) {
-            that.parentId = id;
-            that.twoMenus = res.resObject.list || [];
+        } else {
+          that.$message.error(res.message);
+        }
+      })
+    },
+    addData() {
+      if (this.boxObj.id) this.editMenu();
+      if (!this.boxObj.id) this.addMenu();
+    },
+    addMenu() {
+      const param = this.boxObj;
+      const that = this;
+      addCourseCategory(param).then(res => {
+        if (res.resCode == 200) {
+          that.$message.success('操作成功');
+          if (param.catParentId) that.twoMenus = [...that.twoMenus, res.resObject];
+          if (!param.catParentId && that.oneMenus.length > 0) {
+            that.oneMenus = [...that.oneMenus, res.resObject];
+          } else if (!param.catParentId && that.oneMenus.length <= 0) {
+            that.oneMenus = [...that.oneMenus, res.resObject];
+            that.parentId = res.resObject.id;
+          }
+          that.showAdd = false;
+        } else {
+          that.$message.error(res.message);
+        }
+      })
+    },
+    editMenu() {
+      const param = this.boxObj;
+      const that = this;
+      updateCourseCategory(param).then(res => {
+        if (res.resCode == 200) {
+          that.$message.success('编辑成功');
+          if (param.catParentId) that.twoMenus[param.i] = param;
+          if (!param.catParentId) that.oneMenus[param.i] = param;
+          that.showAdd = false;
+        } else {
+          that.$message.error(res.message);
+        }
+      })
+    },
+    deleteMenu(obj) { // 删除菜单
+      const that = this;
+      deleteCourseCategory({ ids: [obj.id] }).then(res => {
+        if (res.resCode == 200) {
+          that.$message.success('删除成功');
+          if (obj.catParentId) {
+            that.twoMenus = that.twoMenus.filter(v => v.id !== obj.id);
           } else {
-            that.$message.error(res.message);
-          }
-        })
-      },
-      filterSearh(name, type){ // 根据条件查询一二级菜单
-        if (type && !this.parentId) return;
-        const that = this;
-        let param = { categoryName: name };
-        if (type) param = assign(param, { catParentId: this.parentId });
-        filterCourseCategoryList(param).then(res => {
-          if (res.resCode == 200) {
-            if (!type) {
-              this.oneMenus = res.resObject.list || []
-              this.twoMenus = [];
-              this.parentId = '';
-            } else {
-              this.twoMenus = res.resObject.list || []
+            const arr = that.oneMenus.filter(v => v.id !== obj.id);
+            that.oneMenus = arr;
+            if (arr.length === 0) {
+              that.parentId = '';
+              that.twoMenus = [];
+            } else if (obj.id === that.parentId) {
+              that.twoMenus = [];
+              that.parentId = arr[0].id;
+              that.searchSecondMenu(arr[0].id);
             }
-          } else {
-            that.$message.error(res.message);
           }
-        })
-      },
-      addData(){
-         if (this.boxObj.id) this.editMenu();
-         if (!this.boxObj.id) this.addMenu();
-
-      },
-      addMenu(){
-        const param = this.boxObj;
-        const that = this;
-        addCourseCategory(param).then(res => {
-          if (res.resCode == 200) {
-            that.$message.success('操作成功');
-            if (param.catParentId) that.twoMenus = [...that.twoMenus, res.resObject];
-            if (!param.catParentId && that.oneMenus.length > 0) {
-              that.oneMenus = [...that.oneMenus, res.resObject];
-            } else if (!param.catParentId && that.oneMenus.length <= 0) {
-              that.oneMenus = [...that.oneMenus, res.resObject];
-              that.parentId = res.resObject.id;
-            }
-            that.showAdd = false;
-          } else {
-            that.$message.error(res.message);
-          }
-        })
-      },
-      editMenu(){
-        const param = this.boxObj;
-        const that = this;
-        updateCourseCategory(param).then(res => {
-          if (res.resCode == 200) {
-            that.$message.success('编辑成功');
-            if (param.catParentId) that.twoMenus[param.i] = param;
-            if (!param.catParentId) that.oneMenus[param.i] = param;
-            that.showAdd = false;
-          } else {
-            that.$message.error(res.message);
-          }
-        })
-      },
-      deleteMenu(obj){ // 删除菜单
-        const that = this;
-        deleteCourseCategory({ ids: [obj.id] }).then(res => {
-          if (res.resCode == 200) {
-            that.$message.success('删除成功');
-            if (obj.catParentId) {
-              that.twoMenus = that.twoMenus.filter(v => v.id !== obj.id);
-            } else {
-              const arr = that.oneMenus.filter(v => v.id !== obj.id);
-              that.oneMenus = arr;
-              if (arr.length === 0) {
-                that.parentId = '';
-                that.twoMenus = [];
-              } else if (obj.id === that.parentId) {
-                that.twoMenus = [];
-                that.parentId = arr[0].id;
-                that.searchSecondMenu(arr[0].id);
-              }
-            }
-          } else {
-            that.$message.error(res.message);
-          }
-        })
-      },
-      showAddBox(val){
-        if (!val) this.boxObj = { name: '' };
-        this.showAdd = val;
-      },
-      editColumn(val){
-        this.boxObj = val;
-        this.showAdd = true;
-      },
-      showOneMenu(obj, i, flag){
-        this.showAdd = true;
-        if (flag) this.boxObj = assign({}, obj, { i });
-        if (!flag) this.boxObj = { categoryDesc: '', categoryName: '' };
-      },
-      showTwoMenu(obj, i, flag){
-        this.showAdd = true;
-        if (flag) this.boxObj = assign({}, obj, { i, catParentId: this.parentId });
-        if (!flag) this.boxObj = { categoryDesc: '', categoryName: '', catParentId: this.parentId };
-      }
-
+        } else {
+          that.$message.error(res.message);
+        }
+      })
+    },
+    showAddBox(val) {
+      if (!val) this.boxObj = { name: '' };
+      this.showAdd = val;
+    },
+    editColumn(val) {
+      this.boxObj = val;
+      this.showAdd = true;
+    },
+    showOneMenu(obj, i, flag) {
+      this.showAdd = true;
+      if (flag) this.boxObj = assign({}, obj, { i });
+      if (!flag) this.boxObj = { categoryDesc: '', categoryName: '' };
+    },
+    showTwoMenu(obj, i, flag) {
+      this.showAdd = true;
+      if (flag) this.boxObj = assign({}, obj, { i, catParentId: this.parentId });
+      if (!flag) this.boxObj = { categoryDesc: '', categoryName: '', catParentId: this.parentId };
     }
+
   }
+}
 </script>
 
 <style lang="scss" scoped>

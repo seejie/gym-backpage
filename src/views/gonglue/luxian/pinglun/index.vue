@@ -89,7 +89,7 @@ export default {
       this.$refs[formName].resetFields();
     },
     gonglueList() {
-      this.$refs['DYTABLE'].gonglueList();
+      this.$refs.DYTABLE.gonglueList();
     },
   },
 };

@@ -76,90 +76,90 @@
 </template>
 
 <script>
-  import cityList from "@/utils/citys";
-  import assign from 'object-assign';
-  import moment from 'moment';
-  import { courseOrderReport, dealTime, exportOrder  } from '../sever'
-  import { count } from './default';
+import cityList from '@/utils/citys';
+import assign from 'object-assign';
+import moment from 'moment';
+import { courseOrderReport, dealTime, exportOrder } from '../sever'
+import { count } from './default';
 
-  export default {
-    name: "",
-    data() {
-      return count;
+export default {
+  name: '',
+  data() {
+    return count;
+  },
+  mounted() {
+    this.onSearch();
+  },
+  methods: {
+    handleSelectionChange(val) {
+      this.multipleTable = val;
     },
-    mounted(){
+    handleCurrentChange(val) {
+      this.form.pageNum = val;
       this.onSearch();
     },
-    methods: {
-      handleSelectionChange(val){
-        this.multipleTable = val;
-      },
-      handleCurrentChange(val){
-        this.form.pageNum = val;
-        this.onSearch();
-      },
-      handleSizeChange(val){
-        this.form.pageSize = val;
-        this.onSearch();
-      },
-      handleCity(val){
-        this.form.proCity = val;
-        const obj = cityList.find(v => v.code === val[0]).city.find(v => v.code === val[1]);
-        this.areaList = obj.area.map(v => ({ value: v.code, label: v.name }));
-        this.form.areaId = '';
-      },
-      changePicker(val){
-        console.log(val)
-      },
-      onSearch(){
-        const obj = assign({}, this.form, {
-          province: this.form.proCity[0],
-          city: this.form.proCity[1],
-        })
-        const param = dealTime(['beginTime', 'endTime'], obj);
-        let that = this;
-        courseOrderReport(param).then(res => {
-          if (res.resCode == 200) {
-            //that.tableData = res.resObject.list || [];
-            that.tableData = (res.resObject.list || []).map(v => assign(v, { createTime: moment(v.createTime).format('YYYY-MM-DD') }));
-            that.total= res.resObject.totalCount;
-            this.$refs.multipleTable.clearSelection();
-          } else {
-            that.$message(res.message, 'error');
-          }
-        })
-      },
-      onReset(){
-        this.form ={
-          courseTitle: '',
-          courseStatus: '',
-          unitName: '',
-          proCity: [],
-          areaId: '',
-          date: [],
-          firstCategoryId: '',
-          secondCategoryId: '',
-        };
-      },
-      downData(){
-        let that = this;
-        const obj = assign({}, this.form, {
-          province: this.form.proCity[0],
-          city: this.form.proCity[1],
-        })
-        const param = dealTime(['beginTime', 'endTime'], obj);
-        exportOrder(param).then(res => {
-          if (res.resCode == 200) {
-            that.$message.success('导出成功');
-            that.onSearch();
-          } else {
-            that.$message(res.message, 'error');
-          }
-        })
-      }
-
+    handleSizeChange(val) {
+      this.form.pageSize = val;
+      this.onSearch();
+    },
+    handleCity(val) {
+      this.form.proCity = val;
+      const obj = cityList.find(v => v.code === val[0]).city.find(v => v.code === val[1]);
+      this.areaList = obj.area.map(v => ({ value: v.code, label: v.name }));
+      this.form.areaId = '';
+    },
+    changePicker(val) {
+      console.log(val)
+    },
+    onSearch() {
+      const obj = assign({}, this.form, {
+        province: this.form.proCity[0],
+        city: this.form.proCity[1],
+      })
+      const param = dealTime(['beginTime', 'endTime'], obj);
+      const that = this;
+      courseOrderReport(param).then(res => {
+        if (res.resCode == 200) {
+          // that.tableData = res.resObject.list || [];
+          that.tableData = (res.resObject.list || []).map(v => assign(v, { createTime: moment(v.createTime).format('YYYY-MM-DD') }));
+          that.total = res.resObject.totalCount;
+          this.$refs.multipleTable.clearSelection();
+        } else {
+          that.$message(res.message, 'error');
+        }
+      })
+    },
+    onReset() {
+      this.form = {
+        courseTitle: '',
+        courseStatus: '',
+        unitName: '',
+        proCity: [],
+        areaId: '',
+        date: [],
+        firstCategoryId: '',
+        secondCategoryId: '',
+      };
+    },
+    downData() {
+      const that = this;
+      const obj = assign({}, this.form, {
+        province: this.form.proCity[0],
+        city: this.form.proCity[1],
+      })
+      const param = dealTime(['beginTime', 'endTime'], obj);
+      exportOrder(param).then(res => {
+        if (res.resCode == 200) {
+          that.$message.success('导出成功');
+          that.onSearch();
+        } else {
+          that.$message(res.message, 'error');
+        }
+      })
     }
+
   }
+}
 </script>
 
 <style scoped>

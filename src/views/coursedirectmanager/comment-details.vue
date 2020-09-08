@@ -149,136 +149,100 @@
 </template>
 
 <script>
-  import {Message} from "element-ui";
-  import assign from 'object-assign';
-  import { commentList, dealTime, dealCommentList, dianZan, setCommentTop, deleteComment, approveComments, addComment } from './sever';
-  import Pagination from "../../components/Pagination";
+import { Message } from 'element-ui';
+import assign from 'object-assign';
+import { commentList, dealTime, dealCommentList, dianZan, setCommentTop, deleteComment, approveComments, addComment } from './sever';
+import Pagination from '../../components/Pagination';
 
-
-  export default {
-    name: "comment",
-    components: {
-      Pagination
-    },
-    data() {
-      return {
-        searchData: {
-          commentContent: '',
-          status: '',
-          isTop: '',
-          memberName: '',
-          date: [],
-          courseId: '',
-          pageNum: 1,
-          pageSize: 10
-        },
-        //分页
-        totalCount: 0,
-        current: 1,
-        pageSizes: [10, 20, 30],
-        pageSize: 0,
-        //
-        commentData: [],
-        //排序
-        orderType: 1,
-        //
-        isplForm: [],
-        //回复
-        reply: {
-          commentContent: '',
-        },
-        //全选
-        ids: [],
-      }
-    },
-    created() {
-      if (this.$route.params.id) {
-        this.searchData.courseId = this.$route.params.id;
-      }
-      this.informationId = this.$route.params.id;
-      this.type = this.$route.params.type;
-      this.pageSize = this.pageSizes[0];
+export default {
+  name: 'comment',
+  components: {
+    Pagination
+  },
+  data() {
+    return {
+      searchData: {
+        commentContent: '',
+        status: '',
+        isTop: '',
+        memberName: '',
+        date: [],
+        courseId: '',
+        pageNum: 1,
+        pageSize: 10
+      },
+      // 分页
+      totalCount: 0,
+      current: 1,
+      pageSizes: [10, 20, 30],
+      pageSize: 0,
+      //
+      commentData: [],
+      // 排序
+      orderType: 1,
+      //
+      isplForm: [],
+      // 回复
+      reply: {
+        commentContent: '',
+      },
+      // 全选
+      ids: [],
+    }
+  },
+  created() {
+    if (this.$route.params.id) {
+      this.searchData.courseId = this.$route.params.id;
+    }
+    this.informationId = this.$route.params.id;
+    this.type = this.$route.params.type;
+    this.pageSize = this.pageSizes[0];
+    this.getCommentList();
+  },
+  methods: {
+    // 分页
+    currentChange(val) {
+      this.current = val;
       this.getCommentList();
     },
-    methods: {
-      //分页
-      currentChange(val) {
-        this.current = val;
-        this.getCommentList();
-      },
-      sizeChange(val) {
-        this.pageSize = val;
-        this.getCommentList();
-      },
-      //全选
-      selectionchange(val) {
-        this.ids = [];
-        for (var i = 0; i < val.length; i++) {
-          this.ids.push(val[i].id);
-        }
-      },
-      //批量删除
-      commentBatchDel() {
-        if (this.ids.length == 0) {
-          this.message('请选择需要操作的列', 'error');
-        } else {
-          this.$ajax.post('/cms/information/commentBatchDel', {
-            ids: this.ids.join(','),
-            informationId: this.informationId
-          })
-            .then(res => {
-              if (res.resCode == 200) {
-                this.getCommentList();
-                this.message('成功', 'success');
-              }
-            })
-            .catch(err => console.log(err))
-        }
-      },
-      //批量上下线  0未审核1审核通过
-      commentBatchPublish(status) {
-        if (this.ids.length == 0) {
-          this.message('请选择需要操作的列', 'error');
-        } else {
-          approveComments({
-            commentIdList: this.ids,
-            status,
-          })
-            .then(res => {
-              if (res.resCode == 200) {
-                this.getCommentList();
-                this.message('操作成功', 'success');
-              }
-            })
-            .catch(err => console.log(err))
-        }
-      },
-      //显示回复框
-      showplForm(index) {
-        this.$set(this.isplForm, index, !this.isplForm[index]);
-      },
-      //点击获取informationId
-      getinformationId(item, index) {
-        this.reply = assign({}, item, { commentContent: '' });
-        this.showplForm(index);
-      },
-      //回复评论
-      commentReply() {
-        const param = assign({}, this.reply);
-        delete param.userId;
-        addComment(param)
+    sizeChange(val) {
+      this.pageSize = val;
+      this.getCommentList();
+    },
+    // 全选
+    selectionchange(val) {
+      this.ids = [];
+      for (var i = 0; i < val.length; i++) {
+        this.ids.push(val[i].id);
+      }
+    },
+    // 批量删除
+    commentBatchDel() {
+      if (this.ids.length == 0) {
+        this.message('请选择需要操作的列', 'error');
+      } else {
+        this.$ajax.post('/cms/information/commentBatchDel', {
+          ids: this.ids.join(','),
+          informationId: this.informationId
+        })
           .then(res => {
             if (res.resCode == 200) {
               this.getCommentList();
               this.message('成功', 'success');
-              this.reply = { commentContent: '' }
             }
           })
           .catch(err => console.log(err))
-      },
-      //置顶
-      commentTop(id, status) {
-        setCommentTop({ commentId: id, status })
+      }
+    },
+    // 批量上下线  0未审核1审核通过
+    commentBatchPublish(status) {
+      if (this.ids.length == 0) {
+        this.message('请选择需要操作的列', 'error');
+      } else {
+        approveComments({
+          commentIdList: this.ids,
+          status,
+        })
           .then(res => {
             if (res.resCode == 200) {
               this.getCommentList();
@@ -286,59 +250,94 @@
             }
           })
           .catch(err => console.log(err))
-      },
-      //点赞
-      commentFabulous(obj) {
-        dianZan({ commentId: obj.id, status: obj.status ? 0 : 1 }).then(res => {
-            if (res.resCode == 200) {
-              this.getCommentList();
-              this.message('点赞成功', 'success');
-            }
-          })
-          .catch(err => console.log(err))
-      },
-      //删除
-      commentDel(id, flag) {
-        const ids = flag ? [id] : this.ids;
-        deleteComment({ ids })
-          .then(res => {
-            if (res.resCode == 200) {
-              this.getCommentList();
-              this.message('成功', 'success');
-            }
-          })
-          .catch(err => console.log(err))
-      },
-      //排序
-      pxBtn(orderType) {
-        // this.orderType = orderType;
-        this.searchData.sortBy = orderType;
-        this.getCommentList();
-      },
-      //获取评论列表
-      getCommentList() {
-        const param = dealTime(['beginReleaseTime', 'endReleaseTime'], this.searchData);
-        commentList(param).then(res => {
+      }
+    },
+    // 显示回复框
+    showplForm(index) {
+      this.$set(this.isplForm, index, !this.isplForm[index]);
+    },
+    // 点击获取informationId
+    getinformationId(item, index) {
+      this.reply = assign({}, item, { commentContent: '' });
+      this.showplForm(index);
+    },
+    // 回复评论
+    commentReply() {
+      const param = assign({}, this.reply);
+      delete param.userId;
+      addComment(param)
+        .then(res => {
           if (res.resCode == 200) {
-            this.totalCount = res.resObject.totalCount;
-            this.commentData = (res.resObject.list || []).map(v => assign(v, { childList: dealCommentList(v.childList, v)}));
-            for (let i = 0; i < this.commentData.length; i++) {
-              this.isplForm[i] = false;
-            }
+            this.getCommentList();
+            this.message('成功', 'success');
+            this.reply = { commentContent: '' }
           }
         })
-          .catch(err => console.log(err))
-      },
-      //错误、成功提示
-      message(message, type) {
-        Message({
-          message: message,
-          type: type,
-          duration: 5 * 1000
-        });
-      }
+        .catch(err => console.log(err))
+    },
+    // 置顶
+    commentTop(id, status) {
+      setCommentTop({ commentId: id, status })
+        .then(res => {
+          if (res.resCode == 200) {
+            this.getCommentList();
+            this.message('操作成功', 'success');
+          }
+        })
+        .catch(err => console.log(err))
+    },
+    // 点赞
+    commentFabulous(obj) {
+      dianZan({ commentId: obj.id, status: obj.status ? 0 : 1 }).then(res => {
+        if (res.resCode == 200) {
+          this.getCommentList();
+          this.message('点赞成功', 'success');
+        }
+      })
+        .catch(err => console.log(err))
+    },
+    // 删除
+    commentDel(id, flag) {
+      const ids = flag ? [id] : this.ids;
+      deleteComment({ ids })
+        .then(res => {
+          if (res.resCode == 200) {
+            this.getCommentList();
+            this.message('成功', 'success');
+          }
+        })
+        .catch(err => console.log(err))
+    },
+    // 排序
+    pxBtn(orderType) {
+      // this.orderType = orderType;
+      this.searchData.sortBy = orderType;
+      this.getCommentList();
+    },
+    // 获取评论列表
+    getCommentList() {
+      const param = dealTime(['beginReleaseTime', 'endReleaseTime'], this.searchData);
+      commentList(param).then(res => {
+        if (res.resCode == 200) {
+          this.totalCount = res.resObject.totalCount;
+          this.commentData = (res.resObject.list || []).map(v => assign(v, { childList: dealCommentList(v.childList, v) }));
+          for (let i = 0; i < this.commentData.length; i++) {
+            this.isplForm[i] = false;
+          }
+        }
+      })
+        .catch(err => console.log(err))
+    },
+    // 错误、成功提示
+    message(message, type) {
+      Message({
+        message: message,
+        type: type,
+        duration: 5 * 1000
+      });
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

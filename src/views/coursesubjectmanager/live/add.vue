@@ -196,7 +196,7 @@ import { createLive, editLiveCourse, liveDetail } from '../sever';
 export default {
   data() {
     var validateLinkUrl = (rule, value, callback) => {
-      let httpReg=/(http|https):\/\/([\w.]+\/?)\S*/;
+      const httpReg = /(http|https):\/\/([\w.]+\/?)\S*/;
       if (value !== '' && !httpReg.test(this.form.linkUrl)) {
         callback(new Error('请输入正确的格式'));
       } else {
@@ -217,8 +217,8 @@ export default {
         releaseTime: '',
         unitId: '',
         unitParentId: '',
-        linkSwitch:"",
-        linkUrl:""
+        linkSwitch: '',
+        linkUrl: ''
       },
       imgs: {
         'ratio1.53': [],
@@ -254,7 +254,7 @@ export default {
         courseTitle: [{ required: true, message: '请输入直播标题', trigger: 'blur' }],
         columnSort: [{ required: true, message: '请选择发布时间', trigger: 'change' }],
         courseReleaseType: [{ required: true, message: '请选择发布位置', trigger: 'change' }],
-        linkUrl:[{ validator: validateLinkUrl, trigger: 'blur' }]
+        linkUrl: [{ validator: validateLinkUrl, trigger: 'blur' }]
       },
       timeRange: {
         start: '00:00',
@@ -273,8 +273,8 @@ export default {
     }
   },
   computed: {
-    linkSwitchDisabled:function(){
-      let httpReg=/(http|https):\/\/([\w.]+\/?)\S*/;
+    linkSwitchDisabled: function() {
+      const httpReg = /(http|https):\/\/([\w.]+\/?)\S*/;
       return !httpReg.test(this.form.linkUrl)
     }
   },
@@ -289,7 +289,7 @@ export default {
           this.imgs['ratio1.89'] = [liveCourse.banner.split(',')[0]];
           const arr = (liveCourseLecturers || []).length
             ? liveCourseLecturers
-            : [{ avatarUrl: "", introduce: '', name: '' }];
+            : [{ avatarUrl: '', introduce: '', name: '' }];
           that.list = arr.map(v => assign(v, { avatarUrl: v.avatarUrl ? { pic: [v.avatarUrl] } : {} }));
         } else {
           that.$message(res.message, 'error');
@@ -310,12 +310,12 @@ export default {
         }
       });
     },
-    onCancel(){
+    onCancel() {
       this.$router.back(-1);
     },
     addLive() {
       const that = this;
-      const courseLecturers =[...this.list].map(v =>({
+      const courseLecturers = [...this.list].map(v => ({
         ...v,
         avatarUrl: that.getPicUrl(v.avatarUrl),
       }))
@@ -324,7 +324,7 @@ export default {
         indexPic: `${this.imgs['ratio1.53'][0]}`,
         banner: `${this.imgs['ratio1.89'][0]}`,
       });
-      if(param.indexPic=="undefined" && param.banner=="undefined"){
+      if (param.indexPic == 'undefined' && param.banner == 'undefined') {
         this.$message.error('请上传图文封面！');
         return false
       }
@@ -339,7 +339,7 @@ export default {
     },
     editLive() {
       const that = this;
-      const courseLecturers =[...this.list].map(v =>({
+      const courseLecturers = [...this.list].map(v => ({
         ...v,
         avatarUrl: that.getPicUrl(v.avatarUrl),
       }))
@@ -348,7 +348,7 @@ export default {
         indexPic: `${this.imgs['ratio1.53'][0]}`,
         banner: `${this.imgs['ratio1.89'][0]}`,
       });
-      if(param.indexPic=="undefined" && param.banner=="undefined"){
+      if (param.indexPic == 'undefined' && param.banner == 'undefined') {
         this.$message.error('请上传图文封面！');
         return false
       }

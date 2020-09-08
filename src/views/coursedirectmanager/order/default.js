@@ -1,4 +1,4 @@
-import cityList from "@/utils/citys";
+import cityList from '@/utils/citys';
 import assign from 'object-assign';
 
 export const count = {
@@ -27,7 +27,7 @@ export const count = {
       label: v.name
     }))
   })),
-  areaList:[],
+  areaList: [],
   cityList: [],
   ids: [],
   showSearch: true,
@@ -39,7 +39,7 @@ export const listData = {
     customerName: '',
     customerPhone: '',
     status: '',
-    unitName:"",
+    unitName: '',
     beginTime: '',
     date: [],
     endTime: '',
@@ -58,5 +58,5 @@ export const listData = {
     { id: '4', name: '待退款' },
     { id: '5', name: '已退款' },
     { id: '6', name: '已完成' },
-    ],
+  ],
 }

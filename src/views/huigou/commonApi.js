@@ -1,11 +1,11 @@
 import axios from 'axios';
-import settings from "@/settings";
+import settings from '@/settings';
 import { getUserToken, setUserToken } from '@/utils/storage'
 import app from '../../main.js'
-import { Message } from "element-ui";
+import { Message } from 'element-ui';
 
 const idfv = { idfv: 'backend' }
-let XQN_BASE = localStorage.getItem("XQN_BASE");
+let XQN_BASE = localStorage.getItem('XQN_BASE');
 try {
   XQN_BASE = XQN_BASE ? JSON.parse(XQN_BASE) : {}
 } catch (error) {
@@ -15,21 +15,21 @@ try {
 var loading_count = 0;
 axios.interceptors.request.use((config) => {
   loading_count++;
-  //store.commit("CHANGE_LOADING", loading_count);
+  // store.commit("CHANGE_LOADING", loading_count);
   config.timeout = config.timeout || 10000;
   return new Promise((resolve, reject) => {
     resolve(config);
   })
 }, (error) => {
   loading_count--;
-  //store.commit("CHANGE_LOADING", loading_count);
+  // store.commit("CHANGE_LOADING", loading_count);
 });
 
 axios.interceptors.response.use((response) => {
   loading_count--;
-  //store.commit("CHANGE_LOADING", loading_count);
+  // store.commit("CHANGE_LOADING", loading_count);
   return new Promise((resolve, reject) => {
-    console.log('resolve',response)
+    console.log('resolve', response)
     if (response.data.resCode == 200 || response.data.resCode == 6 || response.data.code == 200) {
       resolve(response.data);
     } else if (response.data.appId) {
@@ -51,12 +51,12 @@ axios.interceptors.response.use((response) => {
   })
 }, (error) => {
   loading_count--;
-  //store.commit("CHANGE_LOADING", loading_count);
+  // store.commit("CHANGE_LOADING", loading_count);
   console.error(error);
-  if (typeof error.message == "string") {
-    //Toast(error.message);
+  if (typeof error.message === 'string') {
+    // Toast(error.message);
   } else {
-    //Toast("服务器异常！");
+    // Toast("服务器异常！");
   }
 });
 
@@ -81,8 +81,8 @@ function request (url, data, method = 'GET') {
     headers: {
       authorization: token || '',
       idfv: idfv.idfv,
-      //'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-      //'Content-Type': 'application/json;charset=UTF-8'
+      // 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+      // 'Content-Type': 'application/json;charset=UTF-8'
     },
     baseURL: settings.baseURL,
 
@@ -92,13 +92,13 @@ function request (url, data, method = 'GET') {
     opt.data = dataCur;
     opt.transformRequest = [function (data) {
       let ret = '';
-      for (let it in data) {
+      for (const it in data) {
         ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
       }
       return ret
     }]
-  } else { //默认GET
-    opt.params = { ...dataCur};
+  } else { // 默认GET
+    opt.params = { ...dataCur };
   }
   return axios(url, opt);
 }
@@ -124,7 +124,7 @@ function request (url, data, method = 'GET') {
 
 const api = {
   request: request,
-  //upload: upload
+  // upload: upload
 }
 
 export default api;

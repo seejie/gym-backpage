@@ -300,7 +300,7 @@ export default {
       });
     },
     getColumnList() {
-      columnList({ isActive: 1 ,type: 0}).then(res => {
+      columnList({ isActive: 1, type: 0 }).then(res => {
         if (res.resCode == 200) {
           this.columnList = res.resObject.list || [];
         }
@@ -421,7 +421,7 @@ export default {
     changeValue(key, val) {
       this[key] = val;
     },
-    onCancel(){
+    onCancel() {
       this.$router.back(-1)
     }
   },

@@ -336,7 +336,7 @@ export default {
     // 编辑
     editClick(scope) {
       this.$router.push({
-        name: `masteradd`,
+        name: 'masteradd',
         query: {
           masterId: scope.id,
         },
@@ -372,8 +372,8 @@ export default {
       });
     },
     onMapClick(scope) {
-      let ids = [],
-        showOnMap;
+      const ids = [];
+      let showOnMap;
       ids[0] = scope.id;
       if (scope.showOnMap == '1') {
         showOnMap = 0;

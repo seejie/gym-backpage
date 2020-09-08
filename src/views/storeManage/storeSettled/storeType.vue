@@ -118,7 +118,7 @@ export default {
   },
   methods: {
     storeList() {
-      let params = {
+      const params = {
         name: this.typeName,
         unitType: '32',
       };
@@ -128,7 +128,7 @@ export default {
         }
       });
     },
-    //分页
+    // 分页
     currentChange(val) {
       this.pageIndex = val;
       this.load();
@@ -148,7 +148,7 @@ export default {
     },
 
     change(scope) {
-      let ids = [];
+      const ids = [];
       ids[0] = scope.id;
       if (scope.status == '2') {
         storeDisable({ ids }).then(res => {
@@ -249,7 +249,7 @@ export default {
       }
     },
 
-    //错误、成功提示
+    // 错误、成功提示
     message(message, type) {
       this.$message({
         message: message,

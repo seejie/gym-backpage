@@ -195,7 +195,6 @@ export default {
       }).catch(action => {
         console.log('取消')
       })
-
     },
     delRow (item, id) {
       console.log(item.catParentId)

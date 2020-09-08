@@ -128,12 +128,12 @@ export default {
   data () {
     return {
       formData: {
-        comment: '',//搜索标题
-        publishStatus: '',//发布状态
-        position: '',//发布位置
-        user: '',//主办方
+        comment: '', // 搜索标题
+        publishStatus: '', // 发布状态
+        position: '', // 发布位置
+        user: '', // 主办方
         // columnId: '',//活动类型
-        time: [],//活动时间
+        time: [], // 活动时间
 
       },
       replayShow: false,
@@ -144,41 +144,41 @@ export default {
         { label: '搜索用户', model: 'user', placeholder: '请输入用户名', type: 'text' },
         { label: '发布时间', model: 'time', placeholder: '请选择', type: 'datetimerange' },
       ],
-      chooseItem: [],//选中的行数
-      currentPage: 1,//当前页数
-      chooseIdArr: [],//选择的id
-      dialogVisible: false,//删除弹框
+      chooseItem: [], // 选中的行数
+      currentPage: 1, // 当前页数
+      chooseIdArr: [], // 选择的id
+      dialogVisible: false, // 删除弹框
       columns: [
         {
-          hasSort: false,  //<Boolean> 是否排序
-          prop: 'headerUrl',   //<String>  对应属性名
-          label: '头像',  //<String>   表头标签
+          hasSort: false, // <Boolean> 是否排序
+          prop: 'headerUrl', // <String>  对应属性名
+          label: '头像', // <String>   表头标签
         },
         {
-          hasSort: false,  //<Boolean> 是否排序
-          prop: 'userName',   //<String>  对应属性名
-          label: '昵称',  //<String>   表头标签
+          hasSort: false, // <Boolean> 是否排序
+          prop: 'userName', // <String>  对应属性名
+          label: '昵称', // <String>   表头标签
         },
         {
-          hasSort: false,  //<Boolean> 是否排序
-          prop: 'phoneNumber',   //<String>  对应属性名
-          label: '联系方式',  //<String>   表头标签
+          hasSort: false, // <Boolean> 是否排序
+          prop: 'phoneNumber', // <String>  对应属性名
+          label: '联系方式', // <String>   表头标签
         },
         {
-          hasSort: false,  //<Boolean> 是否排序
-          prop: 'hasPz',   //<String>  对应属性名
+          hasSort: false, // <Boolean> 是否排序
+          prop: 'hasPz', // <String>  对应属性名
           type: 'switchs',
           disabled: false,
           isEffect: 0,
-          label: '审核',  //<String>   表头标签
+          label: '审核', // <String>   表头标签
         },
-      ],// 传给表格组件的数据
+      ], // 传给表格组件的数据
       tableData: [
 
-      ],//传给表格组件的数据
-      currentPageSize: 10,//每页条数
-      totalCount: 0,//请求到的总数
-      chooseActiveId: '',//点击数据选中的id
+      ], // 传给表格组件的数据
+      currentPageSize: 10, // 每页条数
+      totalCount: 0, // 请求到的总数
+      chooseActiveId: '', // 点击数据选中的id
       isSortTime: false,
       isSortNum: false
     }
@@ -195,21 +195,21 @@ export default {
     search () {
       this.getActiveList()
     },
-    //重置
+    // 重置
     reset () {
       this.formData = {
-        title: '',//搜索标题
-        publishStatus: '',//发布状态
-        position: '',//发布位置
-        isComment: '',//评论全权限
-        payType: '',//付费类型
-        sponsor: '',//主办方
+        title: '', // 搜索标题
+        publishStatus: '', // 发布状态
+        position: '', // 发布位置
+        isComment: '', // 评论全权限
+        payType: '', // 付费类型
+        sponsor: '', // 主办方
         // columnId: '',//活动类型
-        time: []//活动时间
+        time: []// 活动时间
       }
       this.getActiveList()
     },
-    //通过接口获取数据
+    // 通过接口获取数据
     getActiveList () {
       console.log(this.formData)
       this.$ajax.get('/huigou/tiyan/product/findProductPageList', {
@@ -234,7 +234,7 @@ export default {
             title: {
               oneTitle: item.title,
               twoTitle: item.subTitle,
-              // imgUrl: item.banner.split(',')[0] 
+              // imgUrl: item.banner.split(',')[0]
               imgUrl: item.indexPic
             },
             // columnLabel: item.columnId ? this.getTypeLabel(item.columnId) : '未设置',
@@ -251,27 +251,27 @@ export default {
       this.currentPageSize = val
       this.getActiveList()
     },
-    //添加按钮
+    // 添加按钮
     addActive () {
       this.$router.push({
         name: 'addActivePage'
       })
     },
-    //表格选择
+    // 表格选择
     commitSelection (val) {
       this.chooseItem = val
     },
-    //删除事件
+    // 删除事件
     deleteRow (row) {
       console.log(row)
       if (row !== '') {
-        //删除单行
+        // 删除单行
         this.chooseItem = []
         this.dialogVisible = true
         this.chooseItem.push(row)
       } else {
         if (this.chooseItem.length === 0) {
-          this.$message.error("请选择要删除的数据")
+          this.$message.error('请选择要删除的数据')
         } else {
           this.chooseIdArr = this.chooseItem.map((item) => {
             return item.status
@@ -279,16 +279,15 @@ export default {
           this.dialogVisible = true
         }
       }
-
     },
-    //弹框确定事件
+    // 弹框确定事件
     commit (val) {
       this.$ajax.get('/huigou/tiyan/product/deleteProduct', {
         params: {
           idsArr: this.chooseItem.length > 1 ? this.chooseItem.map((item) => item.id).join(',') : this.chooseItem[0].id
         }
       }).then((res) => {
-        this.$message.success("删除成功")
+        this.$message.success('删除成功')
         this.dialogVisible = false
         this.getActiveList()
       }).catch(() => {
@@ -300,7 +299,7 @@ export default {
       console.log('搜索')
       this.getSinuplists()
     },
-    //表格更多--上线
+    // 表格更多--上线
     goLine (item) {
       if (item.publishStatus == 3) {
         this.$confirm('确认下线？')
@@ -310,7 +309,7 @@ export default {
                 idArray: String(item.id)
               }
             }).then((res) => {
-              this.$message.success("下架成功")
+              this.$message.success('下架成功')
               this.getActiveList()
             })
           })
@@ -323,55 +322,53 @@ export default {
                 idArray: String(item.id)
               }
             }).then((res) => {
-              this.$message.success("上线成功")
+              this.$message.success('上线成功')
               this.getActiveList()
             })
           })
           .catch(_ => { });
       }
-
     },
-    //置顶
+    // 置顶
     goTop (item) {
-      let message = item.stick == 0 ? '确认置顶？' : '确认取消置顶'
+      const message = item.stick == 0 ? '确认置顶？' : '确认取消置顶'
       this.$confirm(message)
         .then(_ => {
           if (item.stick == 0) {
             //
             this.isGoTop(item.id)
           } else {
-            //取消置顶
+            // 取消置顶
             this.isGoDown(item.id)
           }
-
         })
         .catch(_ => { });
     },
-    //置顶确认
+    // 置顶确认
     isGoTop (id) {
       this.$ajax.post('/huigou/tiyan/product/updateProduct', {
         id: id,
         stick: 1
       }).then((res) => {
-        this.$message.success("置顶成功")
+        this.$message.success('置顶成功')
         this.getActiveList()
       })
     },
-    //取消置顶
+    // 取消置顶
     isGoDown (id) {
       this.$ajax.post('/huigou/tiyan/product/updateProduct', {
         id: id,
         stick: 0
       }).then((res) => {
-        this.$message.success("取消置顶")
+        this.$message.success('取消置顶')
         this.getActiveList()
       })
     },
     allUp () {
       if (this.chooseItem.length == 0) {
-        this.$message.error("请选择数据")
+        this.$message.error('请选择数据')
       } else {
-        let id = this.chooseItem.map((item) => {
+        const id = this.chooseItem.map((item) => {
           return item.id
         })
         console.log(id)
@@ -383,7 +380,7 @@ export default {
                 publishStatus: 1
               }
             }).then((res) => {
-              this.$message.success("上线成功")
+              this.$message.success('上线成功')
               this.getActiveList()
             })
           })
@@ -391,11 +388,11 @@ export default {
       }
     },
     allDown () {
-      console.log("批量下线")
+      console.log('批量下线')
       if (this.chooseItem.length == 0) {
-        this.$message.error("请选择数据")
+        this.$message.error('请选择数据')
       } else {
-        let id = this.chooseItem.map((item) => {
+        const id = this.chooseItem.map((item) => {
           return item.id
         })
         console.log(id)
@@ -407,18 +404,18 @@ export default {
                 publishStatus: 0
               }
             }).then((res) => {
-              this.$message.success("批量下架成功")
+              this.$message.success('批量下架成功')
               this.getActiveList()
             })
           })
           .catch(_ => { });
       }
     },
-    //按时间排序
+    // 按时间排序
     sortTime () {
       this.isSortTime = !this.isSortTime
     },
-    //按点赞数排序
+    // 按点赞数排序
     sortNum () {
       this.isSortNum = !this.isSortNum
     }
@@ -597,4 +594,3 @@ export default {
   }
 }
 </style>
-

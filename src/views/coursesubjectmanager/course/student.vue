@@ -51,68 +51,68 @@
 </template>
 
 <script>
-  import { studentList, exportCourseStudents } from '../sever'
+import { studentList, exportCourseStudents } from '../sever'
 
-  export default {
-    name: "student-info",
-    props: ['studentId'],
-    data() {
-      return {
-        pageHeight: window.innerHeight - 100 + 'px',
-        activeName: 'first',
-        form: {
-          courseStatus: '0',
-          courseTitle: '',
-          courseId: '',
-          pageNum: 1,
-          pageSize: 10
-        },
-        currentPage: 1,
-        total: 0,
-        tableData: [],
-      };
+export default {
+  name: 'student-info',
+  props: ['studentId'],
+  data() {
+    return {
+      pageHeight: window.innerHeight - 100 + 'px',
+      activeName: 'first',
+      form: {
+        courseStatus: '0',
+        courseTitle: '',
+        courseId: '',
+        pageNum: 1,
+        pageSize: 10
+      },
+      currentPage: 1,
+      total: 0,
+      tableData: [],
+    };
+  },
+  mounted() {
+    this.form.courseId = this.$props.studentId;
+  },
+  methods: {
+    handleSelectionChange(val) {
+      this.ids = val.map(v => v.id);
     },
-    mounted(){
-      this.form.courseId = this.$props.studentId;
+    handleCurrentChange(val) {
+      this.form.pageNum = val;
+      this.onSearch();
     },
-    methods: {
-      handleSelectionChange(val){
-        this.ids = val.map(v => v.id);
-      },
-      handleCurrentChange(val){
-        this.form.pageNum = val;
-        this.onSearch();
-      },
-      handleSizeChange(val){
-        this.form.pageSize = val;
-        this.onSearch();
-      },
-      closeStudent(){
-        this.$emit('onClose')
-      },
-      onSearch(){
-        const obj = this.form;
-        studentList({...obj, keyword: obj.courseTitle }).then(res => {
-          if (res.resCode == 200) {
-            this.tableData = res.resObject.list || [];
-            this.total= res.resObject.total;
-          } else {
-            this.message(res.message, 'error');
-          }
-        })
-      },
-      exportData(){
-        const obj = this.form;
-        exportCourseStudents({ productId: obj.courseId, keyword: obj.courseTitle }).then(res => {
-          if (res.resCode == 200) {
-            this.message.success('导出成功');
-          } else {
-            this.message(res.message, 'error');
-          }
-        })
-      },
-    }
+    handleSizeChange(val) {
+      this.form.pageSize = val;
+      this.onSearch();
+    },
+    closeStudent() {
+      this.$emit('onClose')
+    },
+    onSearch() {
+      const obj = this.form;
+      studentList({ ...obj, keyword: obj.courseTitle }).then(res => {
+        if (res.resCode == 200) {
+          this.tableData = res.resObject.list || [];
+          this.total = res.resObject.total;
+        } else {
+          this.message(res.message, 'error');
+        }
+      })
+    },
+    exportData() {
+      const obj = this.form;
+      exportCourseStudents({ productId: obj.courseId, keyword: obj.courseTitle }).then(res => {
+        if (res.resCode == 200) {
+          this.message.success('导出成功');
+        } else {
+          this.message(res.message, 'error');
+        }
+      })
+    },
   }
+}
 </script>
 
 <style scoped>
@@ -156,7 +156,5 @@
     margin: 8px 0;
     margin-top: 16px;
   }
-
-
 
 </style>

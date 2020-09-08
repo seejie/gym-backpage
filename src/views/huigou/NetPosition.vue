@@ -99,9 +99,9 @@
   </section>
 </template>
 <script type='text/ecmascript-6'>
-import { AreaCascader } from "vue-area-linkage";
-import { pca, pcaa } from "area-data";
-import { getNetType, getNetList } from "./ticketManage/ticketService.js";
+import { AreaCascader } from 'vue-area-linkage';
+import { pca, pcaa } from 'area-data';
+import { getNetType, getNetList } from './ticketManage/ticketService.js';
 export default {
   components: {},
   props: [],
@@ -110,8 +110,8 @@ export default {
       netShow: false,
       addFrom: {
         provinceCity: [],
-        type: "",
-        name: ""
+        type: '',
+        name: ''
       },
       // types: [
       //   {
@@ -162,8 +162,8 @@ export default {
   //   this.getNetType()
   // },
   mounted () {
-    //this.getList();
-    //this.getNetType()
+    // this.getList();
+    // this.getNetType()
   },
   methods: {
     changeNetShow () {
@@ -180,15 +180,15 @@ export default {
       const result = await getNetType();
       return result;
     },
-    //搜索
+    // 搜索
     submit (formName) {
       this.$refs[formName].validate(valid => {
-        console.log("搜索", this[formName]);
+        console.log('搜索', this[formName]);
         if (valid) {
-          let params = {
+          const params = {
             ...this[formName]
           };
-          //this.getList();
+          // this.getList();
         } else {
           return false;
         }
@@ -200,25 +200,25 @@ export default {
       this.$refs[formName].resetFields();
       this.addFrom = {
         provinceCity: [],
-        type: "",
-        name: ""
+        type: '',
+        name: ''
       };
     },
-    //获取id
+    // 获取id
     getIds () {
       // const item = this.multipleSelection.map(item => {
       //   return item;
       // });
       const item = this.multipleSelection[0];
       if (this.multipleSelection.length > 1) {
-        this.$message("只能选择一个网点")
+        this.$message('只能选择一个网点')
         return true
       }
-      this.$emit("getIds", item);
-      this.onCancel("addFrom");
+      this.$emit('getIds', item);
+      this.onCancel('addFrom');
     },
     handleSelectionChange (val) {
-      console.log("表格多选", val);
+      console.log('表格多选', val);
       this.multipleSelection = val;
     },
     handleSizeChange (val) {

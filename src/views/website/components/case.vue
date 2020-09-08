@@ -87,13 +87,13 @@ export default {
   },
 
   mounted() {
-    let el = document.querySelectorAll('.case-list-table > .el-table__body-wrapper > table > tbody')[0];
+    const el = document.querySelectorAll('.case-list-table > .el-table__body-wrapper > table > tbody')[0];
     if (el) {
       sortable.create(el, {
         onEnd: evt => {
-          //监听拖动结束事件
-          console.log(evt.oldIndex); //当前行的被拖拽前的顺序
-          console.log(evt.newIndex); //当前行的被拖拽后的顺序
+          // 监听拖动结束事件
+          console.log(evt.oldIndex); // 当前行的被拖拽前的顺序
+          console.log(evt.newIndex); // 当前行的被拖拽后的顺序
           const currRow = this.caseSelection.splice(evt.oldIndex, 1)[0];
           this.caseSelection.splice(evt.newIndex, 0, currRow);
           this.caseSelection.map((func, index) => {
@@ -117,7 +117,7 @@ export default {
 
     addMenuClick() {
       this.isShowNewMenuDialog = true;
-      let checkList = [];
+      const checkList = [];
       this.caseSelection.forEach(case_id => {
         this.listData.forEach((item, index) => {
           if (item.id == case_id.id) {

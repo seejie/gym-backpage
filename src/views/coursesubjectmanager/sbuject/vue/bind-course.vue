@@ -110,116 +110,116 @@
 </template>
 
 <script>
-  import Pagination from '../../../../components/Pagination';
-  import { Message } from 'element-ui';
-  import deleteEmptyParams from '@/utils/deleteEmptyParams';
-  import { courseList } from '../../sever';
+import Pagination from '../../../../components/Pagination';
+import { Message } from 'element-ui';
+import deleteEmptyParams from '@/utils/deleteEmptyParams';
+import { courseList } from '../../sever';
 
-  export default {
-    props: {
-      //弹窗组件是否显示遮罩层
-      modal: {
-        type: Boolean,
-        default: true,
-      },
-      getId: {
-        type: Boolean,
-        default: true,
-      },
+export default {
+  props: {
+    // 弹窗组件是否显示遮罩层
+    modal: {
+      type: Boolean,
+      default: true,
     },
-    components: { Pagination },
-    data() {
-      return {
-        loading: false,
-        delFenzu: false,
-        editFenzu: false,
-        addFenzu: false,
-        //分页
-        totalCount: 0,
-        curPage: 1,
-        pageSizes: [10, 20, 30],
-        pageSize: 0,
-        getNewsData: [],
-        //查询
-        searchData: {
-          courseTitle: '',
-          unitName: null,
-        },
-        //移动
-        ids: [],
-        allIds: [],
-        checkAll: false,
-        isIndeterminate: false,
-        //
-        delModal: [],
+    getId: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  components: { Pagination },
+  data() {
+    return {
+      loading: false,
+      delFenzu: false,
+      editFenzu: false,
+      addFenzu: false,
+      // 分页
+      totalCount: 0,
+      curPage: 1,
+      pageSizes: [10, 20, 30],
+      pageSize: 0,
+      getNewsData: [],
+      // 查询
+      searchData: {
+        courseTitle: '',
+        unitName: null,
+      },
+      // 移动
+      ids: [],
+      allIds: [],
+      checkAll: false,
+      isIndeterminate: false,
+      //
+      delModal: [],
+    };
+  },
+  created() {
+    this.pageSize = this.pageSizes[2];
+    this.getNewsList();
+  },
+  methods: {
+    // 全选
+    handleCheckAllChange(val) {
+      this.ids = val ? this.allIds : [];
+      this.isIndeterminate = false;
+    },
+    handleCheckedCitiesChange(value) {
+      this.$emit('handleCheckedCitiesChange', value);
+      if (this.getId) {
+        this.ids = value;
+        this.isIndeterminate = this.ids.length > 0;
+      }
+    },
+    // 重置查询数据
+    initSearchData() {
+      this.searchData = {
+        courseTitle: '',
+        unitName: '',
       };
     },
-    created() {
-      this.pageSize = this.pageSizes[2];
+    // 分页
+    currentChange(val) {
+      this.curPage = val;
       this.getNewsList();
     },
-    methods: {
-      //全选
-      handleCheckAllChange(val) {
-        this.ids = val ? this.allIds : [];
-        this.isIndeterminate = false;
-      },
-      handleCheckedCitiesChange(value) {
-        this.$emit('handleCheckedCitiesChange', value);
-        if (this.getId) {
-          this.ids = value;
-          this.isIndeterminate = this.ids.length > 0;
-        }
-      },
-      //重置查询数据
-      initSearchData() {
-        this.searchData = {
-          courseTitle: '',
-          unitName: '',
-        };
-      },
-      //分页
-      currentChange(val) {
-        this.curPage = val;
-        this.getNewsList();
-      },
-      sizeChange(val) {
-        this.pageSize = val;
-        this.getNewsList();
-      },
-      //查询图文
-      getNewsList() {
-        let payload = {
-          courseTitle: this.searchData.courseTitle,
-          courseStatus: 1,
-          unitName: this.searchData.unitName,
-          pageNum: this.curPage,
-          pageSize: this.pageSize,
-        };
-        courseList(deleteEmptyParams(payload)).then(res => {
-            if (res.resCode == 200) {
-              this.totalCount = res.resObject.totalCount;
-              this.getNewsData = res.resObject.list;
-              for (let n in this.getNewsData) {
-                this.allIds.push(this.getNewsData[n].id);
-                this.delModal.push(false);
-                this.getNewsData[n].indexPic = this.getNewsData[n].indexPic.split(',')[0];
-                console.log(this.getNewsData[n].indexPic);
-              }
-            }
-          })
-          .catch(err => console.log(err));
-      },
-      //错误、成功提示
-      message(message, type) {
-        Message({
-          message: message,
-          type: type,
-          duration: 5 * 1000,
-        });
-      },
+    sizeChange(val) {
+      this.pageSize = val;
+      this.getNewsList();
     },
-  };
+    // 查询图文
+    getNewsList() {
+      const payload = {
+        courseTitle: this.searchData.courseTitle,
+        courseStatus: 1,
+        unitName: this.searchData.unitName,
+        pageNum: this.curPage,
+        pageSize: this.pageSize,
+      };
+      courseList(deleteEmptyParams(payload)).then(res => {
+        if (res.resCode == 200) {
+          this.totalCount = res.resObject.totalCount;
+          this.getNewsData = res.resObject.list;
+          for (const n in this.getNewsData) {
+            this.allIds.push(this.getNewsData[n].id);
+            this.delModal.push(false);
+            this.getNewsData[n].indexPic = this.getNewsData[n].indexPic.split(',')[0];
+            console.log(this.getNewsData[n].indexPic);
+          }
+        }
+      })
+        .catch(err => console.log(err));
+    },
+    // 错误、成功提示
+    message(message, type) {
+      Message({
+        message: message,
+        type: type,
+        duration: 5 * 1000,
+      });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

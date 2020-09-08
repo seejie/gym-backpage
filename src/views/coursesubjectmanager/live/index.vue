@@ -285,11 +285,11 @@ export default {
         courseTitle: '',
         courseStatus: '',
         unitName: '',
-        unitId:"",
+        unitId: '',
         // proCity: [],
         // areaId: '',
         date: [],
-        columnSort:"",
+        columnSort: '',
         // firstCategoryId: '',
         // secondCategoryId: '',
         pageNum: 1,
@@ -323,7 +323,7 @@ export default {
       unitListData: [], // 单位列表
     };
   },
-  created(){
+  created() {
     this.unitList();
   },
   mounted() {
@@ -331,7 +331,7 @@ export default {
     this.onSearch();
     // this.searchFirstMenu();
   },
-  components: { CheckConfig, PlugFlow ,banner},
+  components: { CheckConfig, PlugFlow, banner },
   methods: {
     handleTabClick() {},
     // searchFirstMenu(num) {
@@ -383,9 +383,9 @@ export default {
     //   this.form.areaId = '';
     // },
     onSearch() {
-      let that = this;
+      const that = this;
       // let param = assign({}, this.form, { provinceId: this.form.proCity[0], cityId: this.form.proCity[1] });
-      let param = dealTime(['beginReleaseTime', 'endReleaseTime'], this.form);
+      const param = dealTime(['beginReleaseTime', 'endReleaseTime'], this.form);
       console.log('param: ', param);
       liveList(param).then(res => {
         if (res.resCode == 200) {
@@ -401,7 +401,7 @@ export default {
         courseTitle: '',
         courseStatus: '',
         unitName: '',
-        unitId:"",
+        unitId: '',
         // proCity: [],
         // areaId: '',
         date: [],
@@ -419,7 +419,7 @@ export default {
       this.$router.push(`/coursesubjectmanager/comment-details/${obj.id}`);
     },
     batchOnline(obj, flag) {
-      let that = this;
+      const that = this;
       const a = this.multipleTable.map(v => v.id);
       const courseId = !flag ? a : [obj.id];
       checkLive({
@@ -435,7 +435,7 @@ export default {
       });
     },
     batchOffline(obj, flag) {
-      let that = this;
+      const that = this;
       const a = this.multipleTable.map(v => v.id);
       const courseId = flag ? [obj.id] : a;
       checkLive({
@@ -462,7 +462,7 @@ export default {
       });
     },
     deleteCourse() {
-      let that = this;
+      const that = this;
       deleteLive({ ids: this.multipleTable.map(v => v.id) }).then(res => {
         if (res.resCode == 200) {
           that.$message.success('批量删除成功');
@@ -478,11 +478,11 @@ export default {
       setTimeout(() => {
         if (that.player) that.player.destroy();
         that.player = new TcPlayer('id_test_video', {
-          m3u8: obj.liveUrl || 'http://live.pulishanpin.com/live/jdm.m3u8', //请替换成实际可用的播放地址
-          autoplay: true, //iOS 下 safari 浏览器，以及大部分移动端浏览器是不开放视频自动播放这个能力的
+          m3u8: obj.liveUrl || 'http://live.pulishanpin.com/live/jdm.m3u8', // 请替换成实际可用的播放地址
+          autoplay: true, // iOS 下 safari 浏览器，以及大部分移动端浏览器是不开放视频自动播放这个能力的
           poster: 'http://www.test.com/myimage.jpg',
-          width: '400', //视频的显示宽度，请尽量使用视频分辨率宽度
-          height: '300', //视频的显示高度，请尽量使用视频分辨率高度
+          width: '400', // 视频的显示宽度，请尽量使用视频分辨率宽度
+          height: '300', // 视频的显示高度，请尽量使用视频分辨率高度
         });
       }, 1000);
     },
@@ -541,7 +541,7 @@ export default {
       this.showPlugFlow = true;
       this.liveUrl = obj.liveUrl;
     },
-    //获取单位
+    // 获取单位
     unitList() {
       listSelfAndChildren().then(res => {
         if (res.resCode == 200) {

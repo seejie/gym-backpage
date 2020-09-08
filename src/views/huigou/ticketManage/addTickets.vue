@@ -156,7 +156,7 @@ export default {
           options: [
             { label: '无条件退款', value: 1 },
             { label: '不支持退款', value: 2 },
-   
+
           ],
         },
         { label: '', placeholder: '请填写退款规则', type: 'textArea', prop: 'refundRules' },

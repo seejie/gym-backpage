@@ -235,11 +235,11 @@ export default {
         ratio: 1.89,
         desc: ''
       }],
-      trainingType:1,
+      trainingType: 1,
       active: 'first',
       tandata: {
         isshow: false,
-        type:1
+        type: 1
       }
     }
   },
@@ -362,7 +362,7 @@ export default {
     onChangeShow(show) {
       this.isShowPreviewDialog = show
     },
-    handleStudentSelectionChange(val){
+    handleStudentSelectionChange(val) {
       if (val.length > 0) {
         for (var i = 0; i < val.length; i++) {
           this.data.ids.push(val[i].trainingRecordId)
@@ -372,14 +372,13 @@ export default {
     handleClick(tab, event) {
       this.trainingType = tab.name == 'first' ? 1 : 0;
     },
-    showdata(type){
+    showdata(type) {
       this.tandata.isshow = true;
       this.tandata.type = type;
-
     },
-    commit(curlink,id){
+    commit(curlink, id) {
       this.tandata.isshow = false;
-      if(curlink!=null) {
+      if (curlink != null) {
         switch (this.tandata.type) {
           case 1:
             this.form.qaLinkUrl = curlink + '/customcourse/coursequestionaire/' + id;

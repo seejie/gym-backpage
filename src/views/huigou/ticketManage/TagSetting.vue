@@ -218,7 +218,6 @@ export default {
         }).catch(action => {
           console.log('取消')
         })
-
       }
     },
     getLabelList (keyWord = this.lableFrom.input) {

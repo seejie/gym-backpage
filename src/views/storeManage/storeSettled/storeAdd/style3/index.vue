@@ -649,7 +649,7 @@ export default {
     getSetsData() {
       // 277
       this.$ajax
-        .get(`/storemanager/map-setting/get?unitId=4&channelType=11`)
+        .get('/storemanager/map-setting/get?unitId=4&channelType=11')
         .then(res => {
           if (res.resObject && res.resCode === 200) {
             this.showEntrust = res.resObject.isOpenEntrustSell || 0;
@@ -824,10 +824,10 @@ export default {
       // 用所定位的经纬度查找所在地省市街道等信息
       var point = new BMap.Point(e.point.lng, e.point.lat);
       var gc = new BMap.Geocoder();
-      let that = this;
+      const that = this;
       gc.getLocation(point, function (rs) {
         var addComp = rs.addressComponents;
-        //console.log(rs.address);//地址信息
+        // console.log(rs.address);//地址信息
         that.getmap.locData.address = rs.address;
         that.getmap.key = rs.address;
       });
@@ -885,7 +885,7 @@ export default {
           const licenseImage = [];
           const storeAlbum = [];
           let video = '';
-          let indexPic = [];
+          const indexPic = [];
           siteCert[0] = {
             desc: '',
             key: '',

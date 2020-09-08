@@ -149,7 +149,7 @@ export default {
           .post('/back/interaction/getVoteInfo', { id: this.id })
           .then(res => {
             if (res.resCode == 200) {
-              //{name:'',summary:'',intro:'',imgs:{},provinceid:'',cityid:'',areaid:'',address:'',zhubanname:'',chenbanname:'',keys:[{id:'',title:'',type:0,pic:''}],onTime:'',limit:'',publishTime:'',position:0,radio:1,checkradio:1},
+              // {name:'',summary:'',intro:'',imgs:{},provinceid:'',cityid:'',areaid:'',address:'',zhubanname:'',chenbanname:'',keys:[{id:'',title:'',type:0,pic:''}],onTime:'',limit:'',publishTime:'',position:0,radio:1,checkradio:1},
               var data = res.resultList.info;
               var datalist = res.resultList.signUpList;
               this.form.name = data.title;
@@ -217,7 +217,7 @@ export default {
           .then(res => {
             if (res.resCode == 200) {
               this.message('提交成功', 'success');
-              //this.back();
+              // this.back();
             } else {
               this.message('提交失败', 'error');
             }
@@ -227,17 +227,17 @@ export default {
     },
 
     addkey() {
-      //添加关键字
+      // 添加关键字
       this.form.keys.push({ id: '', title: '', type: 0, pic: '' });
     },
     removekey(index) {
-      //移除某一行
+      // 移除某一行
       this.form.keys.splice(index, 1);
     },
     back() {
       this.$router.go(-1);
     },
-    //错误、成功提示
+    // 错误、成功提示
     message(message, type) {
       this.$message({
         message: message,

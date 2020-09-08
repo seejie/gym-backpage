@@ -34,7 +34,7 @@
                 </el-col>
                 <el-col :span="7">
                     <div class="grid-content bg-purple">
-            
+
                         <div>订单编号：{{detailObj.code}}</div>
                         <div>微信单号：{{detailObj.weixinOrderCode}}</div>
                         <div>退款金额：{{detailObj.refundedMoney}}</div>
@@ -74,12 +74,12 @@
 </template>
 <script>
 export default {
-  //props: ["showDetail", "detailObj"],
-  props: ["detailObj"],
+  // props: ["showDetail", "detailObj"],
+  props: ['detailObj'],
   data() {
     return {
       showDetail: false
-      //showDetail: true,
+      // showDetail: true,
       //   detailObj: {
       //     userName: "",
       //     cardNo: "",
@@ -114,5 +114,3 @@ export default {
   },
 };
 </script>
-
-      

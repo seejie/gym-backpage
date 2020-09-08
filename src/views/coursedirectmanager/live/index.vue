@@ -16,23 +16,23 @@
 </template>
 
 <script>
-  import banner from './banner';
-  import list from './list';
+import banner from './banner';
+import list from './list';
 
-  export default {
-    name: "",
-    data() {
-      return {
-        activeName: 'first',
-      };
+export default {
+  name: '',
+  data() {
+    return {
+      activeName: 'first',
+    };
+  },
+  components: { banner, list },
+  methods: {
+    handleClick(tab, event) {
+      console.log(tab, event);
     },
-    components: {banner, list },
-    methods: {
-      handleClick(tab, event) {
-        console.log(tab, event);
-      },
-    }
   }
+}
 </script>
 
 <style scoped>

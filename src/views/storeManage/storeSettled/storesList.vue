@@ -197,7 +197,7 @@
             >置顶</el-button>
             <el-button type="text" v-else @click="storeSetTop(1,scope.row)">取消置顶</el-button>
             <el-button type="text" size="small" @click="editClick(scope.row)">编辑</el-button>
-            
+
             <el-button
               type="text"
               v-if="scope.row.unitStatus==2 && [2].includes(scope.row.claimStatus)"
@@ -289,7 +289,7 @@ export default {
     getSetsData() {
       // 277
       this.$ajax
-        .get(`/storemanager/map-setting/get?unitId=4&channelType=11`)
+        .get('/storemanager/map-setting/get?unitId=4&channelType=11')
         .then(res => {
           if (res.resObject && res.resCode === 200) {
             this.showEntrust = res.resObject.isOpenEntrustSell || 0;
@@ -420,7 +420,7 @@ export default {
     // 编辑
     editClick(scope) {
       this.$router.push({
-        name: `storeadd`,
+        name: 'storeadd',
         query: {
           id: scope.id,
         },
@@ -696,6 +696,3 @@ export default {
   }
 }
 </style>
-
-
-

@@ -125,109 +125,125 @@
 </template>
 
 <script>
-  import { Message } from 'element-ui'
-  import Pagination from '../../../components/Pagination'
-  import { packages } from '@/api/customCourse/customCourse'
-  export default {
-    name: 'networkManage',
-    components: {
-      Pagination,
+import { Message } from 'element-ui'
+import Pagination from '../../../components/Pagination'
+import { packages } from '@/api/customCourse/customCourse'
+export default {
+  name: 'networkManage',
+  components: {
+    Pagination,
+  },
+  data() {
+    return {
+      active: 'first',
+      searchData: {
+        title: '',
+        courseStatus: '',
+        courseSort: '',
+        unitName: '',
+        beginReleaseTime: '',
+        endReleaseTime: '',
+        type: '',
+        searchdate: [],
+      },
+      // 分页
+      totalCount: 0,
+      curPage: 1,
+      pageSizes: [10, 20, 30],
+      pageSize: 0,
+      //
+      list: [],
+      // 全选
+      ids: [],
+      cateData: { first: [], sencond: [] },
+      isshowsearch: true,
+    }
+  },
+  created() {
+    this.pageSize = this.pageSizes[0]
+    this.load()
+  },
+  methods: {
+    // 获取表格数据
+    load() {
+      if (this.searchData.searchdate.length > 1) {
+        this.searchData.beginReleaseTime = this.searchData.searchdate[0] || ''
+        this.searchData.endReleaseTime = this.searchData.searchdate[1] || ''
+      }
+      var params = {
+        title: this.searchData.title,
+        pageNum: this.curPage,
+        pageSize: this.pageSize,
+        status: this.searchData.courseStatus,
+        columnSort: this.searchData.courseSort,
+        unitName: this.searchData.unitName,
+        beginReleaseTime: this.searchData.beginReleaseTime,
+        endReleaseTime: this.searchData.endReleaseTime,
+      }
+      packages.load(params).then(res => {
+        if (res.resCode == 200) {
+          this.totalCount = res.resObject.totalCount
+          this.list = res.resObject.list
+          console.log(this.list)
+        } else {
+          this.message(res.message, 'error')
+        }
+      })
+        .catch(err => console.log(err))
     },
-    data() {
-      return {
-        active: 'first',
-        searchData: {
-          title: '',
-          courseStatus: '',
-          courseSort: '',
-          unitName: '',
-          beginReleaseTime: '',
-          endReleaseTime: '',
-          type: '',
-          searchdate: [],
-        },
-        // 分页
-        totalCount: 0,
-        curPage: 1,
-        pageSizes: [10, 20, 30],
-        pageSize: 0,
-        //
-        list: [],
-        // 全选
-        ids: [],
-        cateData: { first: [], sencond: [] },
-        isshowsearch: true,
+    reset() {
+      this.searchData = {
+        title: '',
+        courseStatus: '',
+        courseSort: '',
+        unitName: '',
+        beginReleaseTime: '',
+        endReleaseTime: '',
+        type: '',
+        searchdate: [],
       }
     },
-    created() {
-      this.pageSize = this.pageSizes[0]
+    showsearch() {
+      this.isshowsearch = !this.isshowsearch
+    },
+    // 分页
+    currentChange(val) {
+      this.curPage = val
       this.load()
     },
-    methods: {
-      // 获取表格数据
-      load() {
-        if (this.searchData.searchdate.length > 1) {
-          this.searchData.beginReleaseTime=this.searchData.searchdate[0] || ''
-          this.searchData.endReleaseTime=this.searchData.searchdate[1] || ''
-        }
-        var params = {
-          title: this.searchData.title,
-          pageNum: this.curPage,
-          pageSize: this.pageSize,
-          status: this.searchData.courseStatus,
-          columnSort: this.searchData.courseSort,
-          unitName: this.searchData.unitName,
-          beginReleaseTime: this.searchData.beginReleaseTime,
-          endReleaseTime: this.searchData.endReleaseTime,
-        }
-        packages.load(params).then(res => {
+    sizeChange(val) {
+      this.pageSize = val
+      this.load()
+    },
+    // 全选
+    selectionchange(val) {
+      this.ids = []
+      for (var i = 0; i < val.length; i++) {
+        this.ids.push(val[i].id)
+      }
+    },
+
+    // 上下线 上3 下4
+    togglePublish(id, status) {
+      var ids = []
+      ids.push(id)
+      packages.approveCustomCoursePackage({ courseId: ids, status: status })
+        .then(res => {
           if (res.resCode == 200) {
-            this.totalCount = res.resObject.totalCount
-            this.list = res.resObject.list
-            console.log(this.list)
+            this.load()
+            this.message('成功', 'success')
           } else {
             this.message(res.message, 'error')
           }
         })
-          .catch(err => console.log(err))
-      },
-      reset() {
-        this.searchData = {
-          title: '',
-          courseStatus: '',
-          courseSort: '',
-          unitName: '',
-          beginReleaseTime: '',
-          endReleaseTime: '',
-          type: '',
-          searchdate: [],
-        }
-      },
-      showsearch() {
-        this.isshowsearch = !this.isshowsearch
-      },
-      // 分页
-      currentChange(val) {
-        this.curPage = val
-        this.load()
-      },
-      sizeChange(val) {
-        this.pageSize = val
-        this.load()
-      },
-      // 全选
-      selectionchange(val) {
-        this.ids = []
-        for (var i = 0; i < val.length; i++) {
-          this.ids.push(val[i].id)
-        }
-      },
-
-      // 上下线 上3 下4
-      togglePublish(id, status) {
-        var ids = []
-        ids.push(id)
-        packages.approveCustomCoursePackage({ courseId: ids, status: status })
+        .catch(err => console.log(err))
+    },
+    // 批量删除
+    batchDel() {
+      if (this.ids.length == 0) {
+        this.message('请选择需要操作的列', 'error')
+      } else {
+        packages.deletePackage({ ids: this.ids })
           .then(res => {
             if (res.resCode == 200) {
               this.load()
@@ -237,64 +253,48 @@
             }
           })
           .catch(err => console.log(err))
-      },
-      // 批量删除
-      batchDel() {
-        if (this.ids.length == 0) {
-          this.message('请选择需要操作的列', 'error')
-        } else {
-          packages.deletePackage({ ids: this.ids })
-            .then(res => {
-              if (res.resCode == 200) {
-                this.load()
-                this.message('成功', 'success')
-              } else {
-                this.message(res.message, 'error')
-              }
-            })
-            .catch(err => console.log(err))
-        }
-      },
-      // 批量上下线  1 草稿（预览） 2未发布 3已发布 4已下线
-      batchPublish(status) {
-        if (this.ids.length == 0) {
-          this.message('请选择需要操作的列', 'error')
-        } else {
-          packages.approveCustomCoursePackage({ courseId: this.ids, status: status })
-            .then(res => {
-              if (res.resCode == 200) {
-                this.load()
-                this.message('成功', 'success')
-              } else {
-                this.message(res.message, 'error')
-              }
-            })
-            .catch(err => console.log(err))
-        }
-      },
-      deletePackage(id) {
-        var ids = [];
-        ids.push(id);
-        packages.deletePackage({ids: id})
-          .then(res => {
-            if (res.resCode == 200) {
-              this.load()
-              this.message('成功', 'success')
-            } else {
-              this.message(res.message, 'error')
-            }
-          })
-          .catch(err => console.log(err))
-      },
-      // 错误、成功提示
-      message(message, type) {
-        Message({
-          message: message,
-          type: type
-        })
       }
+    },
+    // 批量上下线  1 草稿（预览） 2未发布 3已发布 4已下线
+    batchPublish(status) {
+      if (this.ids.length == 0) {
+        this.message('请选择需要操作的列', 'error')
+      } else {
+        packages.approveCustomCoursePackage({ courseId: this.ids, status: status })
+          .then(res => {
+            if (res.resCode == 200) {
+              this.load()
+              this.message('成功', 'success')
+            } else {
+              this.message(res.message, 'error')
+            }
+          })
+          .catch(err => console.log(err))
+      }
+    },
+    deletePackage(id) {
+      var ids = [];
+      ids.push(id);
+      packages.deletePackage({ ids: id })
+        .then(res => {
+          if (res.resCode == 200) {
+            this.load()
+            this.message('成功', 'success')
+          } else {
+            this.message(res.message, 'error')
+          }
+        })
+        .catch(err => console.log(err))
+    },
+    // 错误、成功提示
+    message(message, type) {
+      Message({
+        message: message,
+        type: type
+      })
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -163,13 +163,13 @@ export default {
         },
       ],
       lableFrom: {
-        input: ''//搜索条件
+        input: ''// 搜索条件
       },
       editFrom: {
-        supplyCompany: '',//闸机商
-        codeName: '',//添加标签名称
-        account: '',//账号
-        companyCode: '',//企业码
+        supplyCompany: '', // 闸机商
+        codeName: '', // 添加标签名称
+        account: '', // 账号
+        companyCode: '', // 企业码
         codeId: ''
       },
       rules: {
@@ -188,13 +188,13 @@ export default {
         ],
       },
       addForm: {
-        supplyCompany: '',//闸机商
-        codeName: '',//添加标签名称
-        account: '',//账号
-        companyCode: ''//企业码
+        supplyCompany: '', // 闸机商
+        codeName: '', // 添加标签名称
+        account: '', // 账号
+        companyCode: ''// 企业码
       },
-      addShow: false,//添加标签
-      editShow: false,//编辑标签
+      addShow: false, // 添加标签
+      editShow: false, // 编辑标签
       chooseItem: []
     }
   },
@@ -209,15 +209,14 @@ export default {
       // console.log(row)
       this.editFrom = Object.assign({}, {
         supplyCompany: row.supplyCompany,
-        codeName: row.codeName,//
+        codeName: row.codeName, //
         account: row.account,
         companyCode: row.companyCode,
         codeId: row.codeId
       })
       this.editShow = true
-
     },
-    //添加数据
+    // 添加数据
     add () {
       this.addForm = {
         supplyCompany: '',
@@ -226,9 +225,8 @@ export default {
         companyCode: ''
       }
       this.addShow = true
-
     },
-    //添加确定
+    // 添加确定
     confirmAdd () {
       console.log(this.addForm)
       http.addBrand({
@@ -241,7 +239,7 @@ export default {
       }).then((res) => {
         if (res.resCode === 200) {
           this.addShow = false
-          this.$message.success("添加成功")
+          this.$message.success('添加成功')
           this.getTabelList()
         } else {
           this.$message.error(res.resultDesc)
@@ -251,11 +249,11 @@ export default {
         this.$message.error('添加失败')
       })
     },
-    //编辑确定
+    // 编辑确定
     confirmEdit () {
       this.editRow(this.editFrom)
     },
-    //单行删除数据
+    // 单行删除数据
     del (row) {
       this.$confirm('确定删除该数据？', '删除信息', {
         distinguishCancelAndClose: true,
@@ -267,25 +265,25 @@ export default {
         console.log('取消')
       });
     },
-    //单行删除数据 走后台接口
+    // 单行删除数据 走后台接口
     delRow (id) {
       http.deletLabel({
         idsArr: id
       }).then((res) => {
         if (res.resCode === 200) {
-          this.$message.success("删除成功")
+          this.$message.success('删除成功')
           this.getTabelList()
         } else {
-          this.$message.error("删除失败")
+          this.$message.error('删除失败')
         }
       }).catch((err) => {
         console.log(err)
       })
     },
-    //多选删除
+    // 多选删除
     delRows () {
       if (this.chooseItem.length === 0) {
-        this.$message.error("请选择要删除的数据")
+        this.$message.error('请选择要删除的数据')
       } else {
         this.$confirm('确定删除该数据？', '删除信息', {
           distinguishCancelAndClose: true,
@@ -296,16 +294,15 @@ export default {
             idsArr: this.chooseItem.map(item => item.codeId).join(',')
           }).then((res) => {
             if (res.resCode === 200) {
-              this.$message.success("删除成功")
+              this.$message.success('删除成功')
               this.getTabelList()
             } else {
-              this.$message.error("删除失败")
+              this.$message.error('删除失败')
             }
           })
         }).catch(action => {
           console.log('取消')
         });
-
       }
     },
     getTabelList (keyWord = this.lableFrom.input) {
@@ -317,20 +314,20 @@ export default {
         console.log(err)
       })
     },
-    //搜索
+    // 搜索
     search () {
       this.getTabelList()
     },
-    //编辑标签
+    // 编辑标签
     editRow (data) {
       // this.$ajax.post('/huigou/active/tag/updatetag', data)
       http.editLabel(data).then((res) => {
         if (res.resCode === 200) {
-          this.$message.success("修改成功")
+          this.$message.success('修改成功')
           this.editShow = false
           this.getTabelList()
         } else {
-          this.$message.error("修改失败")
+          this.$message.error('修改失败')
         }
       }).catch((err) => {
         console.log(err)

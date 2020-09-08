@@ -265,7 +265,7 @@ export default {
       showVideo: false,
       showVoice: false,
       showDocument: false,
-      //子组件的遮罩层显示
+      // 子组件的遮罩层显示
       showModal: false,
       chapterAble: false,
       form: {
@@ -280,7 +280,7 @@ export default {
         defaultAmount: '',
         courseReleaseType: 1,
         courseStatus: 0,
-        courseMaterialsList:[]
+        courseMaterialsList: []
       },
       imgs: {
         'ratio1.53': [],
@@ -336,9 +336,9 @@ export default {
     ImageText,
     documentMaterial
   },
-  filters:{
-    filterMaterialsCoverUrl: function(val){
-      return val?val.split(',')[0]:''
+  filters: {
+    filterMaterialsCoverUrl: function(val) {
+      return val ? val.split(',')[0] : ''
     }
   },
   mounted() {
@@ -357,13 +357,13 @@ export default {
           this.imgs['ratio1.53'] = [resObject.indexPic.split(',')[0]];
           this.imgs['ratio1.89'] = [resObject.banner.split(',')[0]];
           this.materialList = resObject.courseMaterialsList || [];
-          if(this.materialList.length) {
-            this.materialList = this.materialList.sort(function (prev,next) {
+          if (this.materialList.length) {
+            this.materialList = this.materialList.sort(function (prev, next) {
               return prev.orderIndex - next.orderIndex
             })
           }
           this.oldMaterialList = [...(resObject.courseMaterialsList || [])];
-          if((resObject.courseLecturerList || []).length>0){
+          if ((resObject.courseLecturerList || []).length > 0) {
             that.courseLecturerList = (resObject.courseLecturerList || []).map(v =>
               assign(v, { avatarUrl: { pic: [v.avatarUrl] } })
             );
@@ -403,11 +403,11 @@ export default {
     addCourseInfo() {
       const that = this;
       const courseLecturerList = this.courseLecturerList.map(v =>
-        assign({},v, {
+        assign({}, v, {
           avatarUrl: that.getPicUrl(v.avatarUrl) || ' ',
         })
       );
-      this.form.courseMaterialsList = this.materialList.map((item,index)=>{
+      this.form.courseMaterialsList = this.materialList.map((item, index) => {
         item.orderIndex = index;
         return item
       });
@@ -464,11 +464,11 @@ export default {
     editCourseInfo() {
       const that = this;
       const courseLecturerList = this.courseLecturerList.map(v =>
-        assign({},v, {
+        assign({}, v, {
           avatarUrl: that.getPicUrl(v.avatarUrl),
         })
       );
-      this.form.courseMaterialsList = this.materialList.map((item,index)=>{
+      this.form.courseMaterialsList = this.materialList.map((item, index) => {
         item.orderIndex = index;
         return item
       });
@@ -527,7 +527,7 @@ export default {
           return true;
         });
 
-       arr.map(item=>{
+      arr.map(item => {
         item.materialsCoverUrl = item.indexPic || item.imagePath;
         item.materialsTitle = item.title;
         item.courseId = this.form.id;
@@ -550,8 +550,10 @@ export default {
       if (key === 1) this.showImgText = true;
       if (key === 2) this.showVideo = true;
       if (key === 3) this.showVoice = true;
-      if (key === 4) this.showDocument =
+      if (key === 4) {
+        this.showDocument =
       this.concatCouse = { isEdit: true, index: i, type: key, selectCache: [] };
+      }
     },
     delCourseList(i) {
       const { materialList } = this;
@@ -589,7 +591,7 @@ export default {
       }
     },
 
-    //子组件方法 选中的素材
+    // 子组件方法 选中的素材
     handleCheckedCitiesChange(val) {
       console.log(val);
       this.concatCouse.selectCache = val.filter(v => typeof v !== 'number');
@@ -600,7 +602,7 @@ export default {
       if (key === 1) this.showImgText = true;
       if (key === 2) this.showVideo = true;
       if (key === 3) this.showVoice = true;
-      if(key === 4) this.showDocument = true;
+      if (key === 4) this.showDocument = true;
       this.concatCouse = {
         isEdit: false,
         index: 0,
@@ -609,7 +611,7 @@ export default {
       };
       this.chapterName = '';
     },
-    onCancel(){
+    onCancel() {
       this.$router.back(-1);
     }
   },

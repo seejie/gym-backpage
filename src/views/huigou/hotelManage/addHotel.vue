@@ -165,9 +165,13 @@ export default {
         { label: '设施', placeholder: '', type: 'checkbox', prop: 'facIds', options: [] },
         // { label: '使用须知', placeholder: '请填写使用须知,1-200字', type: 'textArea', prop: 'note', max: 200 },
         { label: '装修时间', placeholder: '', type: 'date', prop: 'decorateTime' },
-        { label: '退款规则', placeholder: '', type: 'radio', prop: 'refundRulesType', 
-           options: [{ label: '支持退款', value: 1 }, 
-                     { label: '不支持退款', value: 2 }] 
+        {
+          label: '退款规则',
+          placeholder: '',
+          type: 'radio',
+          prop: 'refundRulesType',
+          options: [{ label: '支持退款', value: 1 },
+            { label: '不支持退款', value: 2 }]
         },
         { label: '', placeholder: '请填写退款规则', type: 'textArea', prop: 'refundRules' },
         { label: '商品状态', placeholder: '', type: 'radio', prop: 'publishStatus', options: [{ label: '下架', value: 0 }, { label: '立即发布', value: 1 }] },

@@ -9,8 +9,8 @@ const settings = {
   // baseUrl: 'http://saas.jsqiaotuo.com/xqn', //侨拓社群营销平台
   // baseUrl: 'http://jiangluhui.jsqiaotuo.com/xqn', //江陆惠测足电商平台
 
-  //这个压缩不收费，是在本地压缩的  不是调的七牛云api 不走流量。 是调用的js-sdk 。尺寸就是 宽*高 /1024  (kb)。 比如宽高都是1024 就是1M
-  uploadpicMaxSize: 5, //上传最大图片限制单位M
+  // 这个压缩不收费，是在本地压缩的  不是调的七牛云api 不走流量。 是调用的js-sdk 。尺寸就是 宽*高 /1024  (kb)。 比如宽高都是1024 就是1M
+  uploadpicMaxSize: 5, // 上传最大图片限制单位M
   zipPicMaxWith: 500,
   zipPicMaxHeight: 500,
 

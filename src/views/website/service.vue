@@ -185,7 +185,7 @@ export default {
     },
 
     handleBatchUp() {
-      let paylaod = {
+      const paylaod = {
         ids: this.ids.join(','),
       };
       Api.batchUp(paylaod).then(res => {
@@ -202,7 +202,7 @@ export default {
     },
 
     handleBatchDown() {
-      let paylaod = {
+      const paylaod = {
         ids: this.ids.join(','),
       };
       Api.batchDown(paylaod).then(res => {
@@ -214,7 +214,7 @@ export default {
     },
 
     handleBatchDelete() {
-      let paylaod = {
+      const paylaod = {
         ids: this.ids.join(','),
       };
       Api.batchDelete(paylaod).then(res => {
@@ -226,7 +226,7 @@ export default {
     },
 
     handleSingleDelete(row) {
-      let paylaod = {
+      const paylaod = {
         id: row.id,
       };
       Api.delete(paylaod).then(res => {
@@ -237,7 +237,7 @@ export default {
       });
     },
 
-    //分页
+    // 分页
     currentChange(val) {
       this.searchData.pageNum = val;
       this.loadListData();
@@ -248,7 +248,7 @@ export default {
       this.loadListData();
     },
 
-    //全选
+    // 全选
     selectionchange(val) {
       this.ids = [];
       for (var i = 0; i < val.length; i++) {
@@ -266,7 +266,7 @@ export default {
       this.searchTime = '';
     },
 
-    //错误、成功提示
+    // 错误、成功提示
     message(message, type) {
       Message({
         message: message,

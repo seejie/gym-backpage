@@ -22,7 +22,7 @@ import StoreType from './storeType.vue';
 export default {
   data () {
     return {
-      activeName: "active"
+      activeName: 'active'
     };
   },
   components: {

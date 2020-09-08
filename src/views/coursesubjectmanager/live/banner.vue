@@ -64,19 +64,19 @@ export default {
       ],
     };
   },
-  created(){
+  created() {
     this.getList();
   },
-  watch:{},
+  watch: {},
   methods: {
-    getList(){
+    getList() {
       getLiveCourseBannerList({
-        channelType:9
-      }).then(res=>{
+        channelType: 9
+      }).then(res => {
         if (res.resCode == 200) {
-          res.resObject.map(item=>{
-            if(item.bannerUrl){
-              let banner = item.bannerUrl.split(',')
+          res.resObject.map(item => {
+            if (item.bannerUrl) {
+              const banner = item.bannerUrl.split(',')
               item.banner = {
                 ratio1: banner
               }
@@ -88,17 +88,17 @@ export default {
         }
       })
     },
-    handleStatus(row){
+    handleStatus(row) {
       this.submit(row)
     },
     submit(row) {
       row.bannerUrl = row.banner.ratio1.join(',');
       setLiveCourseBanner({
         ...row,
-        channelType:9
+        channelType: 9
       }).then(res => {
         if (res.resCode == 200) {
-          this.$message.success("保存成功！");
+          this.$message.success('保存成功！');
         } else {
           this.$message(res.message, 'error');
         }

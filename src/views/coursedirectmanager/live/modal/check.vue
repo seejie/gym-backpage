@@ -26,36 +26,36 @@
 </template>
 
 <script>
-  export default {
-    name: "live-check-box",
-    data() {
-      return {
-        radio: '0'
-      };
+export default {
+  name: 'live-check-box',
+  data() {
+    return {
+      radio: '0'
+    };
+  },
+  created() {
+    console.log(this.props);
+  },
+  methods: {
+    handleSelectionChange(val) {
+      this.ids = val.map(v => v.id);
     },
-    created(){
-      console.log(this.props);
+    handleCurrentChange(val) {
+      this.form.pageNum = val;
+      this.onSearch();
     },
-    methods: {
-      handleSelectionChange(val){
-        this.ids = val.map(v => v.id);
-      },
-      handleCurrentChange(val){
-        this.form.pageNum = val;
-        this.onSearch();
-      },
-      handleSizeChange(val){
-        this.form.pageSize = val;
-        this.onSearch();
-      },
-      closeStudent(){
-        this.$emit('onClose')
-      },
-      check(){
-        this.$emit('check')
-      },
-    }
+    handleSizeChange(val) {
+      this.form.pageSize = val;
+      this.onSearch();
+    },
+    closeStudent() {
+      this.$emit('onClose')
+    },
+    check() {
+      this.$emit('check')
+    },
   }
+}
 </script>
 
 <style scoped>
@@ -98,7 +98,5 @@
     padding: 0 16px;
     margin: 8px 0;
   }
-
-
 
 </style>

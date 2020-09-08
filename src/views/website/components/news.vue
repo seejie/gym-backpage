@@ -189,8 +189,8 @@ export default {
     addMenuClick() {
       this.isShowNewMenuDialog = true;
 
-      let checkList1 = [];
-      let checkList2 = [];
+      const checkList1 = [];
+      const checkList2 = [];
       this.newsSelection1.forEach(case_id => {
         this.newsData.forEach((item, index) => {
           if (item.id == case_id.id) {

@@ -16,28 +16,28 @@
 </template>
 
 <script>
-  import Comment from './common';
+import Comment from './common';
 
-  export default {
-    name: "",
-    data() {
-      return {
-        showSearch: true,
-        showStudent: false,
-        activeName: 'all'
-      };
+export default {
+  name: '',
+  data() {
+    return {
+      showSearch: true,
+      showStudent: false,
+      activeName: 'all'
+    };
+  },
+  components: { Comment },
+  methods: {
+    handleClick(event) {
+      this.activeName = event.name;
     },
-    components: { Comment },
-    methods: {
-      handleClick(event) {
-        this.activeName = event.name;
-      },
-      showThis(key){
-        if (this.activeName === key) return true;
-        return false
-      }
+    showThis(key) {
+      if (this.activeName === key) return true;
+      return false
     }
   }
+}
 </script>
 <style scoped>
   .activeManage {

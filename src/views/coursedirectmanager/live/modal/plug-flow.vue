@@ -23,22 +23,22 @@
 </template>
 
 <script>
-  export default {
-    name: "live-plug-flow-box",
-    props:['address'],
-    data() {
-      return {};
+export default {
+  name: 'live-plug-flow-box',
+  props: ['address'],
+  data() {
+    return {};
+  },
+  methods: {
+    closeStudent() {
+      this.$emit('onClose')
     },
-    methods: {
-      closeStudent(){
-        this.$emit('onClose')
-      },
-      copyStr(){
-        window.clipboardData.setData("Text",this.address);
-        that.$message.success('复制成功');
-      },
-    }
+    copyStr() {
+      window.clipboardData.setData('Text', this.address);
+      that.$message.success('复制成功');
+    },
   }
+}
 </script>
 
 <style scoped>
@@ -81,7 +81,5 @@
     padding: 0 16px;
     margin: 8px 0;
   }
-
-
 
 </style>

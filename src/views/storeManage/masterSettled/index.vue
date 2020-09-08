@@ -22,7 +22,7 @@ import masterType from './masterType.vue';
 export default {
   data () {
     return {
-      activeName: "active"
+      activeName: 'active'
     };
   },
   components: {

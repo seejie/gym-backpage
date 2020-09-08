@@ -444,7 +444,7 @@ export default {
       }
     },
     exportCourseStudents() {
-      location.href='/xqn/customCourse/course/exportCourseStudents?productId='+this.studentdata.id+'&keyword='+this.studentdata.searchdata.key;
+      location.href = '/xqn/customCourse/course/exportCourseStudents?productId=' + this.studentdata.id + '&keyword=' + this.studentdata.searchdata.key;
       // customCourseList.exportCourseStudents({ productId: this.studentdata.id, keyword: this.studentdata.searchdata.key }).then(res => {
       //   if (res.resCode == 200) {
       //     this.message('导出成功', 'success')

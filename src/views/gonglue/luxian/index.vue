@@ -255,7 +255,7 @@ export default {
   },
   data() {
     return {
-      /*表格数据*/
+      /* 表格数据 */
       tableData: [],
       checked: false,
       formInline: {
@@ -471,7 +471,7 @@ export default {
     },
     //  全部选中
     handleSelectAll(val) {
-      this.$refs['multipleTable'].toggleAllSelection();
+      this.$refs.multipleTable.toggleAllSelection();
     },
     //  设置表头样式
     headerRowStyle(row) {

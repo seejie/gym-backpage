@@ -124,14 +124,14 @@ export default {
     return {
       id: this.$route.params.id,
       type: this.$route.params.type,
-      form: { id: this.$route.params.id, trainingType: this.$route.params.type, trainingTitle: '', traingSummary: '', introduce: '', banner: '',indexpic: '', imgs: {}, keys: [{ id: '', title: '', type: '', is_need: 0, listDisplay: 0, options: [{ title: '', id: '' }] }], keys1: [{ id: '', title: '', type: '', is_need: 0, options: [{ title: '', id: '' }] }], expireDate: '', limitNum: '', memberJoinNum: '', releaseTime: '', releasePostion: 0, status: 1, questions: '' },
+      form: { id: this.$route.params.id, trainingType: this.$route.params.type, trainingTitle: '', traingSummary: '', introduce: '', banner: '', indexpic: '', imgs: {}, keys: [{ id: '', title: '', type: '', is_need: 0, listDisplay: 0, options: [{ title: '', id: '' }] }], keys1: [{ id: '', title: '', type: '', is_need: 0, options: [{ title: '', id: '' }] }], expireDate: '', limitNum: '', memberJoinNum: '', releaseTime: '', releasePostion: 0, status: 1, questions: '' },
       cropper: [{
         name: 'banner图',
         ratio_x: 1.89,
         ratio_y: 1,
         ratio: 1.89,
         desc: '你的用户将在圈子频道顶部互动滑动区域，看到此封面。'
-      },{
+      }, {
         name: '普通封面',
         ratio_x: 1.53,
         ratio_y: 1,
@@ -179,18 +179,18 @@ export default {
             this.form.trainingTitle = data.trainingTitle;
             this.form.traingSummary = data.traingSummary;
             this.form.introduce = data.introduce;
-            this.form.imgs = { 'ratio1.89': [data.banner] , 'ratio1.53': [data.indexpic] };
+            this.form.imgs = { 'ratio1.89': [data.banner], 'ratio1.53': [data.indexpic] };
             this.form.banner = this.form.imgs['ratio1.89'][0];
             this.form.indexpic = this.form.imgs['ratio1.53'][0];
             if (datalist.length > 0) {
               this.form.keys = []
               for (var i = 0; i < datalist.length; i++) {
-                var d = { title: '', type: '', is_need: 0,listDisplay:0, options: [] }
+                var d = { title: '', type: '', is_need: 0, listDisplay: 0, options: [] }
                 d.title = datalist[i].title
                 d.type = datalist[i].type + ''
                 d.is_need = datalist[i].isNeed
                 d.id = datalist[i].id;
-                d.listDisplay=datalist[i].listDisplay;
+                d.listDisplay = datalist[i].listDisplay;
                 for (var j = 0; j < datalist[i].courseTrainingItemOptionsList.length; j++) {
                   d.options.push({ title: datalist[i].courseTrainingItemOptionsList[j].optionValue, id: datalist[i].courseTrainingItemOptionsList[j].itemId })
                 }
@@ -200,7 +200,7 @@ export default {
             if (datalist1.length > 0) {
               this.form.keys1 = []
               for (var i = 0; i < datalist1.length; i++) {
-                var d = { title: '', type: '', is_need: 0,listDisplay:0, options: [] }
+                var d = { title: '', type: '', is_need: 0, listDisplay: 0, options: [] }
                 d.title = datalist1[i].title
                 d.type = datalist1[i].type + ''
                 d.is_need = datalist1[i].isNeed
@@ -232,8 +232,7 @@ export default {
           return false
         }
       })
-      if(this.form.keys.filter(f=>f.listDisplay>0).length>2)
-      {
+      if (this.form.keys.filter(f => f.listDisplay > 0).length > 2) {
         this.message('列表提示最多可以选2个', 'error');
         return;
       }
@@ -241,9 +240,9 @@ export default {
         this.message('请填写关键字', 'error')
         return
       }
-      if (this.form.keys1[0].title == ''&& this.type == 1) {
+      if (this.form.keys1[0].title == '' && this.type == 1) {
         this.message('请填写测试设置', 'error')
-      }  else {
+      } else {
         var singUpModel = []; var singUpModel1 = []
 
         for (var i = 0; i < this.form.keys.length; i++) {
@@ -296,7 +295,7 @@ export default {
     },
 
     addkey() { // 添加关键字
-      this.form.keys.push({ id: '', title: '', type: '', is_need: 0,listDisplay:0, options: [{ title: '', id: '' }] })
+      this.form.keys.push({ id: '', title: '', type: '', is_need: 0, listDisplay: 0, options: [{ title: '', id: '' }] })
     },
     removekey(index) { // 移除某一行
       this.form.keys.splice(index, 1)
@@ -308,7 +307,7 @@ export default {
       this.form.keys[index].options.splice(index1, 1)
     },
     addkey1() { // 添加关键字
-      this.form.keys1.push({ id: '', title: '', type: '', is_need: 0,listDisplay:0, options: [{ title: '', id: '' }] })
+      this.form.keys1.push({ id: '', title: '', type: '', is_need: 0, listDisplay: 0, options: [{ title: '', id: '' }] })
     },
     removekey1(index) { // 移除某一行
       this.form.keys1.splice(index, 1)

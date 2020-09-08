@@ -257,12 +257,12 @@ export default {
         list: [],
         header: [],
         searchdata: { option: [{ id: 0, name: '昵称' }], key: '', select: 0 },
-        reply:false,
-        replycontent:'',
-        FeedbackLists:[],
-        imgs:[]
+        reply: false,
+        replycontent: '',
+        FeedbackLists: [],
+        imgs: []
       },
-      linkUrl:'',
+      linkUrl: '',
 
     }
   },
@@ -450,17 +450,17 @@ export default {
           this.data.header = res.resObject.header
           this.data.list = res.resObject.data != null ? res.resObject.data.list : []
           this.data.totalCount = res.resObject.data != null ? res.resObject.data.totalCount : 0
-          this.data.list.forEach(f=>{
+          this.data.list.forEach(f => {
             this.FeedbackList(f);
           })
         }
       })
     },
     FeedbackList(item) {
-      CourseQuestionaire.searchFeedbackList({joinRecordId :item.id}).then(res => {
+      CourseQuestionaire.searchFeedbackList({ joinRecordId: item.id }).then(res => {
         if (res.resCode == 200) {
-          this.data.FeedbackLists=res.resObject;
-          this.$set(item,'Feedbacks',res.resObject[0] != null ? res.resObject[0].content : '');
+          this.data.FeedbackLists = res.resObject;
+          this.$set(item, 'Feedbacks', res.resObject[0] != null ? res.resObject[0].content : '');
         }
       });
     },
@@ -475,65 +475,58 @@ export default {
     handleStudentSelectionChange(val) {
       if (val.length > 0) {
         for (var i = 0; i < val.length; i++) {
-          this.data.ids.push({ id: val[i].id, joinRecordId: val[i].joinRecordId,memberId:val[i].memberId })
+          this.data.ids.push({ id: val[i].id, joinRecordId: val[i].joinRecordId, memberId: val[i].memberId })
         }
       }
     },
     exportQuestionaireData() {
-      location.href='/xqn/customCourse/questionaire/exportQuestionaireData?questionaireId='+this.data.id+'&keyword='+this.data.searchdata.key;
+      location.href = '/xqn/customCourse/questionaire/exportQuestionaireData?questionaireId=' + this.data.id + '&keyword=' + this.data.searchdata.key;
     },
-    showlinks(link,id){
-      this.showlink=true;
-      this.linkUrl=link+'/customcourse/coursequestionaire/'+id;
+    showlinks(link, id) {
+      this.showlink = true;
+      this.linkUrl = link + '/customcourse/coursequestionaire/' + id;
     },
-    feedback(){//回复
-      if(this.data.ids.length==0)
-      {
-        this.message("请选择需要回复的人员","info")
-      }
-      else {
-         this.data.reply=true;
+    feedback() { // 回复
+      if (this.data.ids.length == 0) {
+        this.message('请选择需要回复的人员', 'info')
+      } else {
+        this.data.reply = true;
         this.FeedbackList(this.data.ids[0]);
       }
     },
-    showreply(item){
-      this.data.reply=true;
-      this.data.ids[0]=item;
+    showreply(item) {
+      this.data.reply = true;
+      this.data.ids[0] = item;
       this.FeedbackList(item);
     },
-    submitfeedback(){
-      if(this.data.replycontent=='')
-      {
-        this.message("回复内容不能为空");
-      }
-      else {
+    submitfeedback() {
+      if (this.data.replycontent == '') {
+        this.message('回复内容不能为空');
+      } else {
         CourseQuestionaire.feedback({
-          content:this.data.replycontent,joinRecordId: this.data.ids[0].id ,photos: this.data.imgs.join(','),
-          memberId:this.data.ids[0].memberId
-        }).then(res=>{
-          if(res.resCode==200)
-          {
-            this.message("回复成功","success");
-            this.data.reply=false;
+          content: this.data.replycontent,
+          joinRecordId: this.data.ids[0].id,
+          photos: this.data.imgs.join(','),
+          memberId: this.data.ids[0].memberId
+        }).then(res => {
+          if (res.resCode == 200) {
+            this.message('回复成功', 'success');
+            this.data.reply = false;
             this.FeedbackList(this.data.ids[0]);
-          }
-          else
-          {
-            this.message("回复失败","fail");
+          } else {
+            this.message('回复失败', 'fail');
           }
         })
       }
     },
-    setTop(id,istop){
-      CourseQuestionaire.setTop({id:id,isTop:istop}).then(res=>{
-          if(res.resCode==200)
-          {
-            this.message("设置成功","success");
-            this.load();
-          }
-          else {
-            this.message("设置失败","fail");
-          }
+    setTop(id, istop) {
+      CourseQuestionaire.setTop({ id: id, isTop: istop }).then(res => {
+        if (res.resCode == 200) {
+          this.message('设置成功', 'success');
+          this.load();
+        } else {
+          this.message('设置失败', 'fail');
+        }
       })
     },
     // 错误、成功提示

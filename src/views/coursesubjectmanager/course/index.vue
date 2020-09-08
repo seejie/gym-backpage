@@ -103,168 +103,168 @@
 </template>
 
 <script>
-  // import cityList from "@/utils/citys";
-  import assign from 'object-assign';
-  import Student from './student';
-  import { courseList, checkCourse, deleteCourse, dealTime, exportCourseStudents  } from '../sever'
+// import cityList from "@/utils/citys";
+import assign from 'object-assign';
+import Student from './student';
+import { courseList, checkCourse, deleteCourse, dealTime, exportCourseStudents } from '../sever'
 
-  export default {
-    name: "",
-    data() {
-      return {
-        pageHeight: window.innerHeight - 100 + 'px',
-        activeName: 'first',
-        form: {
-          courseTitle: '',
-          courseStatus: '',
-          unitName: '',
-          // proCity: [],
-          // areaId: '',
-          date: [],
-          firstCategoryId: '',
-          secondCategoryId: '',
-          pageNum: 1,
-          pageSize: 10
-        },
-        currentPage: 1,
-        total: 0,
-        tableData: [],
-        multipleTable: [],
-        // options: cityList.map(v => assign({
-        //   value: v.code,
-        //   label: v.name,
-        //   children: v.city.map(v => ({
-        //     value: v.code,
-        //     label: v.name
-        //   }))
-        // })),
-        // areaList:[],
-        ids: [],
-        showSearch: true,
-        showStudent: false,
-        studentId: ''
-      };
+export default {
+  name: '',
+  data() {
+    return {
+      pageHeight: window.innerHeight - 100 + 'px',
+      activeName: 'first',
+      form: {
+        courseTitle: '',
+        courseStatus: '',
+        unitName: '',
+        // proCity: [],
+        // areaId: '',
+        date: [],
+        firstCategoryId: '',
+        secondCategoryId: '',
+        pageNum: 1,
+        pageSize: 10
+      },
+      currentPage: 1,
+      total: 0,
+      tableData: [],
+      multipleTable: [],
+      // options: cityList.map(v => assign({
+      //   value: v.code,
+      //   label: v.name,
+      //   children: v.city.map(v => ({
+      //     value: v.code,
+      //     label: v.name
+      //   }))
+      // })),
+      // areaList:[],
+      ids: [],
+      showSearch: true,
+      showStudent: false,
+      studentId: ''
+    };
+  },
+  components: { Student },
+  mounted() {
+    this.onSearch();
+  },
+  methods: {
+    handleClick(tab, event) {
+      console.log(tab, event);
     },
-    components: { Student },
-    mounted(){
+
+    handleSelectionChange(val) {
+      this.multipleTable = val;
+    },
+    handleCurrentChange(val) {
+      this.form.pageNum = val;
       this.onSearch();
     },
-    methods: {
-      handleClick(tab, event) {
-        console.log(tab, event);
-      },
+    handleSizeChange(val) {
+      this.form.pageSize = val;
+      this.onSearch();
+    },
+    changeShowSearch(val) {
+      this.showSearch = val;
+    },
+    // handleCity(val){
+    //   this.form.proCity = val;
+    //   const obj = cityList.find(v => v.code === val[0]).city.find(v => v.code === val[1]);
+    //   this.areaList = obj.area.map(v => ({ value: v.code, label: v.name }));
+    //   this.form.areaId = '';
+    // },
+    changePicker(val) {
+      console.log(val)
+    },
+    onSearch() {
+      const that = this;
+      // let param = assign({}, this.form, { provinceId: this.form.proCity[0], cityId: this.form.proCity[1] });
+      const param = dealTime(['beginReleaseTime', 'endReleaseTime'], this.form);
+      courseList(param).then(res => {
+        if (res.resCode == 200) {
+          that.tableData = res.resObject.list || [];
+          that.total = res.resObject.totalCount;
+          that.multipleTable = [];
+        } else {
+          that.$message.error(res.message);
+        }
+      })
+    },
+    onReset() {
+      this.form = {
+        courseTitle: '',
+        courseStatus: '',
+        unitName: '',
+        // proCity: [],
+        // areaId: '',
+        date: [],
+        firstCategoryId: '',
+        secondCategoryId: '',
+      };
+    },
+    goAddPage() { this.$router.push('/coursesubjectmanager/add-course') },
+    goEdit(obj) { this.$router.push(`/coursesubjectmanager/add-course/${obj.id}`) },
+    goComment(obj) { this.$router.push(`/coursesubjectmanager/comment-details/${obj.id}`) },
+    closeStudent() {
+      this.showStudent = false
+    },
+    batchOnline(obj, flag) {
+      const that = this;
+      const a = this.multipleTable.map(v => v.id);
+      const courseId = !flag ? a : [obj.id];
+      checkCourse({
+        status: 1,
+        courseId, // this.ids
+      }).then(res => {
+        if (res.resCode == 200) {
+          that.$message.success('批量上线成功');
+          that.onSearch();
+        } else {
+          that.$message.error(res.message);
+        }
+      })
+    },
+    batchOffline(obj, flag) {
+      const that = this;
+      const a = this.multipleTable.map(v => v.id);
+      const courseId = !flag ? a : [obj.id];
+      checkCourse({
+        status: 2,
+        courseId, // this.ids
+      }).then(res => {
+        if (res.resCode == 200) {
+          that.$message.success(!flag ? '批量下线成功' : '下线成功');
+          that.onSearch();
+        } else {
+          that.$message.error(res.message, 'error');
+        }
+      })
+    },
+    deleteCourse() {
+      const that = this;
+      deleteCourse({ ids: this.multipleTable.map(v => v.id) }).then(res => {
+        if (res.resCode == 200) {
+          that.$message.success('批量删除成功');
+          that.onSearch();
+        } else {
+          that.$message.error(res.message);
+        }
+      })
+    },
+    show(obj) {
+      this.showStudent = true;
+      this.studentId = obj.id
+    },
+    formatter(row) {
+      if (row.courseStatus === 0) return '待审核';
+      if (row.courseStatus === 1) return '已发布';
+      if (row.courseStatus === 2) return '已下线';
+      return row.courseStatus || '';
+    },
 
-      handleSelectionChange(val){
-        this.multipleTable = val;
-      },
-      handleCurrentChange(val){
-        this.form.pageNum = val;
-        this.onSearch();
-      },
-      handleSizeChange(val){
-        this.form.pageSize = val;
-        this.onSearch();
-      },
-      changeShowSearch(val){
-        this.showSearch = val;
-      },
-      // handleCity(val){
-      //   this.form.proCity = val;
-      //   const obj = cityList.find(v => v.code === val[0]).city.find(v => v.code === val[1]);
-      //   this.areaList = obj.area.map(v => ({ value: v.code, label: v.name }));
-      //   this.form.areaId = '';
-      // },
-      changePicker(val){
-        console.log(val)
-      },
-      onSearch(){
-        let that = this;
-        // let param = assign({}, this.form, { provinceId: this.form.proCity[0], cityId: this.form.proCity[1] });
-        let param = dealTime(['beginReleaseTime', 'endReleaseTime'], this.form);
-        courseList(param).then(res => {
-          if (res.resCode == 200) {
-            that.tableData = res.resObject.list || [];
-            that.total= res.resObject.totalCount;
-            that.multipleTable = [];
-          } else {
-            that.$message.error(res.message);
-          }
-        })
-      },
-      onReset(){
-        this.form ={
-          courseTitle: '',
-          courseStatus: '',
-          unitName: '',
-          // proCity: [],
-          // areaId: '',
-          date: [],
-          firstCategoryId: '',
-          secondCategoryId: '',
-        };
-      },
-      goAddPage(){ this.$router.push('/coursesubjectmanager/add-course') },
-      goEdit(obj){ this.$router.push(`/coursesubjectmanager/add-course/${obj.id}`) },
-      goComment(obj){ this.$router.push(`/coursesubjectmanager/comment-details/${obj.id}`) },
-      closeStudent(){
-        this.showStudent = false
-      },
-      batchOnline(obj, flag){
-        let that = this;
-        const a = this.multipleTable.map(v => v.id);
-        const courseId = !flag ? a : [obj.id];
-        checkCourse({
-          status: 1,
-          courseId, // this.ids
-        }).then(res => {
-          if (res.resCode == 200) {
-            that.$message.success('批量上线成功');
-            that.onSearch();
-          } else {
-            that.$message.error(res.message);
-          }
-        })
-      },
-      batchOffline(obj, flag){
-        let that = this;
-        const a = this.multipleTable.map(v => v.id);
-        const courseId = !flag ? a : [obj.id];
-        checkCourse({
-          status: 2,
-          courseId, // this.ids
-        }).then(res => {
-          if (res.resCode == 200) {
-            that.$message.success(!flag ? '批量下线成功' : '下线成功');
-            that.onSearch();
-          } else {
-            that.$message.error(res.message, 'error');
-          }
-        })
-      },
-      deleteCourse(){
-        let that = this;
-        deleteCourse({ ids: this.multipleTable.map(v => v.id) }).then(res => {
-          if (res.resCode == 200) {
-            that.$message.success('批量删除成功');
-            that.onSearch();
-          } else {
-            that.$message.error(res.message);
-          }
-        })
-      },
-      show(obj){
-        this.showStudent = true;
-        this.studentId = obj.id
-      },
-      formatter(row){
-        if (row.courseStatus === 0) return '待审核';
-        if (row.courseStatus === 1) return '已发布';
-        if (row.courseStatus === 2) return '已下线';
-        return row.courseStatus || '';
-      },
-
-    }
   }
+}
 </script>
 
 <style scoped>

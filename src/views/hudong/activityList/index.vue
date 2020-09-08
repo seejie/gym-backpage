@@ -555,10 +555,10 @@ export default {
   },
   data() {
     return {
-      /*表格数据*/
+      /* 表格数据 */
       tableData: [],
-      sqlType: '', //显示表格类型
-      SQLTableVisible: false, //是否显示弹出框
+      sqlType: '', // 显示表格类型
+      SQLTableVisible: false, // 是否显示弹出框
       checked: false,
       typeList: [
         {
@@ -613,7 +613,7 @@ export default {
         needFee: '',
       },
       registerdata: {
-        //报名数据
+        // 报名数据
         totalCount: 0,
         curPage: 1,
         pageSizes: [5, 10, 20],
@@ -625,7 +625,7 @@ export default {
         searchdata: { option: [], status: [], statu: '', select: '', currenttype: '', currentid: '' },
       },
       answersdata: {
-        //答题数据
+        // 答题数据
         totalCount: 0,
         curPage: 1,
         pageSizes: [5, 10, 20],
@@ -646,7 +646,7 @@ export default {
         list: [],
         ids: [],
         searchdata: { option: [], select: '', currenttype: '', currentid: '' },
-      }, //问卷数据
+      }, // 问卷数据
       lottorydata: {
         totalCount: 0,
         curPage: 1,
@@ -657,7 +657,7 @@ export default {
         list: [],
         ids: [],
         searchdata: { option: [], select: '', currenttype: '', currentid: '' },
-      }, //中奖数据
+      }, // 中奖数据
       votedata: {
         totalCount: 0,
         curPage: 1,
@@ -667,7 +667,7 @@ export default {
         isshow: false,
         list: [],
         ids: [],
-      }, //投票数据
+      }, // 投票数据
       // 分页
       totalCount: 0,
       curPage: 1,
@@ -874,7 +874,7 @@ export default {
     },
     //  全部选中
     handleSelectAll(val) {
-      this.$refs['multipleTable'].toggleAllSelection();
+      this.$refs.multipleTable.toggleAllSelection();
     },
     //  设置表头样式
     headerRowStyle(row) {
@@ -902,7 +902,7 @@ export default {
       });
     },
     handleSelectionChange(val, type) {
-      //全选
+      // 全选
       switch (type) {
         case 1:
           if (val.length > 0) {

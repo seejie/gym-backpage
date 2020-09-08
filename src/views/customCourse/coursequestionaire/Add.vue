@@ -95,14 +95,14 @@ export default {
   data() {
     return {
       id: this.$route.params.id,
-      form: { id: this.$route.params.id, title: '', summary: '', introduce: '', banner: '',indexpic: '', imgs: {}, keys: [{ id: '', title: '', type: '', is_need: 0,listDisplay:0, options: [{ title: '', id: '' }] }], expireDate: '', limitNum: '',memberJoinNum:'', releaseTime: '', releasePostion: 0, status: 1 },
+      form: { id: this.$route.params.id, title: '', summary: '', introduce: '', banner: '', indexpic: '', imgs: {}, keys: [{ id: '', title: '', type: '', is_need: 0, listDisplay: 0, options: [{ title: '', id: '' }] }], expireDate: '', limitNum: '', memberJoinNum: '', releaseTime: '', releasePostion: 0, status: 1 },
       cropper: [{
         name: 'banner图',
         ratio_x: 1.89,
         ratio_y: 1,
         ratio: 1.89,
         desc: '你的用户将在圈子频道顶部互动滑动区域，看到此封面。'
-      },{
+      }, {
         name: '普通封面',
         ratio_x: 1.53,
         ratio_y: 1,
@@ -145,13 +145,13 @@ export default {
             this.form.title = data.title
             this.form.summary = data.abstract_info;
             this.form.introduce = data.introduce;
-            this.form.imgs = { 'ratio1.89': [data.banner] , 'ratio1.53': [data.indexpic] }
+            this.form.imgs = { 'ratio1.89': [data.banner], 'ratio1.53': [data.indexpic] }
             this.form.banner = this.form.imgs['ratio1.89'][0];
             this.form.indexpic = this.form.imgs['ratio1.53'][0];
             if (datalist.length > 0) {
               this.form.keys = []
               for (var i = 0; i < datalist.length; i++) {
-                var d = { title: '', type: '', is_need: 0,listDisplay:0, options: [] }
+                var d = { title: '', type: '', is_need: 0, listDisplay: 0, options: [] }
                 d.title = datalist[i].title
                 d.type = datalist[i].type + ''
                 d.is_need = datalist[i].isNeed
@@ -185,11 +185,9 @@ export default {
       })
       if (this.form.keys[0].title == '') {
         this.message('请填写关键字', 'error');
-        return;
-      }  else {
+      } else {
         var singUpModel = []
-        if(this.form.keys.filter(f=>f.listDisplay>0).length>2)
-        {
+        if (this.form.keys.filter(f => f.listDisplay > 0).length > 2) {
           this.message('列表提示最多可以选2个', 'error');
           return;
         }
@@ -226,7 +224,7 @@ export default {
     },
 
     addkey() { // 添加关键字
-      this.form.keys.push({ id: '', title: '', type: '', is_need: 0,listDisplay:0, options: [{ title: '', id: '' }] })
+      this.form.keys.push({ id: '', title: '', type: '', is_need: 0, listDisplay: 0, options: [{ title: '', id: '' }] })
     },
     removekey(index) { // 移除某一行
       this.form.keys.splice(index, 1)

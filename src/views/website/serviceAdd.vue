@@ -82,7 +82,7 @@ export default {
         publishStatus: 3, // 3发布 1草稿
       },
 
-      //图片上传
+      // 图片上传
       imgs: {
         'ratio1.12': [],
       },
@@ -113,7 +113,7 @@ export default {
 
   created() {
     this.routerId = this.$route.params.id;
-    let detail = this.$route.params.data;
+    const detail = this.$route.params.data;
     this.detail = detail;
 
     if (detail && detail.id) {
@@ -153,7 +153,7 @@ export default {
       });
     },
 
-    //错误、成功提示
+    // 错误、成功提示
     message(message, type) {
       Message({
         message: message,
