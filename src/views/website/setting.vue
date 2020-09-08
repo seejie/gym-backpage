@@ -157,13 +157,13 @@ export default {
 
   computed: {
     isShowNews() {
-      return this.form.function.indexOf('2') != -1;
+      return this.form.function.indexOf('2') !== -1;
     },
     isShowCase() {
-      return this.form.function.indexOf('5') != -1;
+      return this.form.function.indexOf('5') !== -1;
     },
     isShowService() {
-      return this.form.function.indexOf('3') != -1;
+      return this.form.function.indexOf('3') !== -1;
     },
   },
 

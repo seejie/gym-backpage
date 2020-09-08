@@ -72,7 +72,7 @@ export default {
   props: {
     websiteCases: {
       type: Array,
-      default: [],
+      default: () => [],
     },
   },
   data() {

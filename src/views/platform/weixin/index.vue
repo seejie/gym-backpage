@@ -867,7 +867,7 @@ export default {
         return item;
       });
 
-      if (checkResultList.indexOf(false) != -1) return;
+      if (checkResultList.indexOf(false) !== -1) return;
       if (checkResultList.length) {
         this.$message.error(checkResultList[0]);
         return;

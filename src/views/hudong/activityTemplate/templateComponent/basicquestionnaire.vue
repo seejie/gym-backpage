@@ -179,7 +179,7 @@ export default {
                   d.is_need = datalist[i].is_need;
                   d.id = datalist[i].id;
                   for (var j = 0; j < Object.keys(datalist[i]).length; j++) {
-                    if (Object.keys(datalist[i])[j].indexOf('option') != -1) {
+                    if (Object.keys(datalist[i])[j].indexOf('option') !== -1) {
                       d.options.push({ title: datalist[i][Object.keys(datalist[i])[j]] });
                     }
                   }

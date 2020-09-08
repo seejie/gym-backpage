@@ -356,7 +356,7 @@ export default {
           }
         });
 
-        if (detailList.indexOf(false) != -1) return;
+        if (detailList.indexOf(false) !== -1) return;
 
         const params = {
           ...this[formName],

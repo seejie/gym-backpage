@@ -141,7 +141,7 @@ export default {
         return;
       }
 
-      if (this.routerId != -1) {
+      if (this.routerId !== -1) {
         this.addData.id = this.routerId;
       }
 

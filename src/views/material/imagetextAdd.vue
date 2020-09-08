@@ -152,7 +152,7 @@ export default {
   created() {
     this.getNewsGroupList();
     this.routerId = this.$route.params.id;
-    if (this.routerId != -1) {
+    if (this.routerId !== -1) {
       this.getNews(this.routerId);
     }
   },

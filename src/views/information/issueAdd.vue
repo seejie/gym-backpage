@@ -330,7 +330,7 @@ export default {
 
   created() {
     this.routerId = this.$route.params.id;
-    if (this.routerId != -1) {
+    if (this.routerId !== -1) {
       //查询详情
       this.getDetail(this.routerId);
     } else {

@@ -130,7 +130,7 @@ export default {
   methods: {
     saveBtn() {
       this.addData.indexPic = this.imgs['ratio1.12'][0];
-      if (this.addData.title == '') {
+      if (this.addData.title === '') {
         this.message('请输入标题', 'error');
         return;
       } else if ((this.indexPic = '')) {
@@ -141,7 +141,7 @@ export default {
         return;
       }
 
-      if (this.routerId != -1) {
+      if (this.routerId !== -1) {
         this.addData.id = this.routerId;
       }
 
