@@ -58,7 +58,7 @@ export default {
       };
     },
     saveMaterial() {
-      if (this.form.title.length == '') {
+      if (this.form.title.length === '') {
         this.message('请输入名称', 'error');
         return;
       } else if (this.form.title.length > 30) {
@@ -67,7 +67,7 @@ export default {
       } else if (this.form.imageGroupId == null) {
         this.message('请选择分组', 'error');
         return;
-      } else if (this.form.path == '') {
+      } else if (this.form.path === '') {
         this.message('请上传图片', 'error');
         return;
       }

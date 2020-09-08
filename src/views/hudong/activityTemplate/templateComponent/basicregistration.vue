@@ -295,11 +295,11 @@ export default {
         this.message('请添加图片', 'error');
       } else if (this.areaselected.length < 3) {
         this.message('请填写省市区', 'error');
-      } else if (this.form.address == '') {
+      } else if (this.form.address === '') {
         this.message('请填写地址', 'error');
-      } else if (this.topicList > 0 && this.topicList[0].title == '') {
+      } else if (this.topicList > 0 && this.topicList[0].title === '') {
         this.message('请填写关键字', 'error');
-      } else if (this.form.peopleLimit == '') {
+      } else if (this.form.peopleLimit === '') {
         this.message('请填写限制人数', 'error');
       } else {
         if (this.areaselected.length > 2) {

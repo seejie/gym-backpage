@@ -191,11 +191,11 @@ export default {
       // {
       //   this.message("请填写省市区", "error");
       // }
-      else if (this.form.keys.length > 0 && this.form.keys[0].title == '') {
+      else if (this.form.keys.length > 0 && this.form.keys[0].title === '') {
         this.message('请填写关键字', 'error');
-      } else if (this.form.onTime == '') {
+      } else if (this.form.onTime === '') {
         this.message('请选择有效期', 'error');
-      } else if (this.form.limit == '') {
+      } else if (this.form.limit === '') {
         this.message('请填写票数限制', 'error');
       } else {
         this.$ajax

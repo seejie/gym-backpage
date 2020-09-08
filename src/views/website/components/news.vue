@@ -96,7 +96,6 @@
   </div>
 </template>
 <script>
-import sortable from 'sortablejs';
 import newsApi from '@/api/website/news';
 import { informationListPage } from '@/api/information/info';
 import channelData from '@/utils/channelData';
@@ -140,27 +139,6 @@ export default {
       this.columnId = val;
       this.loadNewList();
     },
-  },
-
-  mounted() {
-    // let el = document.querySelectorAll(
-    //   '.news-list-table > .el-table__body-wrapper > table > tbody',
-    // )[0]
-    // if (el) {
-    //   sortable.create(el, {
-    //     onEnd: evt => {
-    //       //监听拖动结束事件
-    //       console.log(evt.oldIndex) //当前行的被拖拽前的顺序
-    //       console.log(evt.newIndex) //当前行的被拖拽后的顺序
-    //       const currRow = this.newsSelection.splice(evt.oldIndex, 1)[0]
-    //       this.newsSelection.splice(evt.newIndex, 0, currRow)
-    //       this.newsSelection.map((func, index) => {
-    //         this.newsSelection[index].catSort = parseInt(index + 1)
-    //       })
-    //       // this.$emit('changeClassifySort', this.newsSelection)
-    //     },
-    //   })
-    // }
   },
 
   created() {
@@ -283,9 +261,6 @@ export default {
     getRowKeys(row) {
       return row.id + '2';
     },
-  },
-  components: {
-    sortable,
   },
 
   filters: {

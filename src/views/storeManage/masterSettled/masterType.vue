@@ -176,7 +176,7 @@ export default {
 
     search() {
       this.storeList();
-      // if (this.typeName == '') {
+      // if (this.typeName === '') {
       //   this.message('请输入类型名称', 'error');
       // } else {
       //   this.storeList();

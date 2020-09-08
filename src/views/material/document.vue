@@ -495,7 +495,7 @@ export default {
       };
     },
     editDocumentBtn2(index) {
-      if (this.editDocumentData.title.length == '') {
+      if (this.editDocumentData.title.length === '') {
         this.message('请输入标题', 'error');
       } else if (this.editDocumentData.title.length > 30) {
         this.message('请输入30字以内的标题', 'error');
@@ -551,7 +551,7 @@ export default {
         .catch(err => console.log(err));
     },
     addDocumentBtn() {
-      if (this.addDocumentData.title.length == '') {
+      if (this.addDocumentData.title.length === '') {
         this.message('请输入标题', 'error');
       } else if (this.addDocumentData.title.length > 30) {
         this.message('请输入30字以内的标题', 'error');
@@ -559,7 +559,7 @@ export default {
         this.message('请选择分组', 'error');
       } else if (!this.imgs.ratio1.length) {
         this.message('请上传封面图片', 'error');
-      } else if (this.addDocumentData.path == '' &&  this.addDocumentData.thirdPartyPath =='') {
+      } else if (this.addDocumentData.path === '' &&  this.addDocumentData.thirdPartyPath =='') {
         this.message('请上传文档或者填写第三方链接', 'error');
       } else {
         this.addVideo();
@@ -599,7 +599,7 @@ export default {
         .catch(err => console.log(err));
     },
     addGroupBtn() {
-      if (this.addGroupName == '') {
+      if (this.addGroupName === '') {
         this.message('请输入分组名称', 'error');
       } else if (this.addGroupName.length > 6) {
         this.message('请输入6个字以内的名称', 'error');
@@ -653,7 +653,7 @@ export default {
       this.editFenzu = true;
     },
     editGroupBtn2() {
-      if (this.editGroup.name == '') {
+      if (this.editGroup.name === '') {
         this.message('请输入分组名称', 'error');
       } else if (this.editGroup.name.length > 6) {
         this.message('请输入6个字以内的名称', 'error');

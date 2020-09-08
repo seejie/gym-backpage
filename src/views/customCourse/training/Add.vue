@@ -236,11 +236,11 @@ export default {
         this.message('列表提示最多可以选2个', 'error');
         return;
       }
-      if (this.form.keys[0].title == '') {
+      if (this.form.keys[0].title === '') {
         this.message('请填写关键字', 'error')
         return
       }
-      if (this.form.keys1[0].title == '' && this.type == 1) {
+      if (this.form.keys1[0].title === '' && this.type == 1) {
         this.message('请填写测试设置', 'error')
       } else {
         var singUpModel = []; var singUpModel1 = []

@@ -323,7 +323,7 @@ export default {
     },
     getTabelList (keyWord = this.lableFrom.input) {
       http.getTabelList({
-        brandName: this.lableFrom.input === '' ? null : this.lableFrom.input,
+        brandName: this.lableFrom.input ==== '' ? null : this.lableFrom.input,
         sortStr: 'brand_sort asc'
       }).then((res) => {
         this.tableData = res.resObject

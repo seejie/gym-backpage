@@ -169,7 +169,7 @@ export default {
         this.message('请添加图片', 'error');
       } else if (this.form.customCourse.courselist == null) {
         this.message('请添加课程', 'error');
-      } else if (this.form.releaseType == '') {
+      } else if (this.form.releaseType === '') {
         this.message('请选择发布状态', 'info');
       } else {
         this.form.banner = this.form.pic != null && this.form.pic['ratio1.89'] != null ? this.form.pic['ratio1.89'][0] : '';

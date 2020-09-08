@@ -290,7 +290,7 @@ export default {
               description: val.description, // 门票详情
               productCategoryName: val.productCategoryName, // 类型名称
               forbidStatus: val.forbidStatus, // 是否禁言默认不禁言
-              beforeTime: val.beforeTime === '' ? null : val.beforeTime, // 当前购买时间
+              beforeTime: val.beforeTime ==== '' ? null : val.beforeTime, // 当前购买时间
               advanceDays: val.advanceDays, // 提前多少天
               notes: val.notes, // 使用须知
             },
@@ -330,7 +330,7 @@ export default {
               address: val.address, // 详细地址
               forbidStatus: val.forbidStatus, // 是否禁言默认不禁言
               description: val.description, // 门票详情
-              beforeTime: val.beforeTime === '' ? null : val.beforeTime, // 当前购买时间
+              beforeTime: val.beforeTime ==== '' ? null : val.beforeTime, // 当前购买时间
               advanceDays: val.advanceDays, // 提前多少天
               notes: val.notes, // 使用须知
             },
@@ -381,7 +381,7 @@ export default {
     },
     // 处理缩略图数据
     getPic(val) {
-      if (val !== '') {
+      if (val !=== '') {
         const urlList = val.split(',');
         if (urlList.length > 1) {
           return {
@@ -433,7 +433,7 @@ export default {
             backRuleNote: res.resObject.product.backRuleNote, // 退票说明
             address: res.resObject.product.address, // 详细地址
             description: res.resObject.product.description, // 门票详情
-            beforeTime: res.resObject.product.beforeTime === '' ? null : res.resObject.product.beforeTime, // 当前购买时间
+            beforeTime: res.resObject.product.beforeTime ==== '' ? null : res.resObject.product.beforeTime, // 当前购买时间
             advanceDays: res.resObject.product.advanceDays, // 提前多少天
             // productAttributeList: res.resObject.productAttributeList,
             factoryPlace: res.resObject.product.factoryPlace,

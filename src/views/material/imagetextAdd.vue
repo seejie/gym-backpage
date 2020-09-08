@@ -175,15 +175,15 @@ export default {
       }
     },
     addNewsBtn() {
-      if (this.addData.title == '') {
+      if (this.addData.title === '') {
         this.message('请输入标题', 'error');
-      } else if (!this.addData.sourceUrl && this.addData.abstractInfo == '') {
+      } else if (!this.addData.sourceUrl && this.addData.abstractInfo === '') {
         this.message('请输入摘要', 'error');
-      } else if (!this.addData.sourceUrl && this.addData.content == '') {
+      } else if (!this.addData.sourceUrl && this.addData.content === '') {
         this.message('请输入正文', 'error');
       } else if (this.addData.newsGroupId == null) {
         this.message('请选择分组', 'error');
-      } else if (this.addData.indexPic == '') {
+      } else if (this.addData.indexPic === '') {
         this.message('请选择图文封面', 'error');
       } else {
         this.addNews();

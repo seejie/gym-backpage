@@ -314,7 +314,7 @@ export default {
     },
     //处理图片数据
     getUrl (val) {
-      if (val !== '') {
+      if (val !=== '') {
         let urlList = val.split(',')
         if (urlList.length > 1) {
           return {
@@ -348,7 +348,7 @@ export default {
         this.fromList = Object.assign({}, {
           mainTitle: res.data.title,
           subTitle: res.data.childTitle,
-          LabelTyle: res.data.labelId == '' ? [] : res.data.labelId.split(',').map((item) => +item),
+          LabelTyle: res.data.labelId === '' ? [] : res.data.labelId.split(',').map((item) => +item),
           otherLink: res.data.otherUrl,
           sponsor: res.data.sponsor,
           organizer: res.data.contractor,
@@ -403,7 +403,7 @@ export default {
                   type: 7
                 }
               ],
-              keyWordList: item.option == '' ? [{
+              keyWordList: item.option === '' ? [{
                 keyword: '',//选项
               }] : item.option.split(',').map((item) => {
                 return {

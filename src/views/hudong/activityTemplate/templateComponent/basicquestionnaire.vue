@@ -221,13 +221,13 @@ export default {
       // {
       //   this.message("请填写省市区", "error");
       // }
-      else if (this.form.address == '') {
+      else if (this.form.address === '') {
         this.message('请填写地址', 'error');
-      } else if (this.form.keys.length > 0 && this.form.keys[0].title == '') {
+      } else if (this.form.keys.length > 0 && this.form.keys[0].title === '') {
         this.message('请填写关键字', 'error');
-      } else if (this.form.limit == '') {
+      } else if (this.form.limit === '') {
         this.message('请填写限制人数', 'error');
-      } else if (this.form.charge == '' || this.form.charge == null) {
+      } else if (this.form.charge === '' || this.form.charge == null) {
         this.message('请填写报名费用', 'error');
       } else {
         if (this.areaselected.length > 2) {

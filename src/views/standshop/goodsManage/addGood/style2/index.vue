@@ -389,12 +389,12 @@ export default {
         };
 
         for (var i in params) {
-          if (params[i] == '') {
+          if (params[i] === '') {
             delete params[i];
           }
         }
 
-        if (params.refundRulesType == '') {
+        if (params.refundRulesType === '') {
           delete params.refundRulesType;
         }
         delete params.productCategoryIdExtras;

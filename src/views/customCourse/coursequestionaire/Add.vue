@@ -183,7 +183,7 @@ export default {
           return false
         }
       })
-      if (this.form.keys[0].title == '') {
+      if (this.form.keys[0].title === '') {
         this.message('请填写关键字', 'error');
       } else {
         var singUpModel = []

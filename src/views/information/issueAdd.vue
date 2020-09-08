@@ -397,28 +397,28 @@ export default {
       this.addNewsBtn();
     },
     addNewsBtn() {
-      if (this.addData.title == '') {
+      if (this.addData.title === '') {
         this.message('请输入标题', 'error');
         return;
-      } else if (this.addData.abstractInfo == '' && !this.addData.sourceUrl) {
+      } else if (this.addData.abstractInfo === '' && !this.addData.sourceUrl) {
         this.message('请输入摘要', 'error');
         return;
-      } else if (this.addData.content == '' && !this.addData.sourceUrl) {
+      } else if (this.addData.content === '' && !this.addData.sourceUrl) {
         this.message('请输入正文', 'error');
         return;
       } else if (!this.imgs['ratio1.53'][0] || this.imgs['ratio1.53'][0].length == 0) {
         this.message('请选择图文封面', 'error');
         return;
-      } else if (this.addData.labelIds == '') {
+      } else if (this.addData.labelIds === '') {
         this.message('请选择标签', 'error');
         return;
-      } else if (this.addData.columnId == '' || this.addData.position == '') {
+      } else if (this.addData.columnId === '' || this.addData.position === '') {
         this.message('请选择发布位置', 'error');
         return;
-      } else if (this.addData.publishType == '') {
+      } else if (this.addData.publishType === '') {
         this.message('请选择发布时间', 'error');
         return;
-      } else if (this.addData.publishType == 3 && this.addData.publishTim == '') {
+      } else if (this.addData.publishType == 3 && this.addData.publishTim === '') {
         this.message('请选择发布时间', 'error');
         return;
       }

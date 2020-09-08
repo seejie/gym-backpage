@@ -429,7 +429,7 @@ export default {
         .catch(err => console.log(err));
     },
     addGroupBtn() {
-      if (this.addGroupName == '') {
+      if (this.addGroupName === '') {
         this.message('请输入分组名称', 'error');
       } else if (this.addGroupName.length > 6) {
         this.message('请输入6个字以内的名称', 'error');
@@ -478,7 +478,7 @@ export default {
       this.editFenzu = true;
     },
     editGroupBtn2() {
-      if (this.editGroup.name == '') {
+      if (this.editGroup.name === '') {
         this.message('请输入分组名称', 'error');
       } else if (this.editGroup.name.length > 6) {
         this.message('请输入6个字以内的名称', 'error');

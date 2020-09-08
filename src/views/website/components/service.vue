@@ -64,7 +64,6 @@
   </div>
 </template>
 <script>
-import sortable from 'sortablejs';
 import serviceApi from '@/api/website/service';
 import { informationListPage } from '@/api/information/info';
 
@@ -73,7 +72,7 @@ export default {
   props: {
     websiteServices: {
       type: Array,
-      default: [],
+      default: () => [],
     },
   },
 
@@ -161,9 +160,6 @@ export default {
       this.serviceSelection = this.multipleSelection;
       this.$emit('getServiceList', this.serviceSelection);
     },
-  },
-  components: {
-    sortable,
   },
 
   filters: {

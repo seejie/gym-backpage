@@ -303,9 +303,9 @@ export default {
         this.message('线路介绍不能超过150字', 'info');
       } else if (this.form.cover.ratio1[0] == null) {
         this.message('请添加图片', 'error');
-      } else if (this.form.releaseLoc == '') {
+      } else if (this.form.releaseLoc === '') {
         this.message('请选择发布位置', 'info');
-      } else if (this.form.status == '') {
+      } else if (this.form.status === '') {
         this.message('请选择发布状态', 'info');
       } else if (this.form.map.materialList.length == 0) {
         this.message('请添加网点', 'info');

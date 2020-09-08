@@ -503,7 +503,7 @@ export default {
       this.FeedbackList(item);
     },
     submitfeedback() {
-      if (this.data.replycontent == '') {
+      if (this.data.replycontent === '') {
         this.message('回复内容不能为空');
       } else {
         training.feedback({

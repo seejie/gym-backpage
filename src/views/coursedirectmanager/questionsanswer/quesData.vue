@@ -273,7 +273,7 @@ export default {
     },
     submitfeedback() {
       const { replycontent, imgs } = this.replyForm;
-      if (replycontent == '') {
+      if (replycontent === '') {
         this.message('回复内容不能为空');
       } else {
         const item = this.item || this.ids[0];

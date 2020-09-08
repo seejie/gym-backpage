@@ -201,10 +201,10 @@
           <div class="img-box">
             <img :class="{ noImg: !imgs['ratio1.33'][0] }" :src="imgs['ratio1.33'][0]" />
             <p style="margin-bottom: 10px;">
-              {{ addData.title == '' ? '专题标题' : addData.title }}
+              {{ addData.title === '' ? '专题标题' : addData.title }}
             </p>
             <p>
-              {{ addData.abstractInfo == '' ? '专题介绍，仅150字以内哦' : addData.abstractInfo }}
+              {{ addData.abstractInfo === '' ? '专题介绍，仅150字以内哦' : addData.abstractInfo }}
             </p>
           </div>
           <div class="img2-box">
@@ -392,23 +392,23 @@ export default {
       }
     },
     addNewsBtn() {
-      if (this.addData.title == '') {
+      if (this.addData.title === '') {
         this.message('请输入标题', 'error');
-      } else if (this.addData.subtitle == '') {
+      } else if (this.addData.subtitle === '') {
         this.message('请输入副标题', 'error');
-      } else if (this.addData.abstractInfo == '') {
+      } else if (this.addData.abstractInfo === '') {
         this.message('请输入专题介绍', 'error');
-      } else if (this.addData.indexPic == '') {
+      } else if (this.addData.indexPic === '') {
         this.message('请选择图文封面', 'error');
-      } else if (this.addData.labelId == '') {
+      } else if (this.addData.labelId === '') {
         this.message('请选择标签', 'error');
-      } else if (this.addData.columnId == '' || this.addData.position == '') {
+      } else if (this.addData.columnId === '' || this.addData.position === '') {
         this.message('请选择发布位置', 'error');
-      } else if (this.addData.publishStatus == '') {
+      } else if (this.addData.publishStatus === '') {
         this.message('请选择发布时间', 'error');
       } else if (this.addData.publishStatus == '2' && this.addData.publishTime == ' ') {
         this.message('请选择发布时间', 'error');
-      } else if (this.addData.materialIds == '' && this.addData.publishStatus != 1) {
+      } else if (this.addData.materialIds === '' && this.addData.publishStatus != 1) {
         this.message('请选择素材', 'error');
       } else {
         if (this.routerId == -1) {

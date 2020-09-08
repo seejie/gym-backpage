@@ -126,11 +126,11 @@ export default {
         this.message('活动摘要字数不能超过150', 'error');
       } else if (this.form.imgs['ratio1.89'] == null || this.form.imgs['ratio1.89'][0] == null) {
         this.message('请添加图片', 'error');
-      } else if (this.form.charge == '') {
+      } else if (this.form.charge === '') {
         this.message('请填入目标金额', 'error');
-      } else if (this.form.mincharge == '') {
+      } else if (this.form.mincharge === '') {
         this.message('请填入每人最低目标金额', 'error');
-      } else if (this.form.onTime == '') {
+      } else if (this.form.onTime === '') {
         this.message('请选择有效期', 'error');
       } else {
         this.$ajax.post(this.id > 0 ? '/back/interaction/updateFund' : '/back/interaction/saveFund', { id: this.id, interactionType: 7, title: this.form.name, abstract_info: this.form.summary, content: this.form.intro, theme_pic: this.form.imgs['ratio1.89'][0], overplus_num: this.form.limit, organizer: this.form.zhubanname, is_charge: this.form.charge != '' ? 1 : 0, cityId: this.form.cityid, provinceId: this.form.provinceid, areaId: this.form.areaid, position: this.form.position, address: this.form.address, publish_status: this.form.radio, sponsor: this.form.chenbanname, charge: this.form.charge, singUpModel: this.form.keys }).then(res => {

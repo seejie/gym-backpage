@@ -466,7 +466,7 @@ export default {
       };
     },
     editImgBtn2(index) {
-      if (this.editImgData.title.length == '') {
+      if (this.editImgData.title.length === '') {
         this.message('请输入标题名称', 'error');
       } else if (this.editImgData.title.length > 30) {
         this.message('请输入30字以内的标题名称', 'error');
@@ -496,13 +496,13 @@ export default {
     },
     addImgBtn() {
       console.log(this.addImgData.imageGroupId);
-      if (this.addImgData.title.length == '') {
+      if (this.addImgData.title.length === '') {
         this.message('请输入名称', 'error');
       } else if (this.addImgData.title.length > 30) {
         this.message('请输入30字以内的名称', 'error');
       } else if (this.addImgData.imageGroupId == null) {
         this.message('请选择分组', 'error');
-      } else if (this.addImgData.path == '') {
+      } else if (this.addImgData.path === '') {
         this.message('请上传图片', 'error');
       } else {
         this.addImage();
@@ -546,7 +546,7 @@ export default {
         .catch(err => console.log(err));
     },
     addGroupBtn() {
-      if (this.addGroupName == '') {
+      if (this.addGroupName === '') {
         this.message('请输入分组名称', 'error');
       } else if (this.addGroupName.length > 6) {
         this.message('请输入6个字以内的名称', 'error');
@@ -595,7 +595,7 @@ export default {
       this.editFenzu = true;
     },
     editGroupBtn2() {
-      if (this.editGroup.name == '') {
+      if (this.editGroup.name === '') {
         this.message('请输入分组名称', 'error');
       } else if (this.editGroup.name.length > 6) {
         this.message('请输入6个字以内的名称', 'error');

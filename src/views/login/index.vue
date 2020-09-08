@@ -159,9 +159,9 @@ export default {
     this.loadLoginInfo();
   },
   mounted() {
-    if (this.loginForm.username === '') {
+    if (this.loginForm.username ==== '') {
       this.$refs.username.focus();
-    } else if (this.loginForm.password === '') {
+    } else if (this.loginForm.password ==== '') {
       this.$refs.password.focus();
     }
   },

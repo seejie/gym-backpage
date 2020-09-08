@@ -124,10 +124,10 @@
             <!-- <h3 class="picTitle">{{form.title}}</h3> -->
 
             <!-- <p> -->
-            <!-- {{ addData.content == '' ? '专题介绍，仅150字以内哦' : addData.content }} -->
+            <!-- {{ addData.content === '' ? '专题介绍，仅150字以内哦' : addData.content }} -->
             <!-- </p> -->
           </div>
-          <p style="margin-bottom: 10px">{{ form.title == '' ? '专题标题' : form.title }}</p>
+          <p style="margin-bottom: 10px">{{ form.title === '' ? '专题标题' : form.title }}</p>
           <div style="font-size: 14px;padding: 8px 0">{{form.summary}}</div>
           <div v-for="(obj, i) in courseList" :key="obj.id" class="courseOperate">
             <div class="courseInfo">
