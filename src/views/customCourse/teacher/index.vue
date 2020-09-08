@@ -278,7 +278,7 @@ export default {
         pageNum: this.curPage,
         pageSize: this.pageSize,
         status: this.searchData.status,
-        teacherCategoryId: this.searchData.secondCategoryId != '' ? this.searchData.secondCategoryId : this.searchData.firstCategoryId,
+        teacherCategoryId: this.searchData.secondCategoryId !== '' ? this.searchData.secondCategoryId : this.searchData.firstCategoryId,
         firstCategoryId: this.searchData.firstCategoryId,
         secondCategoryId: this.searchData.secondCategoryId,
         addressProvince: this.searchData.proCity[0] || '',

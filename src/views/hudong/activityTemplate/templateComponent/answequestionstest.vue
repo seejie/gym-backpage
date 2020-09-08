@@ -194,7 +194,7 @@ export default {
       } else if (this.form.choutinum === '') {
         this.message('请填写抽取题数', 'error');
       } else {
-        this.$ajax.post(this.id > 0 ? '/back/interaction/updateAnswer' : '/back/interaction/saveAnswer', { id: this.id, interactionType: 7, title: this.form.name, abstract_info: this.form.summary, content: this.form.intro, theme_pic: this.form.imgs['ratio1.89'][0], overplus_num: this.form.limit, organizer: this.form.zhubanname, is_charge: this.form.charge != '' ? 1 : 0, cityId: this.form.cityid, provinceId: this.form.provinceid, areaId: this.form.areaid, position: this.form.position, address: this.form.address, publish_status: this.form.radio, sponsor: this.form.chenbanname, charge: this.form.charge, singUpModel: this.form.keys }).then(res => {
+        this.$ajax.post(this.id > 0 ? '/back/interaction/updateAnswer' : '/back/interaction/saveAnswer', { id: this.id, interactionType: 7, title: this.form.name, abstract_info: this.form.summary, content: this.form.intro, theme_pic: this.form.imgs['ratio1.89'][0], overplus_num: this.form.limit, organizer: this.form.zhubanname, is_charge: this.form.charge !== '' ? 1 : 0, cityId: this.form.cityid, provinceId: this.form.provinceid, areaId: this.form.areaid, position: this.form.position, address: this.form.address, publish_status: this.form.radio, sponsor: this.form.chenbanname, charge: this.form.charge, singUpModel: this.form.keys }).then(res => {
           if (res.resCode == 200) {
             this.message('提交成功', 'success');
             // this.back();

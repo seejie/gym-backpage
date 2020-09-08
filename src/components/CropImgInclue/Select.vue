@@ -159,7 +159,7 @@ export default {
     },
 
     groupChange(id) {
-      if (id == this.activeGroup && id != '') {
+      if (id == this.activeGroup && id !== '') {
         return;
       }
 

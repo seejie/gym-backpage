@@ -245,11 +245,11 @@ export default {
             is_need: this.form.keys[i].is_need
           };
           for (var j = 0; j < this.form.keys[i].options.length; j++) {
-            if (this.form.keys[i].options[j].title != '') { get['option' + (j + 1)] = this.form.keys[i].options[j].title; }
+            if (this.form.keys[i].options[j].title !== '') { get['option' + (j + 1)] = this.form.keys[i].options[j].title; }
           }
           singUpModel.push(get);
         }
-        var data = { uid: this.uid, unit_id: this.unit_id, title: this.form.name, abstract_info: this.form.summary, content: this.form.intro, theme_pic: this.form.imgs['ratio1.89'][0], overplus_num: this.form.limit, organizer: this.form.zhubanname, is_charge: this.form.charge != '' ? 1 : 0, address: this.form.address, publish_status: this.form.radio, sponsor: this.form.chenbanname, channel_id: 0, charge: this.form.charge, start_time: this.form.publishTime, end_time: this.form.onTime, singUpModel: JSON.stringify(singUpModel), position: this.form.position };
+        var data = { uid: this.uid, unit_id: this.unit_id, title: this.form.name, abstract_info: this.form.summary, content: this.form.intro, theme_pic: this.form.imgs['ratio1.89'][0], overplus_num: this.form.limit, organizer: this.form.zhubanname, is_charge: this.form.charge !== '' ? 1 : 0, address: this.form.address, publish_status: this.form.radio, sponsor: this.form.chenbanname, channel_id: 0, charge: this.form.charge, start_time: this.form.publishTime, end_time: this.form.onTime, singUpModel: JSON.stringify(singUpModel), position: this.form.position };
         if (this.id > 0) {
           data.interaction_type = 7;
           data.id = this.id;

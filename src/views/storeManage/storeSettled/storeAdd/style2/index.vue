@@ -785,7 +785,7 @@ export default {
 
     handler({ BMap, map }) {
       var geolocation = new BMap.Geolocation();
-      if (this.addData.longitude != '' && this.addData.latitude != '') {
+      if (this.addData.longitude !== '' && this.addData.latitude !== '') {
         this.getmap.center.lng = this.addData.longitude;
         this.getmap.center.lat = this.addData.latitude;
         var myMarker = new BMap.Marker(new BMap.Point(this.getmap.center.lng, this.getmap.center.lat));
