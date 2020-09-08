@@ -189,7 +189,7 @@ export default {
       };
       let payload = {};
       for (var key in newParams) {
-        if (newParams[key] !== null && newParams[key] !== undefined && newParams[key] !=== '') {
+        if (newParams[key] !== null && newParams[key] !== undefined && newParams[key] !== '') {
           payload[key] = newParams[key];
         }
       }

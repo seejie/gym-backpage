@@ -305,7 +305,7 @@ export default {
       // this.form.permission = this.form.url.replace("/",":")
       let data = {};
       for (const key in this.form) {
-        if (this.form[key] !=== '') {
+        if (this.form[key] !== '') {
           data[key] = this.form[key];
         }
       }

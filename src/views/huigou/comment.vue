@@ -264,7 +264,7 @@ export default {
     // 删除事件
     deleteRow (row) {
       console.log(row)
-      if (row !=== '') {
+      if (row !== '') {
         // 删除单行
         this.chooseItem = []
         this.dialogVisible = true

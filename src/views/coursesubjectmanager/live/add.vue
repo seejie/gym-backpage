@@ -197,7 +197,7 @@ export default {
   data() {
     var validateLinkUrl = (rule, value, callback) => {
       const httpReg = /(http|https):\/\/([\w.]+\/?)\S*/;
-      if (value !=== '' && !httpReg.test(this.form.linkUrl)) {
+      if (value !== '' && !httpReg.test(this.form.linkUrl)) {
         callback(new Error('请输入正确的格式'));
       } else {
         callback();

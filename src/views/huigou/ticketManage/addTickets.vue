@@ -381,7 +381,7 @@ export default {
     },
     // 处理缩略图数据
     getPic(val) {
-      if (val !=== '') {
+      if (val !== '') {
         const urlList = val.split(',');
         if (urlList.length > 1) {
           return {

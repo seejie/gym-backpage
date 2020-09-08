@@ -314,7 +314,7 @@ export default {
     },
     //处理图片数据
     getUrl (val) {
-      if (val !=== '') {
+      if (val !== '') {
         let urlList = val.split(',')
         if (urlList.length > 1) {
           return {

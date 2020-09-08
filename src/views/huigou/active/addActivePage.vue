@@ -334,7 +334,7 @@ export default {
     },
     // 处理首页图片数据
     getUrl (val) {
-      if (val !=== '') {
+      if (val !== '') {
         const urlList = val.split(',')
         if (urlList.length > 1) {
           return {
@@ -353,7 +353,7 @@ export default {
     },
     // 处理缩略图数据
     getPic (val) {
-      if (val !=== '') {
+      if (val !== '') {
         const urlList = val.split(',')
         if (urlList.length > 1) {
           return {
