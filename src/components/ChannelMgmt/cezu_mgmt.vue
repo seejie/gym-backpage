@@ -72,7 +72,7 @@ export default {
         'ratio': [],
       },
       isShowPreviewDialog: false,
-      id: void 0,
+      id: undefined,
       preview_url: '',
       channelData: {
         collectUserdata: 1,

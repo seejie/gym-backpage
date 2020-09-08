@@ -305,15 +305,15 @@ export default {
         .post('/pzcz/photo/search', {
           pageNum: this.currentPage,
           pageSize: this.currentPageSize,
-          bh: this.getFormModel('bh') ? this.getFormModel('bh') : void 0,
-          mobile: this.getFormModel('mobile') ? this.getFormModel('mobile') : void 0,
-          nickName: this.getFormModel('nickName') ? this.getFormModel('nickName') : void 0,
-          username: this.getFormModel('username') ? this.getFormModel('username') : void 0,
-          status: this.getFormModel('status') ? this.getFormModel('status') : void 0,
-          createTimeBegin: this.getFormModel('createTime')[0] ? this.getFormModel('createTime')[0] : void 0,
-          createTimeEnd: this.getFormModel('createTime')[1] ? this.getFormModel('createTime')[1] : void 0,
-          updateTimeBegin: this.getFormModel('updateTime')[0] ? this.getFormModel('updateTime')[0] : void 0,
-          updateTimeEnd: this.getFormModel('updateTime')[1] ? this.getFormModel('updateTime')[1] : void 0,
+          bh: this.getFormModel('bh') ? this.getFormModel('bh') : undefined,
+          mobile: this.getFormModel('mobile') ? this.getFormModel('mobile') : undefined,
+          nickName: this.getFormModel('nickName') ? this.getFormModel('nickName') : undefined,
+          username: this.getFormModel('username') ? this.getFormModel('username') : undefined,
+          status: this.getFormModel('status') ? this.getFormModel('status') : undefined,
+          createTimeBegin: this.getFormModel('createTime')[0] ? this.getFormModel('createTime')[0] : undefined,
+          createTimeEnd: this.getFormModel('createTime')[1] ? this.getFormModel('createTime')[1] : undefined,
+          updateTimeBegin: this.getFormModel('updateTime')[0] ? this.getFormModel('updateTime')[0] : undefined,
+          updateTimeEnd: this.getFormModel('updateTime')[1] ? this.getFormModel('updateTime')[1] : undefined,
         })
         .then(res => {
           this.totalCount = res.resObject.totalCount;

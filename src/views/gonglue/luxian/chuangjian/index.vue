@@ -251,9 +251,9 @@ export default {
         tagManageInfo: false,
         addTagDialog: false,
         tagIn: '',
-        id: void 0,
-        unitId: void 0,
-        sort: void 0,
+        id: undefined,
+        unitId: undefined,
+        sort: undefined,
       },
       form: {
         tag: '',

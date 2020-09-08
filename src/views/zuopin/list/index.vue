@@ -166,13 +166,13 @@ export default {
       categoryId1List: [],
       categoryId2List: [],
       searchFormData: {
-        title: void 0,
-        status: void 0,
-        createTime: void 0,
-        storeName: void 0,
-        categoryId1: void 0,
-        categoryId2: void 0,
-        masterName: void 0,
+        title: undefined,
+        status: undefined,
+        createTime: undefined,
+        storeName: undefined,
+        categoryId1: undefined,
+        categoryId2: undefined,
+        masterName: undefined,
       },
       tableData: [],
       page: {
@@ -190,10 +190,10 @@ export default {
       // 获取详情数据
       this.searchFormData.creationDateMin = this.searchFormData.createTime
         ? this.searchFormData.createTime[0].split('-').join('')
-        : void 0;
+        : undefined;
       this.searchFormData.creationDateMax = this.searchFormData.createTime
         ? this.searchFormData.createTime[1].split('-').join('')
-        : void 0;
+        : undefined;
       delete this.searchFormData.createTime;
       const { resCode, resObject } = await to(
         list({
