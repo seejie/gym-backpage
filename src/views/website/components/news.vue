@@ -105,11 +105,11 @@ export default {
   props: {
     websiteNews: {
       type: Array,
-      default: [],
+      default: () => [],
     },
     websiteInformations: {
       type: Array,
-      default: [],
+      default: () => [],
     },
   },
 

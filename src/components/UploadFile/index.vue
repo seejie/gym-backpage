@@ -30,7 +30,7 @@ export default {
     },
     fileList: {
       type: Array,
-      default: [],
+      default: () => [],
     },
     material: {
       type: String,
